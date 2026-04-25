@@ -1,0 +1,58 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: images/news
+public_folder: /images/news
+
+# Single file collection — all posts stored in one JSON file
+# JS on news.html fetches this and renders posts client-side
+collections:
+  - name: news
+    label: News & Updates
+    file: _data/news.json
+    fields:
+      - name: posts
+        label: Posts
+        label_singular: Post
+        widget: list
+        summary: "{{fields.title}} — {{fields.date}}"
+        fields:
+          - name: title
+            label: Title
+            widget: string
+            hint: The headline for this post
+
+          - name: date
+            label: Date
+            widget: datetime
+            format: YYYY-MM-DD
+            date_format: MMMM D, YYYY
+            time_format: false
+
+          - name: category
+            label: Category
+            widget: select
+            options:
+              - Company News
+              - Game Update
+              - New Release
+              - Event
+              - Behind the Scenes
+            default: Company News
+
+          - name: summary
+            label: Summary
+            widget: text
+            hint: Short teaser shown on the news listing page (1-2 sentences)
+
+          - name: image
+            label: Featured Image
+            widget: image
+            required: false
+            hint: Optional — shown at the top of the post
+
+          - name: body
+            label: Post Content
+            widget: markdown
+            hint: Full post content — supports bold, links, headings, etc.
