@@ -10,9 +10,12 @@ public_folder: /images/news
 collections:
   - name: news
     label: News & Updates
-    file: _data/news.json
-    fields:
-      - name: posts
+    files:
+      - name: news_posts
+        label: News Posts
+        file: _data/news.json
+        fields:
+          - name: posts
         label: Posts
         label_singular: Post
         widget: list
