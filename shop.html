@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Once Upon A Dice</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/rebrand.css">
+    <style>
+        .shop-hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-xxl) 2rem var(--spacing-xl);
+            text-align: center;
+            position: relative;
+        }
+
+        .shop-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(139, 38, 53, 0.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .shop-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .shop-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            color: var(--brand-tan);
+            font-family: Georgia, 'Times New Roman', serif;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .shop-hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .store-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--radius-pill);
+            color: var(--brand-gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* --- Game Cards --- */
+        .shop-games {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem var(--spacing-xxl);
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .shop-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shop-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .shop-card-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            position: relative;
+            background: var(--bg-dark);
+        }
+
+        .shop-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .shop-card:hover .shop-card-image img {
+            transform: scale(1.05);
+        }
+
+        .shop-card-body {
+            padding: var(--spacing-lg);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shop-card-body h3 {
+            font-size: 1.4rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .shop-card-body .game-type {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .shop-card-body .game-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+            flex: 1;
+        }
+
+        .shop-card-meta {
+            display: flex;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .meta-pill {
+            padding: 0.3rem 0.75rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .shop-card .btn {
+            width: 100%;
+            text-align: center;
+            padding: 0.85rem 1.5rem;
+        }
+
+        /* --- Also Available --- */
+        .also-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem var(--spacing-xxl);
+        }
+
+        .also-section h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .also-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .also-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            transition: all 0.2s ease;
+        }
+
+        .also-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .also-card .also-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            display: block;
+        }
+
+        .also-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .also-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 1024px) {
+            .shop-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .shop-hero h1 {
+                font-size: 2.5rem;
+            }
+            .shop-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .also-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/games.html">Games</a>
+                <a href="/stories.html">Stories</a>
+                <a href="/shop.html" class="active">Shop</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Shop Hero -->
+    <section class="shop-hero">
+        <div class="shop-hero-content">
+            <h1>Our Games</h1>
+            <p class="subtitle">Available now through DriveThruCards. Physical card games shipped to your door, or grab digital print-and-play files for instant play.</p>
+            <span class="store-badge">🛒 Powered by DriveThruCards</span>
+        </div>
+    </section>
+
+    <!-- Game Cards -->
+    <section class="shop-games">
+        <div class="shop-grid">
+
+            <!-- Her Majesty's Airships -->
+            <div class="shop-card">
+                <div class="shop-card-image">
+                    <img src="images/games/her-majesty-airship-card.jpg" alt="Her Majesty's Airships">
+                </div>
+                <div class="shop-card-body">
+                    <h3>Her Majesty's Airships</h3>
+                    <span class="game-type">The Aerosphere — Cooperative Card Game</span>
+                    <p class="game-desc">A steampunk cooperative card game of sabotage, strategy, and survival aboard a royal airship.</p>
+                    <div class="shop-card-meta">
+                        <span class="meta-pill">2-4 Players</span>
+                        <span class="meta-pill">30-45 min</span>
+                        <span class="meta-pill">Co-op</span>
+                    </div>
+                    <a href="https://www.drivethrucards.com/en/product/429835/her-majesty-s-airships-the-aerosphere" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Buy on DriveThruCards →</a>
+                </div>
+            </div>
+
+            <!-- StoneRow -->
+            <div class="shop-card">
+                <div class="shop-card-image">
+                    <img src="images/games/stonerow-white-card.jpg" alt="StoneRow: Grinding Gears Edition">
+                </div>
+                <div class="shop-card-body">
+                    <h3>StoneRow</h3>
+                    <span class="game-type">Grinding Gears Edition — Strategy Card Game</span>
+                    <p class="game-desc">A medieval tower-building card game of guild rivalry. Simple rules, deep strategy, four unique guilds.</p>
+                    <div class="shop-card-meta">
+                        <span class="meta-pill">2 Players</span>
+                        <span class="meta-pill">15-20 min</span>
+                        <span class="meta-pill">Strategy</span>
+                    </div>
+                    <a href="https://www.drivethrucards.com/en/product/270284/stonerow-grinding-gears-edition" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Buy on DriveThruCards →</a>
+                </div>
+            </div>
+
+            <!-- Bounce Bunny Bounce -->
+            <div class="shop-card">
+                <div class="shop-card-image">
+                    <img src="images/games/bounce-bunny-card.jpg" alt="Bounce Bunny Bounce">
+                </div>
+                <div class="shop-card-body">
+                    <h3>Bounce Bunny Bounce</h3>
+                    <span class="game-type">Family Party Card Game</span>
+                    <p class="game-desc">Fast, fun, and chaotic. A family-friendly party game that's easy to learn and impossible to put down.</p>
+                    <div class="shop-card-meta">
+                        <span class="meta-pill">3-6 Players</span>
+                        <span class="meta-pill">20-25 min</span>
+                        <span class="meta-pill">Ages 8+</span>
+                    </div>
+                    <a href="https://www.drivethrucards.com/en/product/336921/bounce-bunny-bounce" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Buy on DriveThruCards →</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Also Available -->
+    <section class="also-section">
+        <h2>Other Ways to Find Us</h2>
+        <div class="also-grid">
+            <div class="also-card">
+                <span class="also-icon">📦</span>
+                <h3>Convention Sales</h3>
+                <p>Catch us at local conventions and game expos for in-person demos and purchases. Check our <a href="/events.html" style="color: var(--brand-gold);">events page</a> for upcoming appearances.</p>
+            </div>
+            <div class="also-card">
+                <span class="also-icon">🏪</span>
+                <h3>Local Game Stores</h3>
+                <p>Ask your favorite game store about carrying Once Upon A Dice titles. <a href="/find-us.html" style="color: var(--brand-gold);">Find a store near you</a> or contact us for wholesale.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Once Upon A Dice. Built on Alma + Nginx.</p>
+            <div class="footer-links">
+                <a href="/shop.html">Store</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/press.html">Press Kit</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

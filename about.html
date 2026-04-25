@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Once Upon A Dice</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/rebrand.css">
+    <style>
+        /* --- Team Duo Layout (single photo) --- */
+        .team-duo {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .duo-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            align-items: center;
+        }
+
+        .duo-image {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+
+        .duo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .duo-info {
+            padding: var(--spacing-xl);
+        }
+
+        .duo-info h3 {
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .duo-info .duo-roles {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+            font-weight: 500;
+        }
+
+        .duo-info .duo-bio {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .duo-info .duo-bio strong {
+            color: var(--text-primary);
+        }
+
+        .duo-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .duo-highlight {
+            padding: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .duo-highlight .hl-label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .duo-highlight .hl-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .duo-card {
+                grid-template-columns: 1fr;
+            }
+
+            .duo-image {
+                min-height: 300px;
+            }
+
+            .duo-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/games.html">Games</a>
+                <a href="/stories.html">Stories</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/about.html" class="active">About</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Stories You Can Play</h1>
+                <p class="hero-subtitle">We develop games with creative gameplay and immersive stories — designed for casual gamers who want memorable experiences without complex rules.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="our-story">
+        <div class="section-content">
+            <h2 class="section-title-centered">Who We Are</h2>
+            <div class="story-content">
+                <p class="story-intro">We're Chris and Amy Allworden, a husband-wife creative team based in Central Wisconsin, bringing games and stories to life through Once Upon A Dice.</p>
+
+                <p>We believe play brings out the best in people. Creativity, imagination, and laughter combine to lift us up and brighten our days. That's why we actively encourage a playful attitude — even among adults — and why game development has become one of our most important projects.</p>
+
+                <p>Our love for playing drove us to take things one step further. Our goal is to create games that are elegant, immersive, and accessible to all shapes and sizes of players. At the end of the day, we're storytellers — and we want you to not just enjoy our stories, but <strong>play them</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="section-content">
+            <h2 class="section-title-centered">Meet the Team</h2>
+
+            <div class="team-duo">
+                <div class="duo-card">
+                    <!-- Single shared photo — save us-oct.png to images/team/ -->
+                    <div class="duo-image">
+                        <img src="images/team/us-oct.png" alt="Chris and Amy Allworden">
+                    </div>
+                    <div class="duo-info">
+                        <h3>Chris & Amy Allworden</h3>
+                        <p class="duo-roles">Founders of Once Upon A Dice</p>
+
+                        <p class="duo-bio"><strong>Chris</strong> is a digital illustrator and game designer who sees game design as the perfect platform to combine all of his passions into a physical form. He creates indie card games through Once Upon A Dice and provides graphic design services through Noble Pixel Studios.</p>
+
+                        <p class="duo-bio"><strong>Amy</strong> lives for adventure — or at least mild action that doesn't require a lot of bending. Growing up playing D&D, reading Forgotten Realms, and attending renaissance festivals, she brings a lifetime of fantasy experience to the table. With a BSc in Wildlife Biology and a year teaching English in Japan, she combines science, culture, and imagination into rich game narratives. Her debut novel <em>Immolation</em> kicks off the Raven Vs Crow series.</p>
+
+                        <div class="duo-highlights">
+                            <div class="duo-highlight">
+                                <span class="hl-label">Chris</span>
+                                <span class="hl-value">Designer & Illustrator</span>
+                            </div>
+                            <div class="duo-highlight">
+                                <span class="hl-label">Amy</span>
+                                <span class="hl-value">Writer & Worldbuilder</span>
+                            </div>
+                            <div class="duo-highlight">
+                                <span class="hl-label">Based In</span>
+                                <span class="hl-value">Central Wisconsin</span>
+                            </div>
+                            <div class="duo-highlight">
+                                <span class="hl-label">Games</span>
+                                <span class="hl-value">3 Published Titles</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="about-cta">
+        <div class="cta-content">
+            <h2>Join Our Journey</h2>
+            <p>Thank you for all your support and interest. We're always working on something new, and we'd love to have you along for the ride.</p>
+            <div class="cta-buttons">
+                <a href="/games.html" class="btn btn-primary btn-large">Explore Our Games</a>
+                <a href="/contact.html" class="btn btn-secondary btn-large">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Once Upon A Dice. Built on Alma + Nginx.</p>
+            <div class="footer-links">
+                <a href="/shop.html">Store</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/press.html">Press Kit</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

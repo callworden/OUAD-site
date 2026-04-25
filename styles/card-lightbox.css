@@ -1,0 +1,222 @@
+/* ====================================
+   CARD LIGHTBOX - CLICK TO ZOOM
+   Modal overlay for viewing card details
+   FIXED: Proper centering and consistent sizing
+   ==================================== */
+
+/* --- Lightbox Overlay --- */
+.card-lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease;
+    overflow: hidden;
+}
+
+.card-lightbox.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Lightbox Content Container --- */
+.lightbox-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+/* --- Large Card Image --- */
+.lightbox-image {
+    max-width: 600px;           /* Maximum width for consistent display */
+    max-height: 80vh;            /* Don't exceed 80% of viewport height */
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    animation: zoomIn 0.3s ease;
+}
+
+/* --- Close Button --- */
+.lightbox-close {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 2.5rem;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    transform: scale(1.2);
+    color: var(--accent-red);
+}
+
+/* --- Card Title --- */
+.lightbox-title {
+    margin-top: 1rem;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* --- Navigation Arrows --- */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.lightbox-nav:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: var(--accent-red);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-nav.prev {
+    left: 2rem;
+}
+
+.lightbox-nav.next {
+    right: 2rem;
+}
+
+.lightbox-nav svg {
+    width: 32px;
+    height: 32px;
+}
+
+/* --- Card Counter --- */
+.lightbox-counter {
+    position: absolute;
+    bottom: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* --- Mobile Responsive --- */
+@media (max-width: 768px) {
+    .card-lightbox {
+        padding: 1rem;
+    }
+    
+    .lightbox-image {
+        max-width: 90vw;        /* Allow full width on mobile */
+        max-height: 70vh;       /* Reduce height slightly on mobile */
+    }
+    
+    .lightbox-close {
+        top: -2.5rem;
+        font-size: 2rem;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .lightbox-nav {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .lightbox-nav.prev {
+        left: 0.5rem;
+    }
+    
+    .lightbox-nav.next {
+        right: 0.5rem;
+    }
+    
+    .lightbox-nav svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .lightbox-title {
+        font-size: 1rem;
+    }
+    
+    .lightbox-counter {
+        bottom: -2rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* --- Touch device optimizations --- */
+@media (hover: none) and (pointer: coarse) {
+    .lightbox-nav {
+        background: rgba(0, 0, 0, 0.6);
+    }
+    
+    .lightbox-close {
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+    }
+}
+
+/* --- Loading State --- */
+.lightbox-image.loading {
+    opacity: 0.5;
+}
+
+/* --- Prevent body scroll when lightbox open --- */
+body.lightbox-open {
+    overflow: hidden;
+}

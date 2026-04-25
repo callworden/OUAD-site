@@ -1,0 +1,286 @@
+/* ====================================
+   DEVELOPMENT PROGRESS SECTION
+   Shows game development status and timeline
+   ==================================== */
+
+.dev-progress-section {
+    background: rgba(139, 0, 0, 0.03);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+/* --- Overview Paragraph --- */
+.dev-overview {
+    max-width: 900px;
+    margin: 0 auto var(--spacing-xl);
+    text-align: center;
+}
+
+.dev-overview p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+/* --- Overall Progress Bar --- */
+.overall-progress {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xxl);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.progress-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.progress-percentage {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #8B0000, #DC143C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.progress-bar-container {
+    height: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8B0000, #DC143C, #FF1a66);
+    border-radius: 10px;
+    transition: width 1s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* --- Development Checklist --- */
+.dev-checklist {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.dev-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+    transition: all 0.3s ease;
+}
+
+.dev-item:hover {
+    background: var(--bg-card-hover);
+    transform: translateX(4px);
+}
+
+/* Item Status Icons */
+.item-status {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Completed Items */
+.dev-item.completed .item-status {
+    background: rgba(0, 255, 136, 0.15);
+    border: 2px solid rgba(0, 255, 136, 0.5);
+}
+
+.dev-item.completed .status-icon {
+    stroke: #00ff88;
+}
+
+.dev-item.completed .item-content h3 {
+    color: var(--text-primary);
+}
+
+/* In Progress Items */
+.dev-item.in-progress .item-status {
+    background: rgba(220, 20, 60, 0.15);
+    border: 2px solid rgba(220, 20, 60, 0.5);
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(220, 20, 60, 0.3);
+    border-top-color: #DC143C;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.dev-item.in-progress .item-content h3 {
+    color: var(--text-primary);
+}
+
+/* Upcoming Items */
+.dev-item.upcoming .item-status {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--border-subtle);
+}
+
+.dev-item.upcoming .status-icon {
+    stroke: var(--text-secondary);
+}
+
+.dev-item.upcoming .item-content h3 {
+    color: var(--text-secondary);
+}
+
+/* Item Content */
+.item-content {
+    flex: 1;
+}
+
+.item-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.item-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Mini Progress Bar (for in-progress items) */
+.mini-progress {
+    margin-top: var(--spacing-xs);
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.mini-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #8B0000, #DC143C);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+/* --- Release Timeline --- */
+.release-timeline {
+    max-width: 800px;
+    margin: var(--spacing-xxl) auto 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.timeline-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    text-align: center;
+}
+
+.timeline-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.timeline-date {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #8B0000, #DC143C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .dev-overview p {
+        font-size: 1rem;
+    }
+    
+    .progress-percentage {
+        font-size: 1.5rem;
+    }
+    
+    .dev-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .item-content h3 {
+        font-size: 1rem;
+    }
+    
+    .item-content p {
+        font-size: 0.9rem;
+    }
+    
+    .release-timeline {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline-date {
+        font-size: 1.25rem;
+    }
+}

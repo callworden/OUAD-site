@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Stories - Once Upon A Dice</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/stories.css">
+    <link rel="stylesheet" href="styles/rebrand.css">
+    <style>
+        .coming-soon-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--spacing-xxl) 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(139, 38, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .coming-soon-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-lg);
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .coming-soon-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: -1.5px;
+            color: var(--brand-tan, var(--text-primary));
+            font-family: Georgia, 'Times New Roman', serif;
+        }
+
+        .coming-soon-content .tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.6;
+        }
+
+        .coming-soon-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .cs-feature {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            transition: all 0.3s ease;
+        }
+
+        .cs-feature:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .cs-feature-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            display: block;
+        }
+
+        .cs-feature h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .cs-feature p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .coming-soon-cta {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--radius-pill);
+            color: var(--brand-gold, #D4AF37);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--brand-gold, #D4AF37);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @media (max-width: 768px) {
+            .coming-soon-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .coming-soon-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/games.html">Games</a>
+                <a href="/stories.html" class="active">Stories</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Coming Soon Hero -->
+    <section class="coming-soon-hero">
+        <div class="coming-soon-content">
+            <span class="coming-soon-icon">📖</span>
+            <div class="status-pill">
+                <span class="pulse-dot"></span>
+                In Development
+            </div>
+            <h1>Interactive Stories</h1>
+            <p class="tagline">Branching narratives where your choices shape the journey. We're crafting atmospheric, consequence-driven stories built for multiple playthroughs.</p>
+            
+            <div class="coming-soon-features">
+                <div class="cs-feature">
+                    <span class="cs-feature-icon">🎭</span>
+                    <h3>Choose Your Path</h3>
+                    <p>Every decision shapes what happens next. No two playthroughs are the same.</p>
+                </div>
+                <div class="cs-feature">
+                    <span class="cs-feature-icon">🗺️</span>
+                    <h3>Rich Worlds</h3>
+                    <p>From corvid kingdoms to cosmic horror — deeply imagined settings to explore.</p>
+                </div>
+                <div class="cs-feature">
+                    <span class="cs-feature-icon">🔄</span>
+                    <h3>Replay Value</h3>
+                    <p>Multiple endings and hidden paths reward curiosity and boldness.</p>
+                </div>
+            </div>
+
+            <div class="coming-soon-cta">
+                <a href="/games.html" class="btn btn-primary">Explore Our Games</a>
+                <a href="/contact.html" class="btn btn-secondary">Get Notified</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Once Upon A Dice. Built on Alma + Nginx.</p>
+            <div class="footer-links">
+                <a href="/shop.html">Store</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/press.html">Press Kit</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>

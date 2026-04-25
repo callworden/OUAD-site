@@ -1,0 +1,244 @@
+// ====================================
+// CARD LIGHTBOX - CLICK TO ZOOM
+// View card details in full-screen modal
+// ====================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Create lightbox HTML structure
+    const lightboxHTML = `
+        <div class="card-lightbox" id="cardLightbox">
+            <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+            <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous card">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+            <div class="lightbox-content">
+                <img src="" alt="" class="lightbox-image" id="lightboxImage">
+                <div class="lightbox-title" id="lightboxTitle"></div>
+                <div class="lightbox-counter" id="lightboxCounter"></div>
+            </div>
+            <button class="lightbox-nav next" id="lightboxNext" aria-label="Next card">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+        </div>
+    `;
+    
+    // Add lightbox to page
+    document.body.insertAdjacentHTML('beforeend', lightboxHTML);
+    
+    // Get elements
+    const lightbox = document.getElementById('cardLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const closeBtn = document.getElementById('lightboxClose');
+    const prevBtn = document.getElementById('lightboxPrev');
+    const nextBtn = document.getElementById('lightboxNext');
+    
+    let currentCards = [];
+    let currentIndex = 0;
+    
+    // ========================================
+    // INITIALIZE CARD CLICKS
+    // ========================================
+    
+    function initializeCardClicks() {
+        const cardItems = document.querySelectorAll('.deck-cards.active .card-item');
+        
+        if (cardItems.length === 0) {
+            console.log('No active cards to initialize');
+            return;
+        }
+        
+        // Build array of current visible cards
+        currentCards = Array.from(cardItems).map(item => {
+            const img = item.querySelector('img');
+            return {
+                src: img.getAttribute('src'),
+                alt: img.getAttribute('alt')
+            };
+        });
+        
+        // Add click handlers
+        cardItems.forEach((item, index) => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', function() {
+                openLightbox(index);
+            });
+        });
+        
+        console.log(`Lightbox initialized for ${currentCards.length} cards`);
+    }
+    
+    // Initialize on page load
+    initializeCardClicks();
+    
+    // Re-initialize when switching tabs
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.deck-tab')) {
+            setTimeout(initializeCardClicks, 100);
+        }
+    });
+    
+    // ========================================
+    // OPEN LIGHTBOX
+    // ========================================
+    
+    function openLightbox(index) {
+        currentIndex = index;
+        updateLightboxContent();
+        lightbox.classList.add('active');
+        document.body.classList.add('lightbox-open');
+        console.log(`Opened lightbox: card ${index + 1} of ${currentCards.length}`);
+    }
+    
+    // ========================================
+    // CLOSE LIGHTBOX
+    // ========================================
+    
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.classList.remove('lightbox-open');
+        console.log('Closed lightbox');
+    }
+    
+    // ========================================
+    // UPDATE LIGHTBOX CONTENT
+    // ========================================
+    
+    function updateLightboxContent() {
+        if (currentCards.length === 0) return;
+        
+        const card = currentCards[currentIndex];
+        
+        // Show loading state
+        lightboxImage.classList.add('loading');
+        
+        // Load image
+        const img = new Image();
+        img.onload = function() {
+            lightboxImage.src = card.src;
+            lightboxImage.alt = card.alt;
+            lightboxTitle.textContent = card.alt;
+            lightboxCounter.textContent = `${currentIndex + 1} / ${currentCards.length}`;
+            lightboxImage.classList.remove('loading');
+        };
+        img.src = card.src;
+        
+        // Show/hide nav buttons
+        prevBtn.style.display = currentIndex > 0 ? 'flex' : 'none';
+        nextBtn.style.display = currentIndex < currentCards.length - 1 ? 'flex' : 'none';
+    }
+    
+    // ========================================
+    // NAVIGATION
+    // ========================================
+    
+    function showPrevCard() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateLightboxContent();
+        }
+    }
+    
+    function showNextCard() {
+        if (currentIndex < currentCards.length - 1) {
+            currentIndex++;
+            updateLightboxContent();
+        }
+    }
+    
+    // ========================================
+    // EVENT LISTENERS
+    // ========================================
+    
+    // Close button
+    closeBtn.addEventListener('click', closeLightbox);
+    
+    // Navigation buttons
+    prevBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showPrevCard();
+    });
+    
+    nextBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        showNextCard();
+    });
+    
+    // Click outside to close
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (!lightbox.classList.contains('active')) return;
+        
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            showPrevCard();
+        } else if (e.key === 'ArrowRight') {
+            showNextCard();
+        }
+    });
+    
+    // ========================================
+    // TOUCH/SWIPE SUPPORT (Mobile)
+    // ========================================
+    
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    lightbox.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    lightbox.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe left - next card
+                showNextCard();
+            } else {
+                // Swipe right - previous card
+                showPrevCard();
+            }
+        }
+    }
+    
+    // ========================================
+    // PRELOAD ADJACENT IMAGES
+    // ========================================
+    
+    function preloadAdjacentImages() {
+        if (currentIndex > 0) {
+            const prevImg = new Image();
+            prevImg.src = currentCards[currentIndex - 1].src;
+        }
+        
+        if (currentIndex < currentCards.length - 1) {
+            const nextImg = new Image();
+            nextImg.src = currentCards[currentIndex + 1].src;
+        }
+    }
+    
+    // Preload when opening or navigating
+    lightbox.addEventListener('transitionend', preloadAdjacentImages);
+    
+    console.log('✓ Card lightbox ready! Click any card to view details.');
+});

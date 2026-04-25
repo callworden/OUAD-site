@@ -1,0 +1,199 @@
+/* ====================================
+   ONCE UPON A DICE - REBRAND STYLES
+   Override existing styles for new branding
+   ==================================== */
+
+/* --- Color Updates --- */
+:root {
+    --brand-gold: #D4AF37;
+    --brand-tan: #C8A882;
+    --brand-brown: #6B4423;
+    --brand-red: #8B2635;
+}
+
+/* --- Pure Black Background --- */
+body {
+    background: #000000 !important;
+    background-attachment: fixed;
+}
+
+/* --- Navigation with Logo --- */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 60px;
+    width: auto;
+    display: block;
+}
+
+.main-nav {
+    background: rgba(0, 0, 0, 0.98);
+    padding: 0.75rem 0;
+}
+
+/* --- Hero Two-Column Layout --- */
+.hero {
+    padding: 4rem 2rem;
+}
+
+.hero-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-logo-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px;
+}
+
+/* --- Hero Content Styling --- */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.hero-tagline {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ffffff;
+    margin: 0;
+}
+
+.hero-tagline-accent {
+    color: var(--brand-gold);
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    color: var(--brand-tan);
+    font-family: Georgia, 'Times New Roman', serif;
+    margin: 0;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* --- Updated Button Styles --- */
+.btn-primary {
+    background: var(--brand-red);
+    border: 2px solid var(--brand-red);
+}
+
+.btn-primary:hover {
+    background: #a12e42;
+    border-color: #a12e42;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- Features Section --- */
+.features-section {
+    max-width: 1200px;
+    margin: 3rem auto 0;
+    padding: 0 2rem;
+}
+
+.hero-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* --- Feature Cards with Darker Overlay --- */
+.feature-overlay {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.70)) !important;
+}
+
+.feature-card:hover .feature-overlay {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.60)) !important;
+}
+
+/* --- Current Focus Section --- */
+.current-focus-section {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+    .hero-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .hero-logo {
+        order: 1;
+    }
+    
+    .hero-content {
+        order: 2;
+        text-align: center;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-image {
+        height: 45px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-tagline {
+        font-size: 1rem;
+    }
+}
+
+/* --- Remove Old Hero Tags --- */
+.hero-tags {
+    display: none;
+}
+
+/* --- Title Update --- */
+title {
+    content: "Once Upon A Dice - Interactive Games & Stories";
+}
