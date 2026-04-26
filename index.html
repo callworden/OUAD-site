@@ -173,14 +173,33 @@
 
 
     <!-- Newsletter Section -->
+
     <section class="newsletter" id="newsletter">
         <div class="newsletter-content">
-            <h2>Get updates</h2>
+            <h2>Get Updates</h2>
             <p>New prototypes, chapter drops, playtests, and behind-the-scenes dev logs.</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="you@domain.com" required>
+
+            <!-- Success state -->
+            <div id="newsletterSuccess" style="display:none; padding: 1rem 0;">
+                <p style="color: #c8941a; font-family: 'Jost', sans-serif;">✓ You're in! Watch your inbox for updates.</p>
+            </div>
+
+            <!-- Netlify Form -->
+            <form
+                class="newsletter-form"
+                id="newsletterForm"
+                name="newsletter"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+            >
+                <input type="hidden" name="form-name" value="newsletter">
+                <p style="display:none;"><input name="bot-field"></p>
+
+                <input type="email" name="email" placeholder="you@domain.com" required>
                 <button type="submit" class="btn btn-primary">Join</button>
             </form>
+
             <div class="newsletter-tags">
                 <span class="tag">No spam</span>
                 <span class="tag">Monthly-ish</span>
@@ -214,6 +233,28 @@
 		});
 	  }
 	</script>
+	<script>
+    // Add this script block before your closing </body> tag in index.html
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(data).toString()
+        })
+        .then(function() {
+            form.style.display = 'none';
+            document.getElementById('newsletterSuccess').style.display = 'block';
+        })
+        .catch(function(err) {
+            console.error(err);
+            alert('Something went wrong. Please try again.');
+        });
+    });
+    </script>
 </body>
 </html>
 
