@@ -174,31 +174,22 @@
 
     <!-- Newsletter Section -->
 
-    <section class="newsletter" id="newsletter">
+<section class="newsletter" id="newsletter">
         <div class="newsletter-content">
             <h2>Get Updates</h2>
             <p>New prototypes, chapter drops, playtests, and behind-the-scenes dev logs.</p>
 
-            <!-- Success state -->
-            <div id="newsletterSuccess" style="display:none; padding: 1rem 0;">
-                <p style="color: #c8941a; font-family: 'Jost', sans-serif;">✓ You're in! Watch your inbox for updates.</p>
+            <div class="newsletter-iframe-wrapper">
+                <iframe
+                    width="540"
+                    height="305"
+                    src="https://98531f6e.sibforms.com/serve/MUIFAAmtmSnL1jLsJJvnFthgMTsf1mccqTHBhj7KvxRG25FTzc7PJ7yhNJwc_7naQ8tbpsIaCw0d5wFvMbGjpjm1w106w-n22ktoIyQCfBFiH3OElXUgqqYjtyt6vJkuEoSFn8AF9JEKhjvHTn0ePyjiaWmMKs6CVRw8NZkZAk-JPI9ZGNiGHpF4_HQRBa4cwLBMgGbOVDhBNHIs"
+                    frameborder="0"
+                    scrolling="auto"
+                    allowfullscreen
+                    style="display:block; margin: 0 auto; max-width:100%; border:none; background:transparent;"
+                ></iframe>
             </div>
-
-            <!-- Netlify Form -->
-            <form
-                class="newsletter-form"
-                id="newsletterForm"
-                name="newsletter"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-            >
-                <input type="hidden" name="form-name" value="newsletter">
-                <p style="display:none;"><input name="bot-field"></p>
-
-                <input type="email" name="email" placeholder="you@domain.com" required>
-                <button type="submit" class="btn btn-primary">Join</button>
-            </form>
 
             <div class="newsletter-tags">
                 <span class="tag">No spam</span>
