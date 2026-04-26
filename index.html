@@ -174,22 +174,21 @@
 
     <!-- Newsletter Section -->
 
-<section class="newsletter" id="newsletter">
+    <section class="newsletter" id="newsletter">
         <div class="newsletter-content">
             <h2>Get Updates</h2>
             <p>New prototypes, chapter drops, playtests, and behind-the-scenes dev logs.</p>
 
-            <div class="newsletter-iframe-wrapper">
-                <iframe
-                    width="540"
-                    height="305"
-                    src="https://98531f6e.sibforms.com/serve/MUIFAAmtmSnL1jLsJJvnFthgMTsf1mccqTHBhj7KvxRG25FTzc7PJ7yhNJwc_7naQ8tbpsIaCw0d5wFvMbGjpjm1w106w-n22ktoIyQCfBFiH3OElXUgqqYjtyt6vJkuEoSFn8AF9JEKhjvHTn0ePyjiaWmMKs6CVRw8NZkZAk-JPI9ZGNiGHpF4_HQRBa4cwLBMgGbOVDhBNHIs"
-                    frameborder="0"
-                    scrolling="auto"
-                    allowfullscreen
-                    style="display:block; margin: 0 auto; max-width:100%; border:none; background:transparent;"
-                ></iframe>
+            <div id="newsletterSuccess" style="display:none; padding: 1rem 0;">
+                <p style="color: #c8941a; font-family: 'Jost', sans-serif; font-size: 1rem;">
+                    ✓ You're in! Watch your inbox for updates.
+                </p>
             </div>
+
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" id="newsletterEmail" placeholder="you@domain.com" required>
+                <button type="submit" class="btn btn-primary">Join</button>
+            </form>
 
             <div class="newsletter-tags">
                 <span class="tag">No spam</span>
@@ -224,24 +223,33 @@
 		});
 	  }
 	</script>
-	<script>
-    // Add this script block before your closing </body> tag in index.html
+    <script>
     document.getElementById('newsletterForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
+        const email = document.getElementById('newsletterEmail').value;
+        const btn = this.querySelector('button');
+        btn.textContent = 'Joining...';
+        btn.disabled = true;
 
-        fetch('/', {
+        fetch('/.netlify/functions/subscribe', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(data).toString()
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email })
         })
-        .then(function() {
-            form.style.display = 'none';
-            document.getElementById('newsletterSuccess').style.display = 'block';
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data.success) {
+                document.getElementById('newsletterForm').style.display = 'none';
+                document.getElementById('newsletterSuccess').style.display = 'block';
+            } else {
+                btn.textContent = 'Try Again';
+                btn.disabled = false;
+                alert('Something went wrong. Please try again.');
+            }
         })
-        .catch(function(err) {
-            console.error(err);
+        .catch(function() {
+            btn.textContent = 'Try Again';
+            btn.disabled = false;
             alert('Something went wrong. Please try again.');
         });
     });
