@@ -1,12 +1,3 @@
 {
-  "posts": [
-    {
-      "category": "Game Update",
-      "title": "A big bad blog post",
-      "date": "2026-04-26",
-      "summary": "A short summary",
-      "image": "/images/news/chrisallworden-1.jpg",
-      "body": "\n\nYes. With the Free plan, up to **2,000 unique contacts** can enter your active automations. Once this limit is reached, **no additional contacts can enter**. Automations remain active, and contacts already in them continue to move through the workflows.\n\nBrevo will send you an email notification when:\n\n* You reach 80% of the limit.\n* You reach the full limit.\n\n➡️ To allow more contacts to enter your automations, upgrade to a Standard, Professional, or Enterprise plan."
-    }
-  ]
+  "posts": []
 }
