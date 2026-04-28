@@ -48,7 +48,19 @@
                     <p>⚠ Something went wrong. Please email us directly at <a href="mailto:hello@onceuponadice.com">hello@onceuponadice.com</a></p>
                 </div>
 
-                <form class="contact-form" id="contactForm">
+                <!-- Netlify Forms — data-netlify="true" is all Netlify needs -->
+                <form
+                    class="contact-form"
+                    id="contactForm"
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    netlify-honeypot="bot-field"
+                >
+                    <input type="hidden" name="form-name" value="contact">
+                    <input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">
+                    <p style="display:none;"><input name="bot-field"></p>
+
                     <div class="form-group">
                         <label for="name">Name *</label>
                         <input type="text" id="name" name="name" required>
@@ -148,34 +160,29 @@
     <script>
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        const form = e.target;
         const btn = document.getElementById('submitBtn');
         btn.textContent = 'Sending...';
         btn.disabled = true;
 
-        const name    = document.getElementById('name').value;
-        const email   = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
-
+        // Get reCAPTCHA v3 token then submit to Netlify Forms
         grecaptcha.ready(function() {
             grecaptcha.execute('6LctDswsAAAAABCbWyymGiS4XXDBdDqVsafBMTPI', { action: 'contact' })
             .then(function(token) {
-                return fetch('/.netlify/functions/contact', {
+                // Inject token into hidden field
+                document.getElementById('recaptchaResponse').value = token;
+
+                // Submit to Netlify Forms via fetch
+                const data = new FormData(form);
+                return fetch('/', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, subject, message, recaptchaToken: token })
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(data).toString()
                 });
             })
-            .then(function(res) { return res.json(); })
-            .then(function(data) {
-                if (data.success) {
-                    document.getElementById('contactForm').style.display = 'none';
-                    document.getElementById('formSuccess').style.display = 'block';
-                } else {
-                    btn.textContent = 'Send Message';
-                    btn.disabled = false;
-                    document.getElementById('formError').style.display = 'block';
-                }
+            .then(function() {
+                form.style.display = 'none';
+                document.getElementById('formSuccess').style.display = 'block';
             })
             .catch(function() {
                 btn.textContent = 'Send Message';
