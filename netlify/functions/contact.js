@@ -63,7 +63,7 @@ exports.handler = async function(event) {
             body: JSON.stringify({
                 sender: {
                     name: "Once Upon A Dice Contact Form",
-                    email: "hello@onceuponadice.com"
+                    email: "chris.allworden@gmail.com"
                 },
                 to: [{ email: "hello@onceuponadice.com", name: "Once Upon A Dice" }],
                 replyTo: { email: email, name: name },
