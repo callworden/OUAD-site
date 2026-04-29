@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="styles/pages.css">
     <link rel="stylesheet" href="styles/rebrand.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-    <script src="https://www.google.com/recaptcha/api.js?render=6LctDswsAAAAABCbWyymGiS4XXDBdDqVsafBMTPI"></script>
 </head>
 <body>
     <nav class="main-nav">
@@ -54,10 +53,10 @@
                     name="contact"
                     method="POST"
                     data-netlify="true"
+                    data-netlify-recaptcha="true"
                     netlify-honeypot="bot-field"
                 >
                     <input type="hidden" name="form-name" value="contact">
-                    <input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">
                     <p style="display:none;"><input name="bot-field"></p>
 
                     <div class="form-group">
@@ -84,6 +83,10 @@
                         <label for="message">Message *</label>
                         <textarea id="message" name="message" rows="6" required></textarea>
                     </div>
+
+                    <!-- Netlify-provided reCAPTCHA v2 checkbox -->
+                    <div data-netlify-recaptcha="true"></div>
+
                     <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
                 </form>
             </div>
@@ -165,29 +168,22 @@
         btn.textContent = 'Sending...';
         btn.disabled = true;
 
-        // Get reCAPTCHA v3 token invisibly then submit to Netlify Forms
-        grecaptcha.ready(function() {
-            grecaptcha.execute('6LctDswsAAAAABCbWyymGiS4XXDBdDqVsafBMTPI', { action: 'contact' })
-            .then(function(token) {
-                document.getElementById('recaptchaResponse').value = token;
+        const data = new FormData(form);
 
-                const data = new FormData(form);
-                return fetch('/contact.html', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams(data).toString()
-                });
-            })
-            .then(function(response) {
-                if (!response.ok) throw new Error('Failed');
-                form.style.display = 'none';
-                document.getElementById('formSuccess').style.display = 'block';
-            })
-            .catch(function() {
-                btn.textContent = 'Send Message';
-                btn.disabled = false;
-                document.getElementById('formError').style.display = 'block';
-            });
+        fetch('/contact.html', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(data).toString()
+        })
+        .then(function(response) {
+            if (!response.ok) throw new Error('Failed');
+            form.style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+        })
+        .catch(function() {
+            btn.textContent = 'Send Message';
+            btn.disabled = false;
+            document.getElementById('formError').style.display = 'block';
         });
     });
     </script>
