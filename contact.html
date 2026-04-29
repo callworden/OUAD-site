@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles/pages.css">
     <link rel="stylesheet" href="styles/rebrand.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LctDswsAAAAABCbWyymGiS4XXDBdDqVsafBMTPI"></script>-->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LctDswsAAAAABCbWyymGiS4XXDBdDqVsafBMTPI"></script>
 </head>
 <body>
     <nav class="main-nav">
@@ -48,7 +48,6 @@
                     <p>⚠ Something went wrong. Please email us directly at <a href="mailto:hello@onceuponadice.com">hello@onceuponadice.com</a></p>
                 </div>
 
-                <!-- Netlify Forms — data-netlify="true" is all Netlify needs -->
                 <form
                     class="contact-form"
                     id="contactForm"
@@ -58,7 +57,7 @@
                     netlify-honeypot="bot-field"
                 >
                     <input type="hidden" name="form-name" value="contact">
-                    <!--<input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">-->
+                    <input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">
                     <p style="display:none;"><input name="bot-field"></p>
 
                     <div class="form-group">
@@ -157,37 +156,40 @@
         </div>
     </footer>
 
-	<script>
-	document.getElementById('contactForm').addEventListener('submit', function(e) {
-		e.preventDefault();
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-		const form = e.target;
-		const btn = document.getElementById('submitBtn');
+        const form = e.target;
+        const btn = document.getElementById('submitBtn');
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
 
-		btn.textContent = 'Sending...';
-		btn.disabled = true;
+        // Get reCAPTCHA v3 token invisibly then submit to Netlify Forms
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LctDswsAAAAABCbWyymGiS4XXDBdDqVsafBMTPI', { action: 'contact' })
+            .then(function(token) {
+                document.getElementById('recaptchaResponse').value = token;
 
-		const data = new FormData(form);
-
-		fetch('/contact.html', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: new URLSearchParams(data).toString()
-		})
-		.then(function(response) {
-			if (!response.ok) {
-				throw new Error('Form submission failed');
-			}
-
-			form.style.display = 'none';
-			document.getElementById('formSuccess').style.display = 'block';
-		})
-		.catch(function() {
-			btn.textContent = 'Send Message';
-			btn.disabled = false;
-			document.getElementById('formError').style.display = 'block';
-		});
-	});
-	</script>
+                const data = new FormData(form);
+                return fetch('/contact.html', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(data).toString()
+                });
+            })
+            .then(function(response) {
+                if (!response.ok) throw new Error('Failed');
+                form.style.display = 'none';
+                document.getElementById('formSuccess').style.display = 'block';
+            })
+            .catch(function() {
+                btn.textContent = 'Send Message';
+                btn.disabled = false;
+                document.getElementById('formError').style.display = 'block';
+            });
+        });
+    });
+    </script>
 </body>
 </html>
