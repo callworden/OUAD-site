@@ -122,6 +122,8 @@
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group {
@@ -165,6 +167,30 @@
     width: 100%;
     padding: 1rem;
     font-size: 1.05rem;
+}
+
+[data-netlify-recaptcha] {
+    margin: 1.25rem 0;
+    display: block;
+    width: 100%;
+}
+
+.form-success {
+    padding: var(--spacing-md);
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: var(--radius-sm);
+    color: #00ff88;
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-error {
+    padding: var(--spacing-md);
+    background: rgba(255, 0, 85, 0.1);
+    border: 1px solid rgba(255, 0, 85, 0.3);
+    border-radius: var(--radius-sm);
+    color: #ff6688;
+    margin-bottom: var(--spacing-lg);
 }
 /* Contact Info */
 .contact-info-section {
