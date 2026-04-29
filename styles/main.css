@@ -218,6 +218,20 @@ body {
     border-color: var(--border-hover);
 }
 
+/* reCAPTCHA widget styling */
+.g-recaptcha,
+[data-netlify-recaptcha] {
+    margin: 1.25rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.g-recaptcha > div,
+[data-netlify-recaptcha] > div {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
 /* --- Tags --- */
 .tag {
     display: inline-block;
