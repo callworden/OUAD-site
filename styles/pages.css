@@ -166,7 +166,15 @@
     padding: 1rem;
     font-size: 1.05rem;
 }
-
+/* reCAPTCHA container */
+[data-netlify-recaptcha] {
+    margin: 1.25rem 0;
+    padding: 0.75rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    display: inline-block;
+}
 /* Contact Info */
 .contact-info-section {
     display: flex;
