@@ -174,7 +174,7 @@
 
                 // Submit to Netlify Forms via fetch
                 const data = new FormData(form);
-                return fetch('/', {
+                return fetch('/contact.html', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams(data).toString()
