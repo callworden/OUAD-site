@@ -157,37 +157,44 @@
         </div>
     </footer>
 
-	<script>
-	document.getElementById('contactForm').addEventListener('submit', function(e) {
-		e.preventDefault();
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const btn = document.getElementById('submitBtn');
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
 
-		const form = e.target;
-		const btn = document.getElementById('submitBtn');
+        // Get reCAPTCHA v3 token then submit to Netlify Forms
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LctDswsAAAAABCbWyymGiS4XXDBdDqVsafBMTPI', { action: 'contact' })
+            .then(function(token) {
+                // Inject token into hidden field
+                document.getElementById('recaptchaResponse').value = token;
 
-		btn.textContent = 'Sending...';
-		btn.disabled = true;
+                // Submit to Netlify Forms via fetch
+                const data = new FormData(form);
+                return fetch('/contact.html', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(data).toString()
+                });
+            })
+			.then(function(response) {
+				if (!response.ok) {
+					throw new Error('Form submission failed');
+				}
 
-		const data = new FormData(form);
-
-		fetch('/contact.html', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			body: new URLSearchParams(data).toString()
-		})
-		.then(function(response) {
-			if (!response.ok) {
-				throw new Error('Form submission failed');
-			}
-
-			form.style.display = 'none';
-			document.getElementById('formSuccess').style.display = 'block';
-		})
-		.catch(function() {
-			btn.textContent = 'Send Message';
-			btn.disabled = false;
-			document.getElementById('formError').style.display = 'block';
-		});
-	});
-	</script>
+				form.style.display = 'none';
+				document.getElementById('formSuccess').style.display = 'block';
+			})
+            .catch(function() {
+                btn.textContent = 'Send Message';
+                btn.disabled = false;
+                document.getElementById('formError').style.display = 'block';
+            });
+        });
+    });
+    </script>
 </body>
 </html>
