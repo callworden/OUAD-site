@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Moon Rising - Once Upon A Dice</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/game-detail.css">
+    <link rel="stylesheet" href="../styles/image-gallery.css">
+    <link rel="stylesheet" href="../styles/mobile-fixes.css">
+    <link rel="stylesheet" href="../styles/rebrand.css">
+    <link rel="stylesheet" href="../styles/deck-display.css">
+    <link rel="stylesheet" href="../styles/card-lightbox.css">
+	<link rel="stylesheet" href="../styles/dev-progress.css"> 
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="../images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
+            </a>
+                                    <div class="nav-links">
+                <a href="/" >Home</a>
+                <a href="/games.html" class="active">Games</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/events.html">Events</a>
+                <a href="/news.html">News</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Game Hero -->
+    <section class="game-hero">
+        <div class="hero-content">
+            <div class="breadcrumb">
+                <a href="/games.html">← Back to Games</a>
+            </div>
+            <div class="hero-grid">
+                
+                <!-- IMAGE GALLERY SECTION -->
+                <div class="hero-image-section">
+                    <!-- Main Display Image -->
+                    <div class="main-image-container">
+                        <img src="../images/games/blood-moon-card.jpg" alt="Blood Moon Rising" id="mainImage" class="main-image">
+                        
+                        <!-- Navigation Arrows -->
+                        <button class="gallery-nav prev" id="prevImage" aria-label="Previous image">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <button class="gallery-nav next" id="nextImage" aria-label="Next image">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                        
+                        <!-- Optional Image Counter -->
+                        <div class="image-counter"></div>
+                    </div>
+                    
+                    <!-- Thumbnail Gallery -->
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail-container" id="thumbnailContainer">
+                            <button class="thumbnail active" data-image="../images/games/blood-moon-card.jpg" data-alt="Blood Moon Box">
+                                <img src="../images/games/blood-moon-card.jpg" alt="Box">
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="status-badge" style="background: rgba(139, 0, 0, 0.9); border-color: rgba(220, 20, 60, 1); color: #fff;">Coming 2026</div>
+                </div>
+                
+                <!-- GAME INFO SECTION -->
+                <div class="hero-info">
+                    <h1>Blood Moon Rising</h1>
+                    <p class="game-subtitle">Horror Castle Crawl Card Game</p>
+                    
+                    <div class="quick-stats">
+                        <div class="stat">
+                            <span class="stat-icon">👥</span>
+                            <span class="stat-label">Players</span>
+                            <span class="stat-value">2-4</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">⏱️</span>
+                            <span class="stat-label">Time</span>
+                            <span class="stat-value">60-120 min</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">🎯</span>
+                            <span class="stat-label">Age</span>
+                            <span class="stat-value">14+</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">🎲</span>
+                            <span class="stat-label">Complexity</span>
+                            <span class="stat-value">Medium</span>
+                        </div>
+                    </div>
+
+                    <div class="game-description">
+                        <p>As the Blood Moon rises, your band of brave souls must navigate the twisted passages of Dracula's palace—a place where sorrow is etched into the walls and each corner whispers of past atrocities. You will delve into the ancient, bloodied history of the undead lord, unearthing secrets steeped in malevolence and echoes of those who came before. The damned hold the key to ending Dracula's insatiable lust for dominion and vengeance for all time.</p>
+                        <p>Mark the calendars for 2026, when the veil between worlds will thin, and the spine-chilling expedition begins. Will you rise to the occasion? Or will Dracula's sinister plot spiral the world into perpetual night? Will you be ready, when the Blood Moon Rises?</p>
+                    </div>
+
+                    <div class="game-features">
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>✓ Cooperative horror gameplay</li>
+                            <li>✓ Explore Dracula's twisted castle</li>
+                            <li>✓ Dark, atmospheric artwork</li>
+                            <li>✓ Strategic deck building</li>
+                            <li>✓ Immersive gothic horror theme</li>
+                        </ul>
+                    </div>
+
+                    <div class="cta-buttons">
+                        <a href="/shop.html?game=blood-moon-rising" class="btn btn-primary btn-large">Pre-Order Now</a>
+                        <button class="btn btn-secondary">Coming 2026</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's in the Deck -->
+    <section class="whats-in-deck">
+        <div class="section-content">
+            <h2>What's in the Deck So Far...</h2>
+            
+            <!-- Tab Navigation -->
+            <div class="deck-tabs">
+                <button class="deck-tab active" data-category="heroes">
+                    <span class="tab-full">Heroes</span>
+                    <span class="tab-short">Heroes</span>
+                </button>
+                <button class="deck-tab" data-category="monsters">
+                    <span class="tab-full">Monsters</span>
+                    <span class="tab-short">Monsters</span>
+                </button>
+                <button class="deck-tab" data-category="rooms">
+                    <span class="tab-full">Rooms</span>
+                    <span class="tab-short">Rooms</span>
+                </button>
+            </div>
+            
+            <!-- Card Grid Containers -->
+            <div class="deck-cards-container">
+                
+                <!-- Heroes Cards (4) -->
+                <div class="deck-cards active" id="heroes-cards">
+                    <div class="card-item"><img src="../images/games/bloodmoon/heroes/hexweaver.png" alt="Hexweaver" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/heroes/paladine.png" alt="Paladine" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/heroes/spectromancer.png" alt="Spectromancer" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/heroes/voidstrider.png" alt="Voidstrider" loading="lazy"></div>
+                </div>
+                
+                <!-- Monsters Cards (27) -->
+                <div class="deck-cards" id="monsters-cards">
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/abberation.png" alt="Abberation" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/arachnid.png" alt="Arachnid" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/blood_glider.png" alt="Blood Glider" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/crom_dubh.png" alt="Crom Dubh" loading="lazy"></div>
+					<div class="card-item"><img src="../images/games/bloodmoon/monsters/curator.png" alt="The Curator" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/cyclops.png" alt="Cyclops" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/dark_maiden.png" alt="Dark Maiden" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/diabolus.png" alt="Diabolus" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/dr_hyde.png" alt="Dr. Hyde" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/dracula.png" alt="Dracula" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/grim_reaper.png" alt="Grim Reaper" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/hello_hound.png" alt="Hell Hound" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/horror_fiend.png" alt="Horror Fiend" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/lepus.png" alt="Lepus" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/rictus_walker.png" alt="Rictus Walker" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/seer_sphere.png" alt="Seer Sphere" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/skin_walker.png" alt="Skin Walker" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/soul_eater.png" alt="Soul Eater" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/the_butler.png" alt="The Butler" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/the_mummy.png" alt="The Mummy" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/the_reaper.png" alt="The Reaper" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/wandering_ichor.png" alt="Wandering Ichor" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/wendigo.png" alt="Wendigo" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/werebear.png" alt="Werebear" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/werewolf.png" alt="Werewolf" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/monsters/zealot.png" alt="Zealot" loading="lazy"></div>
+                </div>
+                
+                <!-- Rooms Cards (22) -->
+                <div class="deck-cards" id="rooms-cards">
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/abbatoir.png" alt="Abbatoir" loading="lazy"></div> 
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/armory.png" alt="Armory" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/calefactor.png" alt="Calefactor" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/castle_heart.png" alt="Castle Heart" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/catacombs.png" alt="Catacombs" loading="lazy"></div>                    
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/courtyard.png" alt="Courtyard" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/crematorium.png" alt="Crematorium" loading="lazy"></div>                    
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/energy_rift.png" alt="Energy Rift" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/fetid_maw.png" alt="Fetid Maw" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/fiend_emporium.png" alt="Fiend Emporium" loading="lazy"></div>                    
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/hall_of_horrors.png" alt="Hall of Horrors" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/kitchen.png" alt="Kitchen" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/monster_vortex.png" alt="Monster Vortex" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/oubliette.png" alt="Oubliette" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/sepulcher.png" alt="Sepulcher" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/trophy_room.png" alt="Trophy Room" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/war_room.png" alt="War Room" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/well_of_souls.png" alt="Well of Souls" loading="lazy"></div>
+                    <div class="card-item"><img src="../images/games/bloodmoon/rooms/wolf_kennel.png" alt="Wolf Kennel" loading="lazy"></div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+		<!-- Development Progress Section -->
+	<section class="dev-progress-section">
+		<div class="section-content">
+			<h2>Development Journey</h2>
+			
+			<!-- Overview Paragraph -->
+			<div class="dev-overview">
+				<p>Creating a tabletop game is a labor of love that spans months of iteration, testing, and refinement. From initial concept sketches to the final printed product, each game goes through rigorous playtesting, art development, component sourcing, and manufacturing coordination. Blood Moon Rising is currently in active development, with our team working to bring Dracula's twisted castle to life on your table.</p>
+			</div>
+			
+			<!-- Overall Progress Bar -->
+			<div class="overall-progress">
+				<div class="progress-header">
+					<span class="progress-title">Overall Completion</span>
+					<span class="progress-percentage">65%</span>
+				</div>
+				<div class="progress-bar-container">
+					<div class="progress-bar-fill" style="width: 65%"></div>
+				</div>
+			</div>
+			
+			<!-- Development Checklist -->
+			<div class="dev-checklist">
+				
+				<!-- Completed Items -->
+				<div class="dev-item completed">
+					<div class="item-status">
+						<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="20 6 9 17 4 12"></polyline>
+						</svg>
+					</div>
+					<div class="item-content">
+						<h3>Core Gameplay Design</h3>
+						<p>Mechanics finalized, game flow tested and balanced</p>
+					</div>
+				</div>
+				
+				<div class="dev-item completed">
+					<div class="item-status">
+						<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="20 6 9 17 4 12"></polyline>
+						</svg>
+					</div>
+					<div class="item-content">
+						<h3>Card Design & Layout</h3>
+						<p>All 55 cards designed with unique horror artwork</p>
+					</div>
+				</div>
+				
+				<div class="dev-item completed">
+					<div class="item-status">
+						<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="20 6 9 17 4 12"></polyline>
+						</svg>
+					</div>
+					<div class="item-content">
+						<h3>Initial Playtesting</h3>
+						<p>Internal testing complete, balance adjustments made</p>
+					</div>
+				</div>
+				
+				<!-- In Progress Items -->
+				<div class="dev-item in-progress">
+					<div class="item-status">
+						<div class="spinner"></div>
+					</div>
+					<div class="item-content">
+						<h3>Convention Playtesting</h3>
+						<p>Gathering feedback from players at gaming conventions</p>
+						<div class="mini-progress">
+							<div class="mini-progress-bar" style="width: 60%"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="dev-item in-progress">
+					<div class="item-status">
+						<div class="spinner"></div>
+					</div>
+					<div class="item-content">
+						<h3>Final Art Polish</h3>
+						<p>Refining card illustrations and adding atmospheric details</p>
+						<div class="mini-progress">
+							<div class="mini-progress-bar" style="width: 75%"></div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Upcoming Items -->
+				<div class="dev-item upcoming">
+					<div class="item-status">
+						<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="12" cy="12" r="10"></circle>
+						</svg>
+					</div>
+					<div class="item-content">
+						<h3>Rulebook Writing</h3>
+						<p>Creating clear, comprehensive rules with examples</p>
+					</div>
+				</div>
+				
+				<div class="dev-item upcoming">
+					<div class="item-status">
+						<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="12" cy="12" r="10"></circle>
+						</svg>
+					</div>
+					<div class="item-content">
+						<h3>Proof Print Copies</h3>
+						<p>Physical prototypes for final quality checking</p>
+					</div>
+				</div>
+				
+				<div class="dev-item upcoming">
+					<div class="item-status">
+						<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="12" cy="12" r="10"></circle>
+						</svg>
+					</div>
+					<div class="item-content">
+						<h3>Tuck Box Design</h3>
+						<p>Packaging artwork and structural design</p>
+					</div>
+				</div>
+				
+				<div class="dev-item upcoming">
+					<div class="item-status">
+						<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="12" cy="12" r="10"></circle>
+						</svg>
+					</div>
+					<div class="item-content">
+						<h3>Manufacturing Setup</h3>
+						<p>Finalizing printer partnership and production timeline</p>
+					</div>
+				</div>
+				
+				<div class="dev-item upcoming">
+					<div class="item-status">
+						<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="12" cy="12" r="10"></circle>
+						</svg>
+					</div>
+					<div class="item-content">
+						<h3>First Production Run</h3>
+						<p>Full-scale printing and component assembly</p>
+					</div>
+				</div>
+				
+			</div>
+			
+			<!-- Release Timeline -->
+			<div class="release-timeline">
+				<div class="timeline-item">
+					<span class="timeline-label">Target Release</span>
+					<span class="timeline-date">Q2 2026</span>
+				</div>
+				<div class="timeline-item">
+					<span class="timeline-label">Pre-Orders Open</span>
+					<span class="timeline-date">Q1 2026</span>
+				</div>
+			</div>
+			
+		</div>
+	</section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Once Upon A Dice. Built on Alma + Nginx.</p>
+            <div class="footer-links">
+                <a href="/shop.html">Store</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/press.html">Press Kit</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/image-gallery.js"></script>
+    <script src="../scripts/deck-display.js"></script>
+    <script src="../scripts/card-lightbox.js"></script>
+    
+    <!-- Scroll to top on page load -->
+    <script>
+        // Force scroll to top when page loads
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Our Games - Once Upon A Dice</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/rebrand.css">
+    <style>
+        /* --- Hero --- */
+        .locator-hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-xxl) 2rem var(--spacing-md);
+            text-align: center;
+            position: relative;
+        }
+
+        .locator-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 25% 60%, rgba(212, 175, 55, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 75% 40%, rgba(139, 38, 53, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .locator-hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .locator-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            color: var(--brand-tan);
+            font-family: Georgia, 'Times New Roman', serif;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .locator-hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* --- Category Nav --- */
+        .category-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg) 2rem var(--spacing-xl);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+        }
+
+        .category-link {
+            padding: 0.6rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            border: none;
+            background: none;
+            font-family: var(--font-main);
+            position: relative;
+        }
+
+        .category-link:hover {
+            color: var(--text-primary);
+        }
+
+        .category-link.active {
+            color: var(--brand-gold);
+        }
+
+        .category-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1.5rem;
+            right: 1.5rem;
+            height: 2px;
+            background: var(--brand-gold);
+            border-radius: 1px;
+        }
+
+        .category-divider {
+            color: var(--border-subtle);
+            font-size: 1.2rem;
+            user-select: none;
+        }
+
+        /* --- Content Panels --- */
+        .panel {
+            display: none;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        /* --- Online Panel --- */
+        .online-panel {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem var(--spacing-xxl);
+            text-align: center;
+        }
+
+        .online-panel p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .online-links {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .online-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .online-link:hover {
+            border-color: var(--brand-gold);
+            transform: translateY(-2px);
+        }
+
+        .online-link-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .online-link-info span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .online-link-arrow {
+            color: var(--brand-gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .online-link:hover .online-link-arrow {
+            transform: translateX(3px);
+        }
+
+        /* --- Local Panel (Store Directory) --- */
+        .local-panel {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem var(--spacing-xxl);
+        }
+
+        /* Search */
+        .locator-search {
+            max-width: 500px;
+            margin: 0 auto var(--spacing-xl);
+            position: relative;
+        }
+
+        .locator-search input {
+            width: 100%;
+            padding: 0.85rem 1.25rem 0.85rem 2.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-pill);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: var(--font-main);
+            transition: border-color 0.2s ease;
+        }
+
+        .locator-search input:focus {
+            outline: none;
+            border-color: var(--brand-gold);
+        }
+
+        .locator-search input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        /* Region Groups */
+        .region-group {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .region-label {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .region-label h3 {
+            font-size: 1.3rem;
+            color: var(--brand-tan);
+        }
+
+        .region-count {
+            padding: 0.2rem 0.65rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            color: var(--brand-gold);
+            font-weight: 600;
+        }
+
+        .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .store-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .store-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .store-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .store-address {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.5;
+        }
+
+        .store-games {
+            display: flex;
+            gap: var(--spacing-xs);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .store-game-tag {
+            padding: 0.2rem 0.6rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .store-links {
+            margin-top: auto;
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .store-link {
+            font-size: 0.85rem;
+            color: var(--brand-gold);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .store-link:hover {
+            color: var(--text-primary);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: var(--spacing-xxl);
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .no-results .no-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        /* --- Events Panel --- */
+        .events-panel {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem var(--spacing-xxl);
+            text-align: center;
+        }
+
+        .events-panel p.events-intro {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .events-preview {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            text-align: left;
+        }
+
+        .event-preview-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--spacing-md);
+            transition: all 0.2s ease;
+        }
+
+        .event-preview-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .event-preview-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .event-preview-info .event-date {
+            font-size: 0.9rem;
+            color: var(--brand-gold);
+            font-weight: 600;
+        }
+
+        .event-preview-info .event-loc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+        }
+
+        .event-type-tag {
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tag-convention {
+            background: rgba(139, 38, 53, 0.2);
+            border: 1px solid rgba(139, 38, 53, 0.4);
+            color: #e05a6d;
+        }
+
+        .tag-demo {
+            background: rgba(0, 200, 100, 0.1);
+            border: 1px solid rgba(0, 200, 100, 0.3);
+            color: #44cc88;
+        }
+
+        /* --- Wholesale CTA --- */
+        .carry-cta {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem var(--spacing-xxl);
+        }
+
+        .carry-box {
+            background: linear-gradient(135deg, rgba(139, 38, 53, 0.08), rgba(212, 175, 55, 0.05));
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .carry-box h2 {
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .carry-box p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .locator-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .stores-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carry-box {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .event-preview-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
+            </a>
+                                    <div class="nav-links">
+                <a href="/" >Home</a>
+                <a href="/games.html">Games</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/events.html">Events</a>
+                <a href="/news.html">News</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="locator-hero">
+        <div class="locator-hero-inner">
+            <h1>Find Our Games</h1>
+            <p class="subtitle">Whether you prefer shopping online or visiting a local game store, here's where to find Once Upon A Dice titles.</p>
+        </div>
+    </section>
+
+    <!-- Category Text Links -->
+    <nav class="category-nav">
+        <button class="category-link" data-panel="online">Online Store</button>
+        <span class="category-divider">|</span>
+        <button class="category-link active" data-panel="local">Local Game Stores</button>
+        <span class="category-divider">|</span>
+        <button class="category-link" data-panel="events">Events</button>
+    </nav>
+
+    <!-- ======================== -->
+    <!-- ONLINE PANEL -->
+    <!-- ======================== -->
+    <section class="online-panel panel" id="panel-online">
+        <p>Order directly through DriveThruCards. Physical games ship fast, and digital print-and-play files are available for instant download.</p>
+
+        <div class="online-links">
+            <a href="https://www.drivethrucards.com/en/product/429835/her-majesty-s-airships-the-aerosphere" target="_blank" rel="noopener noreferrer" class="online-link">
+                <div class="online-link-info">
+                    <h3>Her Majesty's Airships</h3>
+                    <span>The Aerosphere — Co-op Card Game</span>
+                </div>
+                <span class="online-link-arrow">→</span>
+            </a>
+            <a href="https://www.drivethrucards.com/en/product/270284/stonerow-grinding-gears-edition" target="_blank" rel="noopener noreferrer" class="online-link">
+                <div class="online-link-info">
+                    <h3>StoneRow</h3>
+                    <span>Grinding Gears Edition — Strategy Card Game</span>
+                </div>
+                <span class="online-link-arrow">→</span>
+            </a>
+            <a href="https://www.drivethrucards.com/en/product/336921/bounce-bunny-bounce" target="_blank" rel="noopener noreferrer" class="online-link">
+                <div class="online-link-info">
+                    <h3>Bounce Bunny Bounce</h3>
+                    <span>Family Party Card Game</span>
+                </div>
+                <span class="online-link-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ======================== -->
+    <!-- LOCAL PANEL (default) -->
+    <!-- ======================== -->
+    <section class="local-panel panel active" id="panel-local">
+
+        <div class="locator-search">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="storeSearch" placeholder="Search by city, state, or store name...">
+        </div>
+
+        <!-- Wisconsin -->
+        <div class="region-group" data-region="wisconsin">
+            <div class="region-label">
+                <h3>Wisconsin</h3>
+                <span class="region-count">3 stores</span>
+            </div>
+            <div class="stores-grid">
+                <div class="store-card" data-search="board game barrister greenfield wisconsin">
+                    <h4>Board Game Barrister</h4>
+                    <p class="store-address">7621 W Layton Ave, Greenfield, WI 53220</p>
+                    <div class="store-games">
+                        <span class="store-game-tag">StoneRow</span>
+                        <span class="store-game-tag">Bounce Bunny Bounce</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="#" class="store-link">🌐 Website</a>
+                        <a href="#" class="store-link">📍 Directions</a>
+                    </div>
+                </div>
+                <div class="store-card" data-search="chimera hobby shop appleton wisconsin">
+                    <h4>Chimera Hobby Shop</h4>
+                    <p class="store-address">348 W Wisconsin Ave, Appleton, WI 54911</p>
+                    <div class="store-games">
+                        <span class="store-game-tag">StoneRow</span>
+                        <span class="store-game-tag">HMA</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="#" class="store-link">🌐 Website</a>
+                        <a href="#" class="store-link">📍 Directions</a>
+                    </div>
+                </div>
+                <div class="store-card" data-search="gnome games green bay wisconsin">
+                    <h4>Gnome Games</h4>
+                    <p class="store-address">2160 Ridge Rd, Green Bay, WI 54304</p>
+                    <div class="store-games">
+                        <span class="store-game-tag">StoneRow</span>
+                        <span class="store-game-tag">Bounce Bunny Bounce</span>
+                        <span class="store-game-tag">HMA</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="#" class="store-link">🌐 Website</a>
+                        <a href="#" class="store-link">📍 Directions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Minnesota -->
+        <div class="region-group" data-region="minnesota">
+            <div class="region-label">
+                <h3>Minnesota</h3>
+                <span class="region-count">2 stores</span>
+            </div>
+            <div class="stores-grid">
+                <div class="store-card" data-search="the source comics games roseville minnesota">
+                    <h4>The Source Comics & Games</h4>
+                    <p class="store-address">2057 Snelling Ave N, Roseville, MN 55113</p>
+                    <div class="store-games">
+                        <span class="store-game-tag">StoneRow</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="#" class="store-link">🌐 Website</a>
+                        <a href="#" class="store-link">📍 Directions</a>
+                    </div>
+                </div>
+                <div class="store-card" data-search="fantasy flight games center roseville minnesota">
+                    <h4>Fantasy Flight Games Center</h4>
+                    <p class="store-address">1975 County Rd B2 W, Roseville, MN 55113</p>
+                    <div class="store-games">
+                        <span class="store-game-tag">StoneRow</span>
+                        <span class="store-game-tag">HMA</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="#" class="store-link">🌐 Website</a>
+                        <a href="#" class="store-link">📍 Directions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Illinois -->
+        <div class="region-group" data-region="illinois">
+            <div class="region-label">
+                <h3>Illinois</h3>
+                <span class="region-count">1 store</span>
+            </div>
+            <div class="stores-grid">
+                <div class="store-card" data-search="fair game store downers grove illinois chicago">
+                    <h4>Fair Game</h4>
+                    <p class="store-address">1244 Ogden Ave, Downers Grove, IL 60515</p>
+                    <div class="store-games">
+                        <span class="store-game-tag">StoneRow</span>
+                    </div>
+                    <div class="store-links">
+                        <a href="#" class="store-link">🌐 Website</a>
+                        <a href="#" class="store-link">📍 Directions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Results -->
+        <div class="no-results" id="noResults">
+            <span class="no-icon">🗺️</span>
+            <h3>No stores found matching your search</h3>
+            <p>Try a different city or state, or <a href="/shop.html" style="color: var(--brand-gold);">shop online</a> instead.</p>
+        </div>
+
+    </section>
+
+    <!-- ======================== -->
+    <!-- EVENTS PANEL -->
+    <!-- ======================== -->
+    <section class="events-panel panel" id="panel-events">
+        <p class="events-intro">We bring games to conventions and events throughout the year. Play before you buy, meet the team, and pick up exclusive promos.</p>
+
+        <div class="events-preview">
+            <div class="event-preview-card">
+                <div class="event-preview-info">
+                    <h3>Geekway to the West</h3>
+                    <span class="event-date">May 14 – 17, 2026</span>
+                    <p class="event-loc">📍 St. Charles Convention Center, MO</p>
+                </div>
+                <span class="event-type-tag tag-convention">Convention</span>
+            </div>
+            <div class="event-preview-card">
+                <div class="event-preview-info">
+                    <h3>Game Night at Board Game Barrister</h3>
+                    <span class="event-date">May 24, 2026</span>
+                    <p class="event-loc">📍 Board Game Barrister, Greenfield WI</p>
+                </div>
+                <span class="event-type-tag tag-demo">Store Demo</span>
+            </div>
+            <div class="event-preview-card">
+                <div class="event-preview-info">
+                    <h3>Origins Game Fair</h3>
+                    <span class="event-date">June 17 – 21, 2026</span>
+                    <p class="event-loc">📍 Greater Columbus Convention Center, OH</p>
+                </div>
+                <span class="event-type-tag tag-convention">Convention</span>
+            </div>
+            <div class="event-preview-card">
+                <div class="event-preview-info">
+                    <h3>Gen Con</h3>
+                    <span class="event-date">August 6 – 9, 2026</span>
+                    <p class="event-loc">📍 Indiana Convention Center, Indianapolis IN</p>
+                </div>
+                <span class="event-type-tag tag-convention">Convention</span>
+            </div>
+        </div>
+
+        <a href="/events.html" class="btn btn-primary">View Full Events Calendar →</a>
+    </section>
+
+    <!-- Wholesale CTA -->
+    <section class="carry-cta">
+        <div class="carry-box">
+            <div>
+                <h2>Want to Carry Our Games?</h2>
+                <p>We offer wholesale pricing for game stores, libraries, and educational institutions. Get in touch and we'll set you up.</p>
+            </div>
+            <a href="/contact.html" class="btn btn-primary">Contact for Wholesale</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Once Upon A Dice. Built on Alma + Nginx.</p>
+            <div class="footer-links">
+                <a href="/shop.html">Store</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/press.html">Press Kit</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Panel switching
+        document.querySelectorAll('.category-link').forEach(link => {
+            link.addEventListener('click', function() {
+                // Update active link
+                document.querySelectorAll('.category-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                // Show matching panel
+                const panelId = 'panel-' + this.dataset.panel;
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(panelId).classList.add('active');
+            });
+        });
+
+        // Store search filtering
+        const searchInput = document.getElementById('storeSearch');
+        const regionGroups = document.querySelectorAll('.region-group');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            let anyVisible = false;
+
+            regionGroups.forEach(group => {
+                const cards = group.querySelectorAll('.store-card');
+                let regionHasVisible = false;
+
+                cards.forEach(card => {
+                    const searchData = card.dataset.search || '';
+                    const cardText = card.textContent.toLowerCase();
+                    const matches = !query || searchData.includes(query) || cardText.includes(query);
+
+                    card.style.display = matches ? '' : 'none';
+                    if (matches) regionHasVisible = true;
+                });
+
+                group.style.display = regionHasVisible ? '' : 'none';
+                if (regionHasVisible) anyVisible = true;
+            });
+
+            noResults.style.display = anyVisible ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>
+

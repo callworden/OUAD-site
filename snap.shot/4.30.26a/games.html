@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Once Upon A Dice</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/games.css">
+    <link rel="stylesheet" href="styles/rebrand.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/games.html" class="active">Games</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/events.html">Events</a>
+                <a href="/news.html">News</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="page-header" style="padding-top: 1.5rem; padding-bottom: 1rem;">
+        <div class="header-content">
+            <h1>Games</h1>
+            <p>Card games and digital adventures built for atmosphere, quick setup, and memorable moments. Designed for players who want depth without complexity.</p>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters-section" style="padding-top: 0.5rem;">
+        <div class="filters-container">
+            <div class="filter-group">
+                <label>Filter by:</label>
+                <button class="filter-btn active" data-filter="all">All Games</button>
+                <button class="filter-btn" data-filter="card-game">Card Game</button>
+                <button class="filter-btn" data-filter="digital">Digital Game</button>
+                <button class="filter-btn" data-filter="fantasy">Fantasy</button>
+                <button class="filter-btn" data-filter="coop">Co-op</button>
+                <button class="filter-btn" data-filter="horror">Horror</button>
+                <button class="filter-btn" data-filter="book">Books</button>
+                <button class="filter-btn" data-filter="single-player">Single Player</button>
+                <button class="filter-btn" data-filter="steampunk">Steampunk</button>
+                <button class="filter-btn" data-filter="strategy">Strategy</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Grid -->
+    <section class="games-section">
+        <div class="games-grid" id="gamesGrid">
+
+            <!-- ── Available ──────────────────────────── -->
+
+            <!-- Her Majesty's Airships -->
+            <div class="game-card" data-categories="card-game coop steampunk strategy" data-players="2-4" data-playtime="30">
+                <div class="game-image">
+                    <a href="/games/her-majestys-airships.html">
+                    <img src="images/games/her-majesty-airship-card.jpg" alt="Her Majesty's Royal Airships">
+                    </a>
+                    <div class="game-status prototype">Prototype</div>
+                </div>
+                <div class="game-info">
+                    <h3>Her Majesty's Airships</h3>
+                    <p class="game-tagline">A steampunk cooperative card game of sabotage, strategy, and survival aboard a royal airship.</p>
+                    <div class="game-meta">
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>2-4 Players</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>30-40 min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 12+</span></div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Card Game</span>
+                        <span class="tag">Co-op</span>
+                        <span class="tag">Steampunk</span>
+                        <span class="tag">Strategy</span>
+                    </div>
+                    <div class="game-actions">
+                        <a href="/games/her-majestys-airships.html" class="btn btn-primary">Learn More</a>
+                        <button class="btn btn-secondary" disabled>Coming Soon</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- StoneRow -->
+            <div class="game-card" data-categories="card-game fantasy kid-friendly" data-players="2" data-playtime="20">
+                <div class="game-image">
+                    <a href="/games/stonerow.html">
+                    <img src="images/games/stonerow-white-card.jpg" alt="StoneRow">
+                    </a>
+                    <div class="game-status available">Available</div>
+                </div>
+                <div class="game-info">
+                    <h3>StoneRow</h3>
+                    <p class="game-tagline">A medieval tower-building card game of guild rivalry. Simple rules, fast fun, four unique guilds.</p>
+                    <div class="game-meta">
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>2 Players</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>15-20 min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 10+</span></div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Card Game</span>
+                        <span class="tag">Fantasy</span>
+                        <span class="tag">Kid Friendly</span>
+                    </div>
+                    <div class="game-actions">
+                        <a href="/games/stonerow.html" class="btn btn-primary">Learn More</a>
+                        <a href="/shop.html?game=stonerow" class="btn btn-secondary">Buy Now - $15</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bounce Bunny Bounce -->
+            <div class="game-card" data-categories="card-game family kid-friendly" data-players="2" data-playtime="15">
+                <div class="game-image">
+                    <img src="images/games/bounce-bunny-card.jpg" alt="Bounce Bunny Bounce">
+                    <div class="game-status available">Available</div>
+                </div>
+                <div class="game-info">
+                    <h3>Bounce Bunny Bounce</h3>
+                    <p class="game-tagline">A carrot finding competition for 2 players. Easy to learn but hard to stop playing!</p>
+                    <div class="game-meta">
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>2 Players</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>10-20 min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 8+</span></div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Card Game</span>
+                        <span class="tag">Family</span>
+                        <span class="tag">Kid Friendly</span>
+                    </div>
+                    <div class="game-actions">
+                        <a href="/shop.html?game=bounce-bunny-bounce" class="btn btn-secondary">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── In Development ─────────────────────── -->
+
+            <!-- Blood Moon Rising -->
+            <div class="game-card game-card--dev" data-categories="card-game coop horror strategy" data-players="2-4" data-playtime="45">
+                <div class="game-image">
+                    <a href="/games/blood-moon-rising.html">
+                    <img src="images/games/blood-moon-card.jpg" alt="Blood Moon Rising" class="img-dev">
+                    </a>
+                    <div class="game-dev-ribbon">In Development</div>
+                </div>
+                <div class="game-info">
+                    <h3>Blood Moon Rising</h3>
+                    <p class="game-tagline">A cooperative horror castle crawl card game set in Dracula's domain. Work together to survive!</p>
+                    <div class="game-meta">
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>2-4 Players</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>45-60 min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 14+</span></div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Card Game</span>
+                        <span class="tag">Horror</span>
+                        <span class="tag">Co-op</span>
+                        <span class="tag">Strategy</span>
+                    </div>
+                    <div class="game-actions">
+                        <a href="/games/blood-moon-rising.html" class="btn btn-primary">Learn More</a>
+                        <a href="/shop.html?game=blood-moon-rising" class="btn btn-secondary">Pre-Order</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blood Moon Chronicles: Banishment -->
+            <div class="game-card game-card--dev" data-categories="book horror fantasy" data-players="1" data-playtime="60">
+                <div class="game-image">
+                    <img src="images/games/blood-moon-card.jpg" alt="Blood Moon Chronicles: Banishment" class="img-dev">
+                    <div class="game-dev-ribbon">In Development</div>
+                </div>
+                <div class="game-info">
+                    <h3>Blood Moon Chronicles: Banishment</h3>
+                    <p class="game-tagline">An interactive story set in the world of Blood Moon Rising. Your choices shape the outcome.</p>
+                    <div class="game-meta">
+                        <div class="meta-item"><span class="meta-icon">👤</span><span>1 Player</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>60+ min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 14+</span></div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Book</span>
+                        <span class="tag">Horror</span>
+                        <span class="tag">Physical &amp; Digital</span>
+                        <span class="tag">Interactive</span>
+                    </div>
+                    <div class="game-actions">
+                        <button class="btn btn-primary" disabled>Coming Soon</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+                    <div class="game-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">👥</span>
+                            <span>2 Players</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">⏱️</span>
+                            <span>10-20 min</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">🎯</span>
+                            <span>Ages 8+</span>
+                        </div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Card Game</span>
+    <!-- Design Philosophy -->
+    <section class="ouad-philosophy">
+        <div class="ouad-philosophy__inner">
+
+            <header class="ouad-philosophy__header">
+                <p class="ouad-philosophy__eyebrow">Why We Make Games</p>
+                <blockquote class="ouad-philosophy__manifesto">
+                    We make games for people like us — story lovers, atmosphere chasers,
+                    and anyone who believes the best night of the week ends around a table
+                    with people they care about.
+                </blockquote>
+            </header>
+
+            <div class="ouad-philosophy__grid">
+
+                <div class="ouad-pillar ouad-pillar--featured">
+                    <span class="ouad-pillar__num">01</span>
+                    <h3 class="ouad-pillar__title">The Story Always Comes First</h3>
+                    <p class="ouad-pillar__body">Every game starts with something that gripped us — a question we couldn't let go of, a world we wanted to live in, a memory we never wanted to fade. We find the story worth telling before we ever think about the mechanics. The game is just how it gets out into the world.</p>
+                </div>
+
+                <div class="ouad-pillar">
+                    <span class="ouad-pillar__num">02</span>
+                    <h3 class="ouad-pillar__title">An Excuse Worth Taking</h3>
+                    <p class="ouad-pillar__body">Our games are an invitation — to gather around a table, laugh too loud, and remember why you love the people across from you. We design for real nights with real people. The kind of fun that needs other voices in the room.</p>
+                </div>
+
+                <div class="ouad-pillar">
+                    <span class="ouad-pillar__num">03</span>
+                    <h3 class="ouad-pillar__title">Everything in the Box</h3>
+                    <p class="ouad-pillar__body">You don't need a warehouse of components for a genuinely rich experience. We push our mechanics to their limits and make every card earn its place. One deck. A handful of dice. A world worth getting lost in.</p>
+                </div>
+
+                <div class="ouad-pillar">
+                    <span class="ouad-pillar__num">04</span>
+                    <h3 class="ouad-pillar__title">New Horizons Ahead</h3>
+                    <p class="ouad-pillar__body">Complete narratives are coming — stories that breathe new life into the worlds you already love, and eventually, stories with endings only you can reach. Once Upon a Dice is just getting started.</p>
+                </div>
+
+                <div class="ouad-pillar">
+                    <span class="ouad-pillar__num">05</span>
+                    <h3 class="ouad-pillar__title">The Rules Are a Suggestion</h3>
+                    <p class="ouad-pillar__body">We actively encourage you to bend them. Take ownership. Play your way. These games are made with you in mind — and honestly, without you there's no game at all. We play these together.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <style>
+            /* Override default red game-status pill for In Development / Coming Soon */
+            .game-status:not(.prototype):not(.available) {
+                background: linear-gradient(135deg, rgba(15,10,30,0.92), rgba(35,20,60,0.88));
+                border: 1px solid rgba(180,140,255,0.25);
+                color: rgba(210,190,255,0.85);
+                backdrop-filter: blur(6px);
+            }
+            /* Shared ribbon banner for in-dev cards on games page */
+            .game-dev-ribbon {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 0.4rem 1rem;
+                background: linear-gradient(to right, rgba(10,8,20,0.93), rgba(30,20,50,0.9));
+                border-top: 1px solid rgba(180,140,255,0.2);
+                font-size: 0.62rem;
+                font-weight: 600;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: rgba(200,180,255,0.78);
+                text-align: center;
+                backdrop-filter: blur(4px);
+                z-index: 2;
+            }
+            /* Greyscale treatment for in-dev card images */
+            .img-dev {
+                opacity: 0.58;
+                filter: grayscale(28%) brightness(0.85);
+                transition: opacity 0.3s, filter 0.3s;
+            }
+            .game-card--dev:hover .img-dev {
+                opacity: 0.72;
+                filter: grayscale(15%) brightness(0.9);
+            }
+            .ouad-philosophy {
+                padding: 6rem 1.5rem;
+                font-family: 'Jost', sans-serif;
+            }
+            .ouad-philosophy__inner {
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+            .ouad-philosophy__header {
+                text-align: center;
+                margin-bottom: 5rem;
+                opacity: 0;
+                transform: translateY(14px);
+                transition: opacity 0.6s ease, transform 0.6s ease;
+            }
+            .ouad-philosophy__header.ouad-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .ouad-philosophy__eyebrow {
+                font-family: 'Jost', sans-serif;
+                font-size: 0.75rem;
+                font-weight: 500;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                color: #c8941a;
+                margin: 0 0 2rem;
+            }
+            .ouad-philosophy__manifesto {
+                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-style: italic;
+                font-size: clamp(1.4rem, 2.8vw, 2rem);
+                font-weight: 400;
+                line-height: 1.55;
+                max-width: 760px;
+                margin: 0 auto;
+                padding: 0;
+                border: none;
+                quotes: none;
+            }
+            .ouad-philosophy__grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
+            }
+            .ouad-pillar {
+                padding: 2.5rem 2rem;
+                opacity: 0;
+                transform: translateY(18px);
+                transition: opacity 0.55s ease, transform 0.55s ease;
+            }
+            .ouad-pillar.ouad-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .ouad-pillar:nth-child(1) { transition-delay: 0s; }
+            .ouad-pillar:nth-child(2) { transition-delay: 0.1s; }
+            .ouad-pillar:nth-child(3) { transition-delay: 0.2s; }
+            .ouad-pillar:nth-child(4) { transition-delay: 0.1s; }
+            .ouad-pillar:nth-child(5) { transition-delay: 0.2s; }
+            .ouad-pillar--featured {
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                grid-template-rows: auto auto;
+                column-gap: 2rem;
+                align-items: start;
+                border-bottom: 1px solid rgba(200, 148, 26, 0.25);
+                padding-bottom: 3rem;
+            }
+            .ouad-pillar--featured .ouad-pillar__num {
+                grid-row: 1 / 3;
+                font-size: 4rem;
+                line-height: 1;
+                margin-top: 0.1em;
+                margin-bottom: 0;
+            }
+            .ouad-pillar--featured .ouad-pillar__body {
+                max-width: 700px;
+            }
+            .ouad-pillar:nth-child(2),
+            .ouad-pillar:nth-child(3) {
+                border-bottom: 1px solid rgba(255,255,255,0.07);
+            }
+            .ouad-pillar:nth-child(2),
+            .ouad-pillar:nth-child(4) {
+                border-right: 1px solid rgba(255,255,255,0.07);
+            }
+            .ouad-pillar__num {
+                display: block;
+                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-size: 0.95rem;
+                font-weight: 600;
+                color: #c8941a;
+                letter-spacing: 0.05em;
+                margin-bottom: 1rem;
+            }
+            .ouad-pillar__title {
+                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-size: 1.4rem;
+                font-weight: 600;
+                margin: 0 0 0.85rem;
+                line-height: 1.25;
+                letter-spacing: 0.01em;
+            }
+            .ouad-pillar--featured .ouad-pillar__title {
+                font-size: 1.75rem;
+            }
+            .ouad-pillar__body {
+                font-size: 0.92rem;
+                font-weight: 300;
+                line-height: 1.8;
+                margin: 0;
+                opacity: 0.65;
+            }
+            @media (max-width: 700px) {
+                .ouad-philosophy { padding: 4rem 1.25rem; }
+                .ouad-philosophy__grid { grid-template-columns: 1fr; }
+                .ouad-pillar--featured { display: block; }
+                .ouad-pillar--featured .ouad-pillar__num { font-size: 1rem; margin-bottom: 0.75rem; }
+                .ouad-pillar { border-right: none !important; }
+                .ouad-pillar:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.07) !important; }
+                .ouad-pillar--featured { border-bottom: 1px solid rgba(200, 148, 26, 0.25) !important; }
+            }
+        </style>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Once Upon A Dice. Built on Alma + Nginx.</p>
+            <div class="footer-links">
+                <a href="/shop.html">Store</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/press.html">Press Kit</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/games.js"></script>
+    <script>
+        // Filter logic — handles updated category slugs
+        (function() {
+            var btns = document.querySelectorAll('.filter-btn');
+            var cards = document.querySelectorAll('.game-card');
+
+            btns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    btns.forEach(function(b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+
+                    var filter = btn.getAttribute('data-filter');
+                    cards.forEach(function(card) {
+                        if (filter === 'all') {
+                            card.style.display = '';
+                        } else {
+                            var cats = (card.getAttribute('data-categories') || '').split(' ');
+                            card.style.display = cats.indexOf(filter) !== -1 ? '' : 'none';
+                        }
+                    });
+                });
+            });
+
+            // Sort
+            var sortSelect = document.getElementById('sortSelect');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', function() {
+                    var grid = document.getElementById('gamesGrid');
+                    var cardsArr = Array.from(grid.querySelectorAll('.game-card'));
+                    var val = sortSelect.value;
+
+                    cardsArr.sort(function(a, b) {
+                        if (val === 'name') {
+                            return a.querySelector('h3').textContent.localeCompare(b.querySelector('h3').textContent);
+                        }
+                        if (val === 'players') {
+                            return parseInt(a.getAttribute('data-players')) - parseInt(b.getAttribute('data-players'));
+                        }
+                        if (val === 'playtime') {
+                            return parseInt(a.getAttribute('data-playtime')) - parseInt(b.getAttribute('data-playtime'));
+                        }
+                        return 0;
+                    });
+
+                    cardsArr.forEach(function(c) { grid.appendChild(c); });
+                });
+            }
+        })();
+    </script>
+    <script>
+        (function() {
+            var io = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('ouad-visible');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            document.querySelectorAll('.ouad-pillar, .ouad-philosophy__header').forEach(function(el) {
+                io.observe(el);
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -5,111 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Once Upon A Dice</title>
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/about.css">
     <link rel="stylesheet" href="styles/rebrand.css">
-    <style>
-        /* --- Team Duo Layout (single photo) --- */
-        .team-duo {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .duo-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            align-items: center;
-        }
-
-        .duo-image {
-            width: 100%;
-            height: 100%;
-            min-height: 400px;
-            overflow: hidden;
-            background: var(--bg-dark);
-        }
-
-        .duo-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .duo-info {
-            padding: var(--spacing-xl);
-        }
-
-        .duo-info h3 {
-            font-size: 1.75rem;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .duo-info .duo-roles {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-md);
-            font-weight: 500;
-        }
-
-        .duo-info .duo-bio {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: var(--spacing-md);
-        }
-
-        .duo-info .duo-bio strong {
-            color: var(--text-primary);
-        }
-
-        .duo-highlights {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-sm);
-            margin-top: var(--spacing-md);
-        }
-
-        .duo-highlight {
-            padding: var(--spacing-sm);
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-sm);
-            text-align: center;
-        }
-
-        .duo-highlight .hl-label {
-            display: block;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.2rem;
-        }
-
-        .duo-highlight .hl-value {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .duo-card {
-                grid-template-columns: 1fr;
-            }
-
-            .duo-image {
-                min-height: 300px;
-            }
-
-            .duo-highlights {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -118,10 +14,10 @@
             <a href="/" class="logo">
                 <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
             </a>
-                                    <div class="nav-links">
-                <a href="/" >Home</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
                 <a href="/games.html">Games</a>
-                <a href="/shop.html">Shop</a>
+                <!-- <a href="/shop.html">Shop</a> -->
                 <a href="/events.html">Events</a>
                 <a href="/news.html">News</a>
                 <a href="/about.html" class="active">About</a>
@@ -130,81 +26,75 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="about-hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Stories You Can Play</h1>
-                <p class="hero-subtitle">We develop games with creative gameplay and immersive stories — designed for casual gamers who want memorable experiences without complex rules.</p>
-            </div>
+    <!-- Hero -->
+    <section class="about-hero-simple">
+        <div class="about-hero-inner">
+            <p class="about-eyebrow">We Are Once Upon A Dice</p>
+            <h1>Games with Creative Gameplay<br>and Immersive Stories</h1>
         </div>
     </section>
 
-    <!-- Our Story -->
-    <section class="our-story">
-        <div class="section-content">
-            <h2 class="section-title-centered">Who We Are</h2>
-            <div class="story-content">
-                <p class="story-intro">We're Chris and Amy Allworden, a husband-wife creative team based in Central Wisconsin, bringing games and stories to life through Once Upon A Dice.</p>
+    <!-- Main Content -->
+    <section class="about-body">
+        <div class="about-container">
 
-                <p>We believe play brings out the best in people. Creativity, imagination, and laughter combine to lift us up and brighten our days. That's why we actively encourage a playful attitude — even among adults — and why game development has become one of our most important projects.</p>
-
-                <p>Our love for playing drove us to take things one step further. Our goal is to create games that are elegant, immersive, and accessible to all shapes and sizes of players. At the end of the day, we're storytellers — and we want you to not just enjoy our stories, but <strong>play them</strong>.</p>
+            <!-- Intro Statement -->
+            <div class="about-statement">
+                <p>We believe play brings out the best in people. Creativity, imagination, and laughter combine to lift us up and brighten our days. That's why we actively encourage a playful attitude — even among adults. And that's what makes game development one of our most important projects.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- Team Section -->
-    <section class="team-section">
-        <div class="section-content">
-            <h2 class="section-title-centered">Meet the Team</h2>
+            <!-- Photo + Bio -->
+            <div class="about-duo">
+                <div class="about-photo">
+                    <img src="images/team/us.jpg" alt="Chris and Amy — Once Upon A Dice">
+                </div>
+                <div class="about-bio">
+                    <h2>Chris &amp; Amy Allworden</h2>
+                    <p class="about-location">Central Wisconsin</p>
 
-            <div class="team-duo">
-                <div class="duo-card">
-                    <!-- Single shared photo — save us-oct.png to images/team/ -->
-                    <div class="duo-image">
-                        <img src="images/team/us-oct.png" alt="Chris and Amy Allworden">
-                    </div>
-                    <div class="duo-info">
-                        <h3>Chris & Amy Allworden</h3>
-                        <p class="duo-roles">Founders of Once Upon A Dice</p>
+                    <p>We've been developing games together for a while now — and we like to think that our love of playing is what drove us to take this madness one step farther. Our goal is to create games that are elegant, immersive, and accessible to all shapes and sizes of players.</p>
 
-                        <p class="duo-bio"><strong>Chris</strong> is a digital illustrator and game designer who sees game design as the perfect platform to combine all of his passions into a physical form. He creates indie card games through Once Upon A Dice and provides graphic design services through Noble Pixel Studios.</p>
+                    <p>At the end of the day, we are storytellers. We want you to enjoy our worlds — and even better, we want you to <strong>play</strong> them.</p>
 
-                        <p class="duo-bio"><strong>Amy</strong> lives for adventure — or at least mild action that doesn't require a lot of bending. Growing up playing D&D, reading Forgotten Realms, and attending renaissance festivals, she brings a lifetime of fantasy experience to the table. With a BSc in Wildlife Biology and a year teaching English in Japan, she combines science, culture, and imagination into rich game narratives. Her debut novel <em>Immolation</em> kicks off the Raven Vs Crow series.</p>
+                    <p>At Once Upon A Dice we bring our life experiences to everything we make. We know how much we appreciate the moments shared during life's journey, and we're excited to share with you the lesser-known paths around each corner.</p>
 
-                        <div class="duo-highlights">
-                            <div class="duo-highlight">
-                                <span class="hl-label">Chris</span>
-                                <span class="hl-value">Designer & Illustrator</span>
-                            </div>
-                            <div class="duo-highlight">
-                                <span class="hl-label">Amy</span>
-                                <span class="hl-value">Writer & Worldbuilder</span>
-                            </div>
-                            <div class="duo-highlight">
-                                <span class="hl-label">Based In</span>
-                                <span class="hl-value">Central Wisconsin</span>
-                            </div>
-                            <div class="duo-highlight">
-                                <span class="hl-label">Games</span>
-                                <span class="hl-value">3 Published Titles</span>
-                            </div>
+                    <p class="about-thanks">Thank you for all your support and interest. Please come back soon — we're always into something new.</p>
+
+                    <div class="about-roles">
+                        <div class="role-item">
+                            <span class="role-name">Chris Allworden</span>
+                            <span class="role-title">Owner · Lead Designer · Illustrator</span>
+                        </div>
+                        <div class="role-item">
+                            <span class="role-name">Amy Allworden</span>
+                            <span class="role-title">Writer · Game Developer · Worldbuilder</span>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="about-cta">
-        <div class="cta-content">
+    <!-- Tagline Banner -->
+    <section class="about-tagline-banner">
+        <div class="tagline-words">
+            <span>Stories</span>
+            <span class="tagline-divider">·</span>
+            <span>You</span>
+            <span class="tagline-divider">·</span>
+            <span>Can Play</span>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="about-cta-simple">
+        <div class="about-cta-inner">
             <h2>Join Our Journey</h2>
-            <p>Thank you for all your support and interest. We're always working on something new, and we'd love to have you along for the ride.</p>
-            <div class="cta-buttons">
-                <a href="/games.html" class="btn btn-primary btn-large">Explore Our Games</a>
-                <a href="/contact.html" class="btn btn-secondary btn-large">Get In Touch</a>
+            <p>We'd love to have you along for the ride.</p>
+            <div class="about-cta-buttons">
+                <a href="/games.html" class="btn btn-primary">Explore Our Games</a>
+                <a href="/contact.html" class="btn btn-secondary">Get In Touch</a>
             </div>
         </div>
     </section>
@@ -221,7 +111,131 @@
         </div>
     </footer>
 
+    <style>
+        .about-hero-simple {
+            padding: 5rem 1.5rem 3rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .about-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #c8941a;
+            margin-bottom: 1rem;
+        }
+        .about-hero-simple h1 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+        .about-body {
+            padding: 2rem 1.5rem 4rem;
+        }
+        .about-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+        .about-statement {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-statement p {
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.72);
+        }
+        .about-duo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .about-photo {
+            position: sticky;
+            top: 6rem;
+        }
+        .about-photo img {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .about-bio h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .about-location {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 1.75rem;
+        }
+        .about-bio p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.68);
+            margin-bottom: 1.1rem;
+        }
+        .about-thanks {
+            color: rgba(255,255,255,0.45) !important;
+            font-style: italic;
+        }
+        .about-roles {
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+        .role-item { display: flex; flex-direction: column; gap: 0.2rem; }
+        .role-name { font-size: 0.95rem; font-weight: 600; }
+        .role-title { font-size: 0.78rem; color: rgba(255,255,255,0.38); letter-spacing: 0.04em; }
+        .about-tagline-banner {
+            padding: 5rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: rgba(200,148,26,0.03);
+        }
+        .tagline-words {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .tagline-words span {
+            font-size: clamp(2rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #c8941a;
+            line-height: 1;
+        }
+        .tagline-divider { color: rgba(200,148,26,0.3) !important; font-weight: 300 !important; }
+        .about-cta-simple { padding: 5rem 1.5rem; text-align: center; }
+        .about-cta-inner { max-width: 600px; margin: 0 auto; }
+        .about-cta-inner h2 { font-size: 2rem; margin-bottom: 0.6rem; }
+        .about-cta-inner p { color: rgba(255,255,255,0.5); margin-bottom: 2rem; }
+        .about-cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        @media (max-width: 768px) {
+            .about-duo { grid-template-columns: 1fr; gap: 2rem; }
+            .about-photo { position: static; }
+            .tagline-words span { font-size: 2rem; }
+        }
+    </style>
+
     <script src="scripts/main.js"></script>
 </body>
 </html>
-

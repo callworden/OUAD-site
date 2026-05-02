@@ -1,0 +1,10 @@
+# Photoshop / design files
+*.psd
+*.ai
+*.indd
+*.xd
+
+# Other large files you never need in Git
+*.zip
+*.rar
+node_modules/

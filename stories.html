@@ -3,160 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Stories - Once Upon A Dice</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/stories.css">
-    <link rel="stylesheet" href="styles/rebrand.css">
-    <style>
-        .coming-soon-hero {
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: var(--spacing-xxl) 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .coming-soon-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(ellipse at 20% 50%, rgba(139, 38, 53, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .coming-soon-content {
-            position: relative;
-            z-index: 1;
-            max-width: 700px;
-        }
-
-        .coming-soon-icon {
-            font-size: 4rem;
-            margin-bottom: var(--spacing-lg);
-            display: block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        .coming-soon-content h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: var(--spacing-sm);
-            letter-spacing: -1.5px;
-            color: var(--brand-tan, var(--text-primary));
-            font-family: Georgia, 'Times New Roman', serif;
-        }
-
-        .coming-soon-content .tagline {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-xl);
-            line-height: 1.6;
-        }
-
-        .coming-soon-features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .cs-feature {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: var(--spacing-lg);
-            transition: all 0.3s ease;
-        }
-
-        .cs-feature:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
-        }
-
-        .cs-feature-icon {
-            font-size: 2rem;
-            margin-bottom: var(--spacing-sm);
-            display: block;
-        }
-
-        .cs-feature h3 {
-            font-size: 1.1rem;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .cs-feature p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .coming-soon-cta {
-            display: flex;
-            gap: var(--spacing-sm);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1.25rem;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: var(--radius-pill);
-            color: var(--brand-gold, #D4AF37);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--brand-gold, #D4AF37);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        @media (max-width: 768px) {
-            .coming-soon-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .coming-soon-features {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>Interactive Stories - Hyperbaby Games</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/stories.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="/" class="logo">
-                <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
-            </a>
-                                    <div class="nav-links">
-                <a href="/" >Home</a>
+            <a href="/" class="logo">Hyperbaby</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
                 <a href="/games.html">Games</a>
                 <a href="/shop.html">Shop</a>
                 <a href="/events.html">Events</a>
@@ -167,38 +24,134 @@
         </div>
     </nav>
 
-    <!-- Coming Soon Hero -->
-    <section class="coming-soon-hero">
-        <div class="coming-soon-content">
-            <span class="coming-soon-icon">📖</span>
-            <div class="status-pill">
-                <span class="pulse-dot"></span>
-                In Development
+    <!-- Header -->
+    <section class="page-header">
+        <div class="header-content">
+            <div class="header-tags">
+                <span class="tag">Interactive Fiction</span>
+                <span class="tag">Choose Your Path</span>
+                <span class="tag">Atmospheric</span>
             </div>
             <h1>Interactive Stories</h1>
-            <p class="tagline">Branching narratives where your choices shape the journey. We're crafting atmospheric, consequence-driven stories built for multiple playthroughs.</p>
+            <p>Branching narratives where your choices shape the journey. Atmospheric, consequence-driven, and built for multiple playthroughs.</p>
+        </div>
+    </section>
+
+    <!-- Stories Grid -->
+    <section class="stories-section">
+        <div class="stories-grid">
             
-            <div class="coming-soon-features">
-                <div class="cs-feature">
-                    <span class="cs-feature-icon">🎭</span>
-                    <h3>Choose Your Path</h3>
-                    <p>Every decision shapes what happens next. No two playthroughs are the same.</p>
+            <!-- Story Card 1 -->
+            <div class="story-card">
+                <div class="card-header">
+                    <span class="status-badge dev-build">Active Development</span>
+                    <div class="story-stats">
+                        <span>12 chapters</span>
+                        <span>•</span>
+                        <span>~45 min</span>
+                    </div>
                 </div>
-                <div class="cs-feature">
-                    <span class="cs-feature-icon">🗺️</span>
-                    <h3>Rich Worlds</h3>
-                    <p>From corvid kingdoms to cosmic horror — deeply imagined settings to explore.</p>
+                <h2>Raven vs Crow Chronicles</h2>
+                <p class="story-description">In a world where corvids rule competing kingdoms, you navigate court intrigue, ancient magic, and a brewing war. Your allegiances determine the fate of both realms.</p>
+                <div class="story-tags">
+                    <span class="tag">Fantasy</span>
+                    <span class="tag">Political Intrigue</span>
+                    <span class="tag">Multiple Endings</span>
                 </div>
-                <div class="cs-feature">
-                    <span class="cs-feature-icon">🔄</span>
-                    <h3>Replay Value</h3>
-                    <p>Multiple endings and hidden paths reward curiosity and boldness.</p>
+                <div class="story-progress">
+                    <div class="progress-label">
+                        <span>Completion</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
                 </div>
+                <a href="/stories/raven-vs-crow/start.html" class="story-link">Begin Story →</a>
             </div>
 
-            <div class="coming-soon-cta">
-                <a href="/games.html" class="btn btn-primary">Explore Our Games</a>
-                <a href="/contact.html" class="btn btn-secondary">Get Notified</a>
+            <!-- Story Card 2 - Placeholder -->
+            <div class="story-card upcoming">
+                <div class="card-header">
+                    <span class="status-badge prototype">Coming Soon</span>
+                    <div class="story-stats">
+                        <span>TBD</span>
+                    </div>
+                </div>
+                <h2>The Lighthouse Keeper</h2>
+                <p class="story-description">Alone on a remote island, you tend to the lighthouse while strange occurrences escalate. Something in the deep wants your attention.</p>
+                <div class="story-tags">
+                    <span class="tag">Horror</span>
+                    <span class="tag">Isolation</span>
+                    <span class="tag">Cosmic</span>
+                </div>
+                <div class="story-progress">
+                    <div class="progress-label">
+                        <span>Completion</span>
+                        <span>15%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15%"></div>
+                    </div>
+                </div>
+                <button class="story-link disabled">In Development</button>
+            </div>
+
+            <!-- Story Card 3 - Placeholder -->
+            <div class="story-card upcoming">
+                <div class="card-header">
+                    <span class="status-badge prototype">Concept</span>
+                    <div class="story-stats">
+                        <span>TBD</span>
+                    </div>
+                </div>
+                <h2>Neon Drifter</h2>
+                <p class="story-description">Cyberpunk street racing meets underground hacking. Build your crew, upgrade your ride, and take down the megacorp that owns the city.</p>
+                <div class="story-tags">
+                    <span class="tag">Cyberpunk</span>
+                    <span class="tag">Action</span>
+                    <span class="tag">Crew Building</span>
+                </div>
+                <div class="story-progress">
+                    <div class="progress-label">
+                        <span>Completion</span>
+                        <span>0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+                <button class="story-link disabled">Concept Phase</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="how-content">
+            <h2>How Interactive Stories Work</h2>
+            <div class="how-grid">
+                <div class="how-card">
+                    <div class="how-icon">📖</div>
+                    <h3>Read & Choose</h3>
+                    <p>Each chapter presents you with meaningful choices that impact the narrative.</p>
+                </div>
+                <div class="how-card">
+                    <div class="how-icon">🎭</div>
+                    <h3>Shape the Journey</h3>
+                    <p>Your decisions affect relationships, available paths, and story outcomes.</p>
+                </div>
+                <div class="how-card">
+                    <div class="how-icon">🔄</div>
+                    <h3>Replay Value</h3>
+                    <p>Multiple playthroughs reveal different perspectives and endings.</p>
+                </div>
+                <div class="how-card">
+                    <div class="how-icon">💾</div>
+                    <h3>Auto-Save</h3>
+                    <p>Your progress is saved automatically. Pick up where you left off anytime.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -206,7 +159,7 @@
     <!-- Footer -->
     <footer class="main-footer">
         <div class="footer-content">
-            <p>&copy; 2026 Once Upon A Dice. Built on Alma + Nginx.</p>
+            <p>&copy; 2026 Hyperbaby Games. Built on Alma + Nginx.</p>
             <div class="footer-links">
                 <a href="/shop.html">Store</a>
                 <a href="/contact.html">Contact</a>
@@ -215,7 +168,6 @@
         </div>
     </footer>
 
-    <script src="scripts/main.js"></script>
+    <script src="../scripts/main.js"></script>
 </body>
 </html>
-

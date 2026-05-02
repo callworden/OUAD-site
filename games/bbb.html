@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoneRow - Once Upon A Dice</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/game-detail.css">
+    <link rel="stylesheet" href="../styles/image-gallery.css">
+    <link rel="stylesheet" href="../styles/mobile-fixes.css">
+    <link rel="stylesheet" href="../styles/rebrand.css">
+	<link rel="stylesheet" href="../styles/deck-display.css">
+	<link rel="stylesheet" href="../styles/card-lightbox.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="../images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
+            </a>
+                                    <div class="nav-links">
+                <a href="/" >Home</a>
+                <a href="/games.html" class="active">Games</a>
+                <!-- <a href="/shop.html">Shop</a> -->
+                <a href="/events.html">Events</a>
+                <a href="/news.html">News</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Game Hero -->
+    <section class="game-hero">
+        <div class="hero-content">
+            <div class="breadcrumb">
+                <a href="/games.html">← Back to Games</a>
+            </div>
+            <div class="hero-grid">
+                
+                <!-- IMAGE GALLERY SECTION -->
+                <div class="hero-image-section">
+                    <!-- Main Display Image -->
+                    <div class="main-image-container">
+                        <img src="../images/games/bbb/bounce-bunny-card.jpg" alt="StoneRow" id="mainImage" class="main-image">
+                        
+                        <!-- Navigation Arrows -->
+                        <button class="gallery-nav prev" id="prevImage" aria-label="Previous image">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <button class="gallery-nav next" id="nextImage" aria-label="Next image">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                        
+                        <!-- Optional Image Counter -->
+                        <div class="image-counter"></div>
+                    </div>
+                    
+                    <!-- Thumbnail Gallery -->
+                    <div class="thumbnail-gallery">
+                        <div class="thumbnail-container" id="thumbnailContainer">
+                            <button class="thumbnail active" data-image="../images/games/bbb/bb1.png" data-alt="StoneRow Box">
+                                <img src="../images/games/bbb/bb1.png" alt="Box">
+                            </button>
+                            <button class="thumbnail" data-image="../images/games/bbb/bb2.png" data-alt="Player Cards">
+                                <img src="../images/games/bbb/bb2.png" alt="Box">
+                            </button>
+                            <button class="thumbnail" data-image="../images/games/bbb/bb3.png" data-alt="Stone Tokens">
+                                <img src="../images/games/bbb/bb3.png" alt="Box">
+                            </button>
+
+                        </div>
+                    </div>
+                    
+                    <div class="status-badge" style="background: rgba(0, 255, 136, 0.9); border-color: rgba(0, 255, 136, 1); color: #000;">Available Now</div>
+                </div>
+                
+                <!-- GAME INFO SECTION -->
+                <div class="hero-info">
+                    <h1>Bounce Bunny Bounce</h1>
+                    <p class="game-subtitle">Radioactive Carrot Chaos!</p>
+                    
+                    <div class="quick-stats">
+                        <div class="stat">
+                            <span class="stat-icon">👥</span>
+                            <span class="stat-label">Players</span>
+                            <span class="stat-value">2</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">⏱️</span>
+                            <span class="stat-label">Time</span>
+                            <span class="stat-value">15-20 min</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">🎯</span>
+                            <span class="stat-label">Age</span>
+                            <span class="stat-value">8+</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">🎲</span>
+                            <span class="stat-label">Complexity</span>
+                            <span class="stat-value">Light</span>
+                        </div>
+                    </div>
+
+                    <div class="game-description">
+                        <p>Bounce Bunny Bounce is a two-player, fast-paced strategy game with an element of memory. The object of the game is to collect the most carrots but in order to win, you'll need to avoid some hazards along the way!</p>
+                        <p>Using this unique deck of cards to form the field of play, your Bunny will Bounce across the field in search of carrots while avoiding traps and dead-ends. There is also a chance for mischief as each player is equipped with Shock cards that can be used to Bounce your Bunny into danger.</p>
+						<p>This easy-to-learn and fun-to-play game is a great choice for folks who are short on time and looking for a game they can Bounce into quickly.</p>
+                    </div>
+
+                    <div class="game-features">
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>✓ 43 custom cards</li>
+                            <li>✓ Rich, full-color art</li>
+                            <li>✓ Learn in just 5 minutes!</li>
+                        </ul>
+                    </div>
+
+                    <div class="cta-buttons">
+                        <a href="https://www.drivethrucards.com/en/product/336921/bounce-bunny-bounce?src=hottest_filtered" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large btn-animated-border">Buy Now-$15</a>
+                        <a href="https://dtrpg-public-files.s3.us-east-2.amazonaws.com/custom_previews/14404/336921.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Official Rules</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<!-- How to Play Section -->
+	<section class="how-to-play">
+		<div class="section-content">
+			<h2>How to Play</h2>
+			<div class="how-to-play-video-container">
+				<iframe
+					src="https://www.youtube.com/embed/DcPJfssyt6U"
+					title="How to Play Bounce Bunny Bounce"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					allowfullscreen
+				></iframe>
+			</div>
+		</div>
+	</section>
+
+	<!-- What's in the Deck Section -->
+<section class="whats-in-deck">
+    <div class="section-content">
+        <h2>What's in the Deck</h2>
+
+        <div class="deck-cards-container">
+
+            <!-- Bounce Bunny Bounce Cards (12) -->
+            <div class="deck-cards active" id="bbb-cards">
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0000_stop.jpg" alt="Stop" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0001_spy.jpg" alt="Spy" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0002_shock-up.jpg" alt="Shock Up" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0003_shock-r.jpg" alt="Shock Right" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0004_shock-player.jpg" alt="Shock Player" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0005_shock-l.jpg" alt="Shock Left" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0006_shock-down.jpg" alt="Shock Down" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0007_shock-bonus.jpg" alt="Shock Bonus" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0008_rabbit-david.jpg" alt="Rabbit David" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0009_rabbit-d.jpg" alt="Rabbit D" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0010_carrot5.jpg" alt="Carrot 5" loading="lazy"></div>
+                <div class="card-item"><img src="../images/games/bbb/gallery/card-swap_0011_Background.jpg" alt="Card Back" loading="lazy"></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Once Upon A Dice. Built on Alma + Nginx.</p>
+            <div class="footer-links">
+                <a href="/shop.html">Store</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/press.html">Press Kit</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../scripts/image-gallery.js"></script>
+	<script src="../scripts/deck-display.js"></script>
+	<script src="../scripts/card-lightbox.js"></script>
+	<!-- Scroll to top on page load -->
+    <script>
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+</body>
+</html>
+

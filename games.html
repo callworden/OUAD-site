@@ -19,8 +19,9 @@
             <div class="nav-links">
                 <a href="/">Home</a>
                 <a href="/games.html" class="active">Games</a>
-                <a href="/stories.html">Stories</a>
-                <a href="/shop.html">Shop</a>
+                <!-- <a href="/shop.html">Shop</a> -->
+                <a href="/events.html">Events</a>
+                <a href="/news.html">News</a>
                 <a href="/about.html">About</a>
                 <a href="/contact.html">Contact</a>
             </div>
@@ -42,23 +43,15 @@
                 <label>Filter by:</label>
                 <button class="filter-btn active" data-filter="all">All Games</button>
                 <button class="filter-btn" data-filter="card-game">Card Game</button>
-                <button class="filter-btn" data-filter="digital">Digital Game</button>
+				<button class="filter-btn" data-filter="book">Book</button>
+				<button class="filter-btn" data-filter="coop">Co-op</button>
+                <button class="filter-btn" data-filter="digital">Digital</button>
                 <button class="filter-btn" data-filter="fantasy">Fantasy</button>
-                <button class="filter-btn" data-filter="coop">Co-op</button>
                 <button class="filter-btn" data-filter="horror">Horror</button>
-                <button class="filter-btn" data-filter="book">Books</button>
-                <button class="filter-btn" data-filter="single-player">Single Player</button>
-                <button class="filter-btn" data-filter="steampunk">Steampunk</button>
+                <button class="filter-btn" data-filter="family">Kids</button>
+				<button class="filter-btn" data-filter="steampunk">Steampunk</button>                                
                 <button class="filter-btn" data-filter="strategy">Strategy</button>
-            </div>
-            <div class="sort-group">
-                <label>Sort by:</label>
-                <select id="sortSelect">
-                    <option value="featured">Featured</option>
-                    <option value="name">Name (A-Z)</option>
-                    <option value="players">Player Count</option>
-                    <option value="playtime">Play Time</option>
-                </select>
+				
             </div>
         </div>
     </section>
@@ -66,150 +59,171 @@
     <!-- Games Grid -->
     <section class="games-section">
         <div class="games-grid" id="gamesGrid">
-            
-            <!-- Game Card 1: Blood Moon Rising -->
-			
-            <div class="game-card" data-categories="card-game coop horror strategy" data-players="2-4" data-playtime="45">
-                <div class="game-image">
-					<a href="/games/blood-moon-rising.html" >
-                    <img src="images/games/blood-moon-card.jpg" alt="Blood Moon Rising">
-					</a>
-                    <div class="game-status">In Development</div>
-                </div>
-                <div class="game-info">
-                    <h3>Blood Moon Rising</h3>
-                    <p class="game-tagline">A horror castle crawl set in Dracula's domain</p>
-                    <div class="game-meta">
-                        <div class="meta-item">
-                            <span class="meta-icon">👥</span>
-                            <span>2-4 Players</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">⏱️</span>
-                            <span>45-60 min</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">🎯</span>
-                            <span>Ages 14+</span>
-                        </div>
-                    </div>
-                    <div class="game-tags">
-                        <span class="tag">Card Game</span>
-                        <span class="tag">Horror</span>
-                        <span class="tag">Co-op</span>
-                        <span class="tag">Strategy</span>
-                    </div>
-                    <div class="game-actions">
-                        <a href="/games/blood-moon-rising.html" class="btn btn-primary">Learn More</a>
-                        <a href="/shop.html?game=blood-moon-rising" class="btn btn-secondary">Pre-Order</a>
-                    </div>
-                </div>
-            </div>
-			
 
-            <!-- Game Card 2: Her Majesty's Airships -->
+            <!-- ── Available ──────────────────────────── -->
+
+            <!-- Her Majesty's Airships -->
             <div class="game-card" data-categories="card-game coop steampunk strategy" data-players="2-4" data-playtime="30">
                 <div class="game-image">
-					<a href="/games/her-majestys-airships.html" >
+                    <a href="/games/her-majestys-airships.html">
                     <img src="images/games/her-majesty-airship-card.jpg" alt="Her Majesty's Royal Airships">
-					</a>
-                    <div class="game-status prototype">Prototype</div>
+                    </a>
+                    <div class="game-status available">Available</div>
                 </div>
                 <div class="game-info">
                     <h3>Her Majesty's Airships</h3>
                     <p class="game-tagline">A steampunk cooperative card game of sabotage, strategy, and survival aboard a royal airship.</p>
                     <div class="game-meta">
-                        <div class="meta-item">
-                            <span class="meta-icon">👥</span>
-                            <span>2-4 Players</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">⏱️</span>
-                            <span>30-40 min</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">🎯</span>
-                            <span>Ages 12+</span>
-                        </div>
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>2-4 Players</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>30-40 min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 12+</span></div>
                     </div>
                     <div class="game-tags">
                         <span class="tag">Card Game</span>
-                        <span class="tag">Co-op</span>
-                        <span class="tag">Steampunk</span>
-                        <span class="tag">Strategy</span>
+						<span class="tag">Co-op</span>
+						<span class="tag">Fantasy</span>
+						<span class="tag">Steampunk</span>
+						 <span class="tag">Strategy</span>
+
                     </div>
                     <div class="game-actions">
-                        <a href="/games/her-majestys-airships.html" class="btn btn-primary">Learn More</a>
-                        <button class="btn btn-secondary" disabled>Coming Soon</button>
+                        <a href="/games/her-majestys-airships.html" class="btn btn-secondary">Learn More</a>
+                        <a href="https://www.drivethrucards.com/en/product/429835/her-majesty-s-airships-the-aerosphere?src=hottest_filtered" class="btn btn-primary btn-large btn-animated-border">Buy Now-$25</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Game Card 3: StoneRow -->
+            <!-- StoneRow -->
             <div class="game-card" data-categories="card-game fantasy kid-friendly" data-players="2" data-playtime="20">
                 <div class="game-image">
-					<a href="/games/stonerow.html" >
-                    <img src="images/games/stonerow-white-card.jpg" alt="StoneRow: Grinding Gears">
-					</a>
+                    <a href="/games/stonerow.html">
+                    <img src="images/games/stonerow-white-card.jpg" alt="StoneRow">
+                    </a>
                     <div class="game-status available">Available</div>
                 </div>
                 <div class="game-info">
                     <h3>StoneRow</h3>
                     <p class="game-tagline">A medieval tower-building card game of guild rivalry. Simple rules, fast fun, four unique guilds.</p>
                     <div class="game-meta">
-                        <div class="meta-item">
-                            <span class="meta-icon">👥</span>
-                            <span>2 Players</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">⏱️</span>
-                            <span>15-20 min</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">🎯</span>
-                            <span>Ages 10+</span>
-                        </div>
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>2 Players</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>15-20 min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 10+</span></div>
                     </div>
                     <div class="game-tags">
                         <span class="tag">Card Game</span>
-                        <span class="tag">Fantasy</span>
-                        <span class="tag">Kid Friendly</span>
+						<span class="tag">Fantasy</span>
+						<span class="tag">Kids</span>
+
                     </div>
                     <div class="game-actions">
-                        <a href="/games/stonerow.html" class="btn btn-primary">Learn More</a>
-                        <a href="/shop.html?game=stonerow" class="btn btn-secondary">Buy Now - $15</a>
+                        <a href="/games/stonerow.html" class="btn btn-secondary">Learn More</a>
+                        <a href="https://www.drivethrucards.com/en/product/270284/stonerow-grinding-gears-edition?src=hottest_filtered" class="btn btn-primary btn-large btn-animated-border">Buy Now-$25</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Game Card 4: Blood Moon Chronicles: Banishment -->
-            <div class="game-card" data-categories="book horror fantasy" data-players="1" data-playtime="60">
+            <!-- Bounce Bunny Bounce -->
+            <div class="game-card" data-categories="card-game family kid-friendly" data-players="2" data-playtime="15">
                 <div class="game-image">
-                    <div class="game-status">Coming Soon</div>
-                    <img src="images/games/blood-moon-card.jpg" alt="Blood Moon Chronicles: Banishment" style="opacity:0.6;filter:grayscale(30%);">
+					<a href="/games/bbb.html">
+                    <img src="images/games/bounce-bunny-card.jpg" alt="Bounce Bunny Bounce">
+					</a>
+                    <div class="game-status available">Available</div>
                 </div>
                 <div class="game-info">
-                    <h3>Blood Moon Chronicles: Banishment</h3>
+                    <h3>Bounce Bunny Bounce</h3>
+                    <p class="game-tagline">A carrot finding competition for 2 players. Easy to learn but hard to stop playing!</p>
+                    <div class="game-meta">
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>2 Players</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>10-20 min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 8+</span></div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Card Game</span>
+                        <span class="tag">Fantasy</span>
+                        <span class="tag">Kids</span>
+                    </div>
+                    <div class="game-actions">
+                        <a href="/games/bbb.html" class="btn btn-secondary">Learn More</a>
+                        <a href="https://www.drivethrucards.com/en/product/336921/bounce-bunny-bounce?src=hottest_filtered" class="btn btn-primary btn-large btn-animated-border">Buy Now-$15</a>
+                    </div>
+                </div>
+            </div>
+			<div class="game-card" data-categories="card-game family kid-friendly steampunk" data-players="2" data-playtime="15">
+                <div class="game-image">
+					<a href="/games/steampunk-poker.html">
+                    <img src="images/games/52poker.jpg" alt="Steampunk Poker Deck">
+                    <div class="game-status available">Available</div>
+					</a>
+                </div>
+                <div class="game-info">
+                    <h3>Steampunk Poker Deck</h3>
+                    <p class="game-tagline">Our custom Steampunk Poker Deck. Beautiful art, and infinite games! Great as a gift for gamers who have everything!</p>
+                    <div class="game-meta">
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>Any</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>Any</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Any</span></div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Card Game</span>
+                        <span class="tag">Steampunk</span>                       
+                    </div>
+                    <div class="game-actions">
+                        <a href="/games/steampunk-poker.html" class="btn btn-secondary">Learn More</a>
+                        <a href="https://www.drivethrucards.com/en/product/429164/her-majesty-s-airships-52-card-poker-deck?src=hottest_filtered" class="btn btn-primary btn-large btn-animated-border">Buy Now-$15</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── In Development ─────────────────────── -->
+
+            <!-- Blood Moon Rising -->
+            <div class="game-card game-card--dev" data-categories="card-game coop horror strategy" data-players="2-4" data-playtime="45">
+                <div class="game-image">
+                    <a href="/games/blood-moon-rising.html">
+                    <img src="images/games/blood-moon-card.jpg" alt="Blood Moon Rising" class="img-dev">
+                    </a>
+                    <div class="game-dev-ribbon">In Development</div>
+                </div>
+                <div class="game-info">
+                    <h3>Blood Moon Rising</h3>
+                    <p class="game-tagline">A cooperative horror castle crawl card game set in Dracula's domain. Work together to survive!</p>
+                    <div class="game-meta">
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>2-4 Players</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>45-60 min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 14+</span></div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Card Game</span>
+						 <span class="tag">Co-op</span>
+                        <span class="tag">Horror</span>
+                        <span class="tag">Strategy</span>
+                    </div>
+                    <div class="game-actions">
+                        <a href="/games/blood-moon-rising.html" class="btn btn-primary">Learn More</a>                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blood Moon Chronicles: Banishment -->
+            <div class="game-card game-card--dev" data-categories="book horror fantasy" data-players="1" data-playtime="60">
+                <div class="game-image">
+                    <img src="images/games/blood-moon-card.jpg" alt="Blood Moon Chronicles: Banishment" class="img-dev">
+                    <div class="game-dev-ribbon">In Development</div>
+                </div>
+                <div class="game-info">
+                    <h3>Blood Moon Chronicles</h3>
                     <p class="game-tagline">An interactive story set in the world of Blood Moon Rising. Your choices shape the outcome.</p>
                     <div class="game-meta">
-                        <div class="meta-item">
-                            <span class="meta-icon">👤</span>
-                            <span>1 Player</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">⏱️</span>
-                            <span>60+ min</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">🎯</span>
-                            <span>Ages 14+</span>
-                        </div>
+                        <div class="meta-item"><span class="meta-icon">👤</span><span>1 Player</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>60+ min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 14+</span></div>
                     </div>
                     <div class="game-tags">
                         <span class="tag">Book</span>
-                        <span class="tag">Horror</span>
-                        <span class="tag">Physical &amp; Digital</span>
-                        <span class="tag">Interactive</span>
+						<span class="tag">Digital</span>
+                        <span class="tag">Horror</span> 
+						<span class="tag">Strategy</span> 	
                     </div>
                     <div class="game-actions">
                         <button class="btn btn-primary" disabled>Coming Soon</button>
@@ -217,55 +231,11 @@
                 </div>
             </div>
 
-            <!-- Game Card 5: Bounce Bunny Bounce -->
-            <div class="game-card" data-categories="card-game family kid-friendly" data-players="2" data-playtime="15">
-                <div class="game-image">
-                    <img src="images/games/bounce-bunny-card.jpg" alt="Bounce Bunny Bounce">
-                    <div class="game-status available">Available</div>
-                </div>
-                <div class="game-info">
-                    <h3>Bounce Bunny Bounce</h3>
-                    <p class="game-tagline">A carrot finding competition for 2 players. Easy to learn but hard to stop playing!</p>
-                    <div class="game-meta">
-                        <div class="meta-item">
-                            <span class="meta-icon">👥</span>
-                            <span>2 Players</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">⏱️</span>
-                            <span>10-20 min</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-icon">🎯</span>
-                            <span>Ages 8+</span>
-                        </div>
-                    </div>
-                    <div class="game-tags">
-                        <span class="tag">Card Game</span>
-                        <span class="tag">Family</span>
-                        <span class="tag">Kid Friendly</span>
-                    </div>
-                    <div class="game-actions">
-                        <a href="/shop.html?game=bounce-bunny-bounce" class="btn btn-secondary">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </section>
 
     <!-- Design Philosophy -->
     <section class="ouad-philosophy">
         <div class="ouad-philosophy__inner">
-
-            <header class="ouad-philosophy__header">
-                <p class="ouad-philosophy__eyebrow">Why We Make Games</p>
-                <blockquote class="ouad-philosophy__manifesto">
-                    We make games for people like us — story lovers, atmosphere chasers,
-                    and anyone who believes the best night of the week ends around a table
-                    with people they care about.
-                </blockquote>
-            </header>
 
             <div class="ouad-philosophy__grid">
 
@@ -303,6 +273,41 @@
         </div>
 
         <style>
+            /* Override default red game-status pill for In Development / Coming Soon */
+            .game-status:not(.prototype):not(.available) {
+                background: linear-gradient(135deg, rgba(15,10,30,0.92), rgba(35,20,60,0.88));
+                border: 1px solid rgba(180,140,255,0.25);
+                color: rgba(210,190,255,0.85);
+                backdrop-filter: blur(6px);
+            }
+            /* Shared ribbon banner for in-dev cards on games page */
+            .game-dev-ribbon {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 0.4rem 1rem;
+                background: linear-gradient(to right, rgba(10,8,20,0.93), rgba(30,20,50,0.9));
+                border-top: 1px solid rgba(180,140,255,0.2);
+                font-size: 0.62rem;
+                font-weight: 600;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: rgba(200,180,255,0.78);
+                text-align: center;
+                backdrop-filter: blur(4px);
+                z-index: 2;
+            }
+            /* Greyscale treatment for in-dev card images */
+            .img-dev {
+                opacity: 0.58;
+                filter: grayscale(28%) brightness(0.85);
+                transition: opacity 0.3s, filter 0.3s;
+            }
+            .game-card--dev:hover .img-dev {
+                opacity: 0.72;
+                filter: grayscale(15%) brightness(0.9);
+            }
             .ouad-philosophy {
                 padding: 6rem 1.5rem;
                 font-family: 'Jost', sans-serif;

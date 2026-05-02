@@ -66,8 +66,8 @@
             return Array.from(document.querySelectorAll('.deck-cards img'));
         }
         
-        // Get only images from the active deck
-        return Array.from(activeDeck.querySelectorAll('.card-item img'));
+        // Get only images from the active deck, excluding hidden/unrevealed cards
+        return Array.from(activeDeck.querySelectorAll('.card-item:not(.card-hidden) img'));
     }
 
     // Attach click handlers to card images
@@ -91,6 +91,11 @@
         e.stopPropagation();
         
         const clickedImage = e.target;
+        
+        // Don't open lightbox for hidden/unrevealed cards
+        if (clickedImage.closest('.card-item') && clickedImage.closest('.card-item').classList.contains('card-hidden')) {
+            return;
+        }
         
         // Get images from ONLY the active category
         allImages = getActiveImages();

@@ -243,6 +243,33 @@
             color: #cc88ff;
         }
 
+        .badge-fair {
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #d4af37;
+        }
+
+        .badge-visiting {
+            background: rgba(106, 172, 204, 0.12);
+            border: 1px solid rgba(106, 172, 204, 0.3);
+            color: #6aaccc;
+        }
+
+        .event-card-actions {
+            margin-top: var(--spacing-sm);
+        }
+
+        .event-link {
+            font-size: 0.82rem;
+            color: rgba(212, 175, 55, 0.75);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            transition: color 0.2s;
+        }
+
+        .event-link:hover { color: var(--brand-gold); }
+
         .event-card h3 {
             font-size: 1.25rem;
             margin-bottom: var(--spacing-xs);
@@ -344,10 +371,10 @@
             <a href="/" class="logo">
                 <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
             </a>
-                                    <div class="nav-links">
-                <a href="/" >Home</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
                 <a href="/games.html">Games</a>
-                <a href="/shop.html">Shop</a>
+                <!-- <a href="/shop.html">Shop</a> -->
                 <a href="/events.html" class="active">Events</a>
                 <a href="/news.html">News</a>
                 <a href="/about.html">About</a>
@@ -368,96 +395,123 @@
     <div class="events-filters">
         <button class="filter-btn active" data-filter="all">All Events</button>
         <button class="filter-btn" data-filter="convention">Conventions</button>
-        <button class="filter-btn" data-filter="gamenight">Game Nights</button>
-        <button class="filter-btn" data-filter="demo">Store Demos</button>
-        <button class="filter-btn" data-filter="online">Online</button>
+        <button class="filter-btn" data-filter="fair-market">Fairs &amp; Markets</button>
+        <button class="filter-btn" data-filter="just-visiting">Just Visiting</button>
+        <button class="filter-btn" data-filter="book-promo">Book Promotion</button>
     </div>
 
     <!-- Timeline -->
     <section class="events-timeline">
 
-        <!-- UPCOMING -->
+        <!-- MAY -->
         <div class="month-divider">
             <span class="month-label">May 2026</span>
         </div>
 
-        <div class="event-item" data-type="convention">
+        <div class="event-item" data-type="fair-market">
             <div class="event-card featured">
-                <span class="event-type-badge badge-convention">Convention</span>
-                <h3>Geekway to the West</h3>
-                <p class="event-date">May 14 – 17, 2026</p>
-                <p class="event-desc">Demoing StoneRow and Her Majesty's Airships. Stop by for open play sessions and pick up convention-exclusive promo cards.</p>
-                <span class="event-location">📍 St. Charles Convention Center, MO</span>
+                <span class="event-type-badge badge-fair">Fair · Market</span>
+                <h3>Madison Night Market</h3>
+                <p class="event-date">May 14, 2026</p>
+                <p class="event-desc">Come find us on State Street! We'll have games available for demo and purchase, plus some surprises.</p>
+                <span class="event-location">📍 State Street, Madison WI</span>
+                <div class="event-card-actions">
+                    <a href="https://visitdowntownmadison.com/events/madison-night-market" target="_blank" rel="noopener" class="event-link">Event Info →</a>
+                </div>
             </div>
             <div class="event-date-marker"><span class="date-dot upcoming"></span></div>
             <div class="event-spacer"></div>
         </div>
 
-        <div class="event-item" data-type="demo">
-            <div class="event-spacer"></div>
-            <div class="event-date-marker"><span class="date-dot upcoming"></span></div>
-            <div class="event-card">
-                <span class="event-type-badge badge-demo">Store Demo</span>
-                <h3>Game Night at Board Game Barrister</h3>
-                <p class="event-date">May 24, 2026</p>
-                <p class="event-desc">Teaching Bounce Bunny Bounce and StoneRow to new players. Free to attend, all ages welcome.</p>
-                <span class="event-location">📍 Board Game Barrister, Greenfield WI</span>
-            </div>
-        </div>
-
+        <!-- JUNE -->
         <div class="month-divider">
             <span class="month-label">June 2026</span>
         </div>
 
-        <div class="event-item" data-type="gamenight">
-            <div class="event-card">
-                <span class="event-type-badge badge-gamenight">Game Night</span>
-                <h3>Central WI Game Night</h3>
-                <p class="event-date">June 7, 2026</p>
-                <p class="event-desc">Monthly open game night. Bring your own games or try ours. All skill levels welcome.</p>
-                <span class="event-location">📍 Wisconsin Rapids, WI</span>
-            </div>
-            <div class="event-date-marker"><span class="date-dot upcoming"></span></div>
-            <div class="event-spacer"></div>
-        </div>
-
-        <div class="event-item" data-type="convention">
+        <div class="event-item" data-type="fair-market">
             <div class="event-spacer"></div>
             <div class="event-date-marker"><span class="date-dot upcoming"></span></div>
             <div class="event-card featured">
-                <span class="event-type-badge badge-convention">Convention</span>
-                <h3>Origins Game Fair</h3>
-                <p class="event-date">June 17 – 21, 2026</p>
-                <p class="event-desc">Full booth presence with demos of all three titles. Exclusive convention bundle pricing available.</p>
-                <span class="event-location">📍 Greater Columbus Convention Center, OH</span>
+                <span class="event-type-badge badge-fair">Fair · Market</span>
+                <h3>ArtJune Art Fair</h3>
+                <p class="event-date">June 20, 2026</p>
+                <p class="event-desc">We're heading to Baraboo for the ArtJune Art Fair. Games, demos, and good vibes in downtown Baraboo.</p>
+                <span class="event-location">📍 Baraboo, WI</span>
+                <div class="event-card-actions">
+                    <a href="https://www.facebook.com/artjuneartfair/" target="_blank" rel="noopener" class="event-link">Event Info →</a>
+                </div>
             </div>
         </div>
 
+        <!-- JULY -->
         <div class="month-divider">
-            <span class="month-label">August 2026</span>
+            <span class="month-label">July 2026</span>
+        </div>
+
+        <div class="event-item" data-type="just-visiting">
+            <div class="event-card">
+                <span class="event-type-badge badge-visiting">Just Visiting</span>
+                <h3>Shoreleave 46</h3>
+                <p class="event-date">July 10–12, 2026</p>
+                <p class="event-desc">We'll be attending Shoreleave 46 as fans this year — come say hi if you spot us! No booth, just good company.</p>
+                <span class="event-location">📍 Lancaster Wyndham Resort &amp; Convention Center, PA</span>
+            </div>
+            <div class="event-date-marker"><span class="date-dot upcoming"></span></div>
+            <div class="event-spacer"></div>
         </div>
 
         <div class="event-item" data-type="convention">
+            <div class="event-spacer"></div>
+            <div class="event-date-marker"><span class="date-dot upcoming"></span></div>
             <div class="event-card featured">
                 <span class="event-type-badge badge-convention">Convention</span>
                 <h3>Gen Con</h3>
-                <p class="event-date">August 6 – 9, 2026</p>
-                <p class="event-desc">The big one. Full catalog on display with tournament play, open demos, and potential sneak peeks at new titles.</p>
+                <p class="event-date">July 30 – August 2, 2026</p>
+                <p class="event-desc">The biggest tabletop convention in North America. Come find us on the floor for demos, exclusives, and a chance to play everything we make.</p>
                 <span class="event-location">📍 Indiana Convention Center, Indianapolis IN</span>
+                <div class="event-card-actions">
+                    <a href="https://www.gencon.com/" target="_blank" rel="noopener" class="event-link">Event Info →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOVEMBER -->
+        <div class="month-divider">
+            <span class="month-label">November 2026</span>
+        </div>
+
+        <div class="event-item" data-type="convention">
+            <div class="event-card featured">
+                <span class="event-type-badge badge-convention">Convention</span>
+                <h3>TeslaCon 2026</h3>
+                <p class="event-date">November 12–15, 2026</p>
+                <p class="event-desc">The premier steampunk immersive convention. A perfect fit for Her Majesty's Airships — come play it in style.</p>
+                <span class="event-location">📍 Marriott Madison West, WI</span>
+                <div class="event-card-actions">
+                    <a href="https://teslacon.com/" target="_blank" rel="noopener" class="event-link">Event Info →</a>
+                </div>
             </div>
             <div class="event-date-marker"><span class="date-dot upcoming"></span></div>
             <div class="event-spacer"></div>
         </div>
 
-        <div class="event-item" data-type="online">
+        <!-- RECURRING -->
+        <div class="month-divider">
+            <span class="month-label">May – October · Recurring</span>
+        </div>
+
+        <div class="event-item" data-type="fair-market">
             <div class="event-spacer"></div>
-            <div class="event-date-marker"><span class="date-dot upcoming"></span></div>
+            <div class="event-date-marker"><span class="date-dot" style="background:rgba(255,255,255,0.3);box-shadow:0 0 0 2px rgba(255,255,255,0.2);"></span></div>
             <div class="event-card">
-                <span class="event-type-badge badge-online">Online</span>
-                <h3>Tabletop Simulator Game Night</h3>
-                <p class="event-date">August 22, 2026</p>
-                <p class="event-desc">Can't make it in person? Join us on Tabletop Simulator for an evening of StoneRow and HMA. Free to join.</p>
-                <span class="event-location">🌐 Steam / Tabletop Simulator</span>
+                <span class="event-type-badge badge-fair">Fair · Market</span>
+                <h3>Madison Night Markets</h3>
+                <p class="event-date">Multiple dates · May – October 2026</p>
+                <p class="event-desc">We'll be at multiple Madison Night Markets throughout the season. Specific dates TBA — follow us for announcements.</p>
+                <span class="event-location">📍 State Street, Madison WI</span>
+                <div class="event-card-actions">
+                    <a href="https://visitdowntownmadison.com/events/madison-night-market" target="_blank" rel="noopener" class="event-link">See all dates →</a>
+                </div>
             </div>
         </div>
 

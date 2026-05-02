@@ -1,0 +1,88 @@
+/* ============================================================
+   BLOOD MOON RISING — Card Reveal System
+   CSS overlay approach — no JS wrapping needed
+   Add "card-hidden" to any .card-item to hide it
+   Click to reveal. Remove class in HTML to show permanently.
+   ============================================================ */
+
+/* Hidden card — img stays in DOM but is invisible */
+.card-item.card-hidden {
+    position: relative;
+    cursor: pointer;
+}
+/* Hidden cards are not interactive — remove card-hidden in HTML to reveal */
+.card-item.card-hidden {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Hide the actual image — pointer events off so lightbox can't grab it */
+.card-item.card-hidden img {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Dark card back overlay */
+.card-item.card-hidden::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #1a0005 0%, #0d0008 50%, #1a0005 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(180, 0, 30, 0.35);
+    box-shadow: inset 0 0 30px rgba(180, 0, 30, 0.12);
+    z-index: 2;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ? mark overlay */
+.card-item.card-hidden::after {
+    content: '?';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    font-weight: 900;
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: rgba(210, 0, 30, 0.9);
+    text-shadow:
+        0 0 20px rgba(220, 0, 40, 0.8),
+        0 0 50px rgba(180, 0, 30, 0.4);
+    z-index: 3;
+    animation: bmr-pulse 2.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Hover state */
+.card-item.card-hidden:hover::before {
+    border-color: rgba(220, 0, 40, 0.65);
+    box-shadow:
+        inset 0 0 30px rgba(180, 0, 30, 0.22),
+        0 0 18px rgba(180, 0, 30, 0.18);
+}
+
+/* Pulse animation on the ? */
+@keyframes bmr-pulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50%       { opacity: 1;    transform: scale(1.1); }
+}
+
+/* Reveal animation — fades in when card-hidden is removed */
+.card-item.card-revealing img {
+    opacity: 0;
+    animation: bmr-reveal 0.5s ease forwards;
+}
+
+@keyframes bmr-reveal {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .card-item.card-hidden::after { animation: none; }
+    .card-item.card-revealing img { animation: none; opacity: 1; }
+}

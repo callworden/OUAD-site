@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Once Upon A Dice</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/pages.css">
+    <link rel="stylesheet" href="styles/rebrand.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LctDswsAAAAABCbWyymGiS4XXDBdDqVsafBMTPI"></script>-->
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/games.html">Games</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/events.html">Events</a>
+                <a href="/news.html">News</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html" class="active">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="header-content">
+            <h1>Get in Touch</h1>
+            <p>Questions about our games? Want to set up a demo at your convention or game store? We'd love to hear from you.</p>
+        </div>
+    </section>
+
+    <section class="contact-content">
+        <div class="contact-container">
+            <div class="contact-form-section">
+                <h2>Send us a Message</h2>
+
+                <div class="form-success" id="formSuccess" style="display:none;">
+                    <p>✓ Message sent! We'll get back to you within 24-48 hours.</p>
+                </div>
+
+                <div class="form-error" id="formError" style="display:none;">
+                    <p>⚠ Something went wrong. Please email us directly at <a href="mailto:hello@onceuponadice.com">hello@onceuponadice.com</a></p>
+                </div>
+
+                <!-- Netlify Forms — data-netlify="true" is all Netlify needs -->
+                <form
+                    class="contact-form"
+                    id="contactForm"
+                    name="contact"
+                    method="POST"
+                    data-netlify="true"
+                    netlify-honeypot="bot-field"
+                >
+                    <input type="hidden" name="form-name" value="contact">
+                    <!--<input type="hidden" name="g-recaptcha-response" id="recaptchaResponse">-->
+                    <p style="display:none;"><input name="bot-field"></p>
+
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Choose a topic...</option>
+                            <option value="Game Question">Game Question</option>
+                            <option value="Order Support">Order Support</option>
+                            <option value="Convention / Event">Convention / Event</option>
+                            <option value="Wholesale Inquiry">Wholesale Inquiry</option>
+                            <option value="Press / Media">Press / Media</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info-section">
+                <div class="info-box">
+                    <h3>Direct Contact</h3>
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div><strong>General</strong><p>hello@onceuponadice.com</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🛒</span>
+                        <div><strong>Shop Support</strong><p>shop@onceuponadice.com</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📰</span>
+                        <div><strong>Press Inquiries</strong><p>press@onceuponadice.com</p></div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <h3>Social Media</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><span>🐦</span><span>Twitter / X</span></a>
+                        <a href="#" class="social-link"><span>📘</span><span>Facebook</span></a>
+                        <a href="#" class="social-link"><span>📷</span><span>Instagram</span></a>
+                        <a href="#" class="social-link"><span>🎬</span><span>YouTube</span></a>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <h3>Response Time</h3>
+                    <p>We typically respond within 24-48 hours during business days. For order-related questions, please include your order number.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How long does shipping take?</h3>
+                    <p>In-stock items ship within 2 business days. US domestic shipping typically arrives in 3-5 business days. International shipping varies by location.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I demo your games?</h3>
+                    <p>Absolutely! If you run a game store, convention, or community event, contact us about demo copies and promotional materials.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you offer wholesale pricing?</h3>
+                    <p>Yes! Contact us at hello@onceuponadice.com with details about your store or organization for wholesale information.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I playtest upcoming games?</h3>
+                    <p>We love playtester feedback! Sign up for our newsletter to get notified about playtest opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Once Upon A Dice.</p>
+            <div class="footer-links">
+                <a href="/shop.html">Store</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/press.html">Press Kit</a>
+            </div>
+        </div>
+    </footer>
+
+	<script>
+	document.getElementById('contactForm').addEventListener('submit', function(e) {
+		e.preventDefault();
+
+		const form = e.target;
+		const btn = document.getElementById('submitBtn');
+
+		btn.textContent = 'Sending...';
+		btn.disabled = true;
+
+		const data = new FormData(form);
+
+		fetch('/contact.html', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: new URLSearchParams(data).toString()
+		})
+		.then(function(response) {
+			if (!response.ok) {
+				throw new Error('Form submission failed');
+			}
+
+			form.style.display = 'none';
+			document.getElementById('formSuccess').style.display = 'block';
+		})
+		.catch(function() {
+			btn.textContent = 'Send Message';
+			btn.disabled = false;
+			document.getElementById('formError').style.display = 'block';
+		});
+	});
+	</script>
+</body>
+</html>
