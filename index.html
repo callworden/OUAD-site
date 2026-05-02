@@ -448,6 +448,7 @@
 				})
 				.then(function(res) { return res.json(); })
 				.then(function(data) {
+					alert('Response: ' + JSON.stringify(data));
 					if (data.success) {
 						document.getElementById('newsletterForm').style.display = 'none';
 						document.getElementById('newsletterSuccess').style.display = 'block';
@@ -456,7 +457,8 @@
 						btn.disabled = false;
 					}
 				})
-				.catch(function() {
+				.catch(function(err) {
+					alert('Error: ' + err.message);
 					btn.textContent = 'Try Again';
 					btn.disabled = false;
 				});
