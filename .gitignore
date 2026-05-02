@@ -3,6 +3,9 @@
 *.ai
 *.indd
 *.xd
+snap.shot/
+*.old
+*.current
 
 # Other large files you never need in Git
 *.zip
