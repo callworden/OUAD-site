@@ -25,29 +25,6 @@ exports.handler = async function(event) {
         return { statusCode: 400, body: JSON.stringify({ error: "Invalid email address" }) };
     }
 
-    // Step 1 — Verify reCAPTCHA token with Google
-    try {
-        const verifyResponse = await fetch(
-            `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET}&response=${recaptchaToken}`,
-            { method: "POST" }
-        );
-        const verifyData = await verifyResponse.json();
-
-        // v3 returns a score 0.0 - 1.0. Below 0.5 is likely a bot
-        if (!verifyData.success || verifyData.score < 0.5) {
-            console.warn("reCAPTCHA failed:", verifyData);
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: "Failed bot check. Please try again." })
-            };
-        }
-    } catch(err) {
-        console.error("reCAPTCHA verification error:", err);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: "Could not verify reCAPTCHA" })
-        };
-    }
 
     // Step 2 — Add contact to Brevo
     try {
