@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found | Hyperbaby Games</title>
+    <title>404 - Page Not Found | Once Upon A Dice</title>
     <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/rebrand.css">
     <style>
         .error-container {
             max-width: 800px;
@@ -17,30 +18,26 @@
             justify-content: center;
             align-items: center;
         }
-        
         .error-code {
             font-size: 8rem;
             font-weight: 800;
             line-height: 1;
-            background: linear-gradient(135deg, var(--accent-red), var(--accent-blue));
+            background: linear-gradient(135deg, #8B2635, #D4AF37);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 1rem;
         }
-        
         .error-title {
             font-size: 2.5rem;
             margin-bottom: 1rem;
         }
-        
         .error-description {
             color: var(--text-secondary);
             font-size: 1.2rem;
             margin-bottom: 2rem;
             max-width: 600px;
         }
-        
         .error-links {
             display: flex;
             gap: 1rem;
@@ -50,10 +47,11 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="/" class="logo">Hyperbaby</a>
+            <a href="/" class="logo">
+                <img src="/images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
+            </a>
             <div class="nav-links">
                 <a href="/">Home</a>
                 <a href="/games.html">Games</a>
@@ -66,25 +64,23 @@
         </div>
     </nav>
 
-    <!-- Error Content -->
     <div class="error-container">
         <div class="error-code">404</div>
         <h1 class="error-title">Page Not Found</h1>
         <p class="error-description">
-            Looks like this page wandered off into the neutral territories. 
-            Maybe a crow stole it. Or a raven. Hard to say.
+            Looks like this page wandered off into Dracula's castle and never came back. 
+            Maybe a monster got it. Hard to say.
         </p>
         <div class="error-links">
             <a href="/" class="btn btn-primary">Return Home</a>
-            <a href="/stories.html" class="btn btn-secondary">Browse Stories</a>
             <a href="/games.html" class="btn btn-secondary">Browse Games</a>
+            <a href="/contact.html" class="btn btn-secondary">Contact Us</a>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="main-footer">
         <div class="footer-content">
-            <p>&copy; 2026 Hyperbaby Games. Built on Alma + Nginx.</p>
+            <p>&copy; 2026 Once Upon A Dice.</p>
             <div class="footer-links">
                 <a href="/shop.html">Store</a>
                 <a href="/contact.html">Contact</a>
