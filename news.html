@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="styles/pages.css">
     <link rel="stylesheet" href="styles/rebrand.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- marked.js for rendering markdown post bodies -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
@@ -125,11 +124,9 @@
             cursor: pointer;
         }
 
-        .news-card__read-more:hover {
-            color: #fff;
-        }
+        .news-card__read-more:hover { color: #fff; }
 
-        /* Modal / full post overlay */
+        /* Modal */
         .post-modal {
             display: none;
             position: fixed;
@@ -181,6 +178,36 @@
             color: #fff;
         }
 
+        /* Share link button */
+        .post-modal__share {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            background: none;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            padding: 0.35rem 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .post-modal__share:hover {
+            color: #c8941a;
+            border-color: rgba(200,148,26,0.3);
+        }
+
+        .post-modal__share.copied {
+            color: #4caf50;
+            border-color: rgba(76,175,80,0.3);
+        }
+
         .post-modal__category {
             font-family: 'Jost', sans-serif;
             font-size: 0.72rem;
@@ -204,7 +231,7 @@
             font-family: 'Jost', sans-serif;
             font-size: 0.82rem;
             color: rgba(255,255,255,0.35);
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .post-modal__featured-image {
@@ -231,16 +258,8 @@
         }
 
         .post-modal__content p { margin-bottom: 1rem; }
-
-        .post-modal__content a {
-            color: #c8941a;
-            text-decoration: underline;
-        }
-
-        .post-modal__content strong {
-            color: #fff;
-            font-weight: 500;
-        }
+        .post-modal__content a { color: #c8941a; text-decoration: underline; }
+        .post-modal__content strong { color: #fff; font-weight: 500; }
 
         .post-modal__divider {
             border: none;
@@ -248,7 +267,6 @@
             margin: 1.5rem 0;
         }
 
-        /* Empty state */
         .news-empty {
             text-align: center;
             padding: 6rem 2rem;
@@ -262,7 +280,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Loading state */
         .news-loading {
             text-align: center;
             padding: 4rem;
@@ -274,28 +291,21 @@
         }
 
         @media (max-width: 600px) {
-            .news-grid {
-                grid-template-columns: 1fr;
-                padding: 2rem 1rem;
-            }
-            .post-modal__inner {
-                padding: 1.5rem;
-            }
+            .news-grid { grid-template-columns: 1fr; padding: 2rem 1rem; }
+            .post-modal__inner { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">
             <a href="/" class="logo">
                 <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
             </a>
-                                    <div class="nav-links">
-                <a href="/" >Home</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
                 <a href="/games.html">Games</a>
-                <!-- <a href="/shop.html">Shop</a> -->
                 <a href="/events.html">Events</a>
                 <a href="/news.html" class="active">News</a>
                 <a href="/about.html">About</a>
@@ -304,7 +314,6 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
     <section class="page-header">
         <div class="header-content">
             <h1>News & Updates</h1>
@@ -312,27 +321,25 @@
         </div>
     </section>
 
-    <!-- News Grid -->
     <section>
         <div id="newsContainer">
             <div class="news-loading">Loading posts...</div>
         </div>
     </section>
 
-    <!-- Full Post Modal -->
     <div class="post-modal" id="postModal">
         <div class="post-modal__inner">
             <button class="post-modal__close" id="modalClose">✕</button>
             <div class="post-modal__category" id="modalCategory"></div>
             <h1 class="post-modal__title" id="modalTitle"></h1>
             <div class="post-modal__date" id="modalDate"></div>
+            <button class="post-modal__share" id="modalShare">🔗 Copy Link</button>
             <hr class="post-modal__divider">
             <img class="post-modal__featured-image" id="modalImage" src="" alt="" style="display:none;">
             <div class="post-modal__content" id="modalBody"></div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="main-footer">
         <div class="footer-content">
             <p>&copy; 2026 Once Upon A Dice.</p>
@@ -345,23 +352,31 @@
     <script>
     (function() {
 
+        var allPosts = [];
+
+        // Generate a URL-safe slug from a post title
+        function slugify(title) {
+            return (title || '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
         // Format date nicely
         function formatDate(dateStr) {
             try {
-                const d = new Date(dateStr + 'T12:00:00');
+                var d = new Date(dateStr + 'T12:00:00');
                 return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-            } catch(e) {
-                return dateStr;
-            }
+            } catch(e) { return dateStr; }
         }
 
-        // Open full post modal
+        // Open full post modal and update URL hash
         function openPost(post) {
             document.getElementById('modalCategory').textContent = post.category || '';
             document.getElementById('modalTitle').textContent = post.title || '';
             document.getElementById('modalDate').textContent = formatDate(post.date);
 
-            const img = document.getElementById('modalImage');
+            var img = document.getElementById('modalImage');
             if (post.image) {
                 img.src = post.image;
                 img.alt = post.title;
@@ -370,22 +385,44 @@
                 img.style.display = 'none';
             }
 
-            // Render markdown body
-            const bodyEl = document.getElementById('modalBody');
+            var bodyEl = document.getElementById('modalBody');
             if (post.body && typeof marked !== 'undefined') {
                 bodyEl.innerHTML = marked.parse(post.body);
             } else {
                 bodyEl.textContent = post.body || '';
             }
 
+            // Update URL hash and page title
+            var slug = slugify(post.title);
+            history.pushState({ slug: slug }, '', '#' + slug);
+            document.title = (post.title || 'Post') + ' — Once Upon A Dice';
+
+            // Wire up share button
+            var shareBtn = document.getElementById('modalShare');
+            shareBtn.className = 'post-modal__share';
+            shareBtn.textContent = '🔗 Copy Link';
+            shareBtn.onclick = function() {
+                var url = window.location.origin + '/news.html#' + slug;
+                navigator.clipboard.writeText(url).then(function() {
+                    shareBtn.textContent = '✓ Copied!';
+                    shareBtn.classList.add('copied');
+                    setTimeout(function() {
+                        shareBtn.textContent = '🔗 Copy Link';
+                        shareBtn.classList.remove('copied');
+                    }, 2000);
+                });
+            };
+
             document.getElementById('postModal').classList.add('open');
             document.body.style.overflow = 'hidden';
         }
 
-        // Close modal
+        // Close modal and clear hash
         function closeModal() {
             document.getElementById('postModal').classList.remove('open');
             document.body.style.overflow = '';
+            history.pushState({}, '', window.location.pathname);
+            document.title = 'News — Once Upon A Dice';
         }
 
         document.getElementById('modalClose').addEventListener('click', closeModal);
@@ -396,28 +433,39 @@
             if (e.key === 'Escape') closeModal();
         });
 
+        // Handle browser back button closing modal
+        window.addEventListener('popstate', function() {
+            if (!window.location.hash) {
+                document.getElementById('postModal').classList.remove('open');
+                document.body.style.overflow = '';
+                document.title = 'News — Once Upon A Dice';
+            }
+        });
+
         // Render all news cards
         function renderNews(posts) {
-            const container = document.getElementById('newsContainer');
+            var container = document.getElementById('newsContainer');
 
             if (!posts || posts.length === 0) {
                 container.innerHTML = '<div class="news-empty"><h3>No posts yet</h3><p>Check back soon for updates.</p></div>';
                 return;
             }
 
-            // Sort newest first
-            const sorted = posts.slice().sort(function(a, b) {
+            var sorted = posts.slice().sort(function(a, b) {
                 return new Date(b.date) - new Date(a.date);
             });
 
-            const grid = document.createElement('div');
+            allPosts = sorted;
+
+            var grid = document.createElement('div');
             grid.className = 'news-grid';
 
             sorted.forEach(function(post) {
-                const card = document.createElement('article');
+                var card = document.createElement('article');
                 card.className = 'news-card';
+                card.setAttribute('data-slug', slugify(post.title));
 
-                const imageHtml = post.image
+                var imageHtml = post.image
                     ? '<img class="news-card__image" src="' + post.image + '" alt="' + (post.title || '') + '">'
                     : '<div class="news-card__image-placeholder">📰</div>';
 
@@ -445,6 +493,15 @@
 
             container.innerHTML = '';
             container.appendChild(grid);
+
+            // Check for hash on load and auto-open matching post
+            var hash = window.location.hash.replace('#', '');
+            if (hash) {
+                var match = allPosts.find(function(p) {
+                    return slugify(p.title) === hash;
+                });
+                if (match) openPost(match);
+            }
         }
 
         // Fetch news data
@@ -465,7 +522,6 @@
     })();
     </script>
 
-    <!-- Netlify Identity redirect helper -->
     <script>
         if (window.netlifyIdentity) {
             window.netlifyIdentity.on("init", function(user) {
@@ -480,4 +536,3 @@
 
 </body>
 </html>
-
