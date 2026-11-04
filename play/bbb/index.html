@@ -103,8 +103,11 @@ details.rules li{margin-bottom:6px}
 .slot img,.pip img{width:100%;height:100%;object-fit:cover;display:block}
 .pip{width:26px;height:26px;border-radius:50%;border:2.5px solid var(--line);overflow:hidden;background:#fff}
 .pip:not(.on){opacity:.3;filter:grayscale(1)}
-.where{font-size:13px;color:var(--muted);margin-top:2px}
-.status{padding:12px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;min-height:58px}
+.where{font-size:13px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Fixed height so the board never shifts when the message or buttons change. */
+.status{padding:10px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;height:132px;overflow:hidden}
+.status .msg{flex:none;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.status .acts{flex:none;min-height:44px;align-items:center}
 .status .msg{font-weight:800;font-size:17px}
 .status .acts{display:flex;gap:8px}
 
@@ -121,20 +124,20 @@ details.rules li{margin-bottom:6px}
 .peek{outline:4px dashed var(--target);outline-offset:-4px}
 .eye{position:absolute;top:4px;right:4px;background:var(--target);border:2px solid var(--line);border-radius:999px;font-size:11px;font-weight:800;padding:0 6px;color:#141414}
 .bunny{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:84%;aspect-ratio:1;border-radius:50%;
-  border:3px solid var(--line);box-shadow:0 0 0 3px var(--pc),0 4px 0 3px var(--hard);z-index:3;overflow:hidden;background:var(--pc);animation:land .3s ease-out}
+  border:3px solid var(--line);box-shadow:0 0 0 3px var(--pc),0 4px 0 3px var(--hard);z-index:3;overflow:hidden;background:var(--pc)}
+.bunny.hop{animation:land .3s ease-out}
 .bunny img{width:100%;height:100%;object-fit:cover;display:block}
-.cell.occupied .card ~ .bunny{left:73%}
 .bunny.p0{--pc:var(--p0)} .bunny.p1{--pc:var(--p1)}
 @keyframes land{0%{transform:translate(-50%,-90%) scale(.9)}70%{transform:translate(-50%,-44%) scale(1.04)}100%{transform:translate(-50%,-50%)}}
 .cell.target .card,.cell.target .empty{box-shadow:0 0 0 4px var(--target),0 0 18px 4px var(--target);animation:pulse 1.1s ease-in-out infinite}
-.cell.target:hover .card{transform:translateY(-3px)}
+.cell.target:hover .card{filter:brightness(1.06)}
 .cell.selected .card{box-shadow:0 0 0 4px #fff,0 0 0 8px var(--target)}
 .cell.flash .card{box-shadow:0 0 0 5px var(--target)}
 .cell.swapped .card{animation:wiggle .5s ease}
 .tag{position:absolute;top:-9px;right:-9px;z-index:4;background:var(--target);color:#141414;border:2.5px solid var(--line);border-radius:999px;min-width:26px;height:26px;display:grid;place-items:center;font-weight:900;font-size:15px}
 .just{animation:flip .32s ease-out}
 @keyframes flip{from{transform:rotateX(90deg)}to{transform:none}}
-@keyframes pulse{50%{box-shadow:0 0 0 4px var(--target),0 0 28px 8px var(--target)}}
+@keyframes pulse{50%{box-shadow:0 0 0 4px var(--target),0 0 14px 3px var(--target)}}
 @keyframes wiggle{25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}}
 .entry{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;color:#fff;font-size:13px;font-weight:800;min-height:30px;padding:0 4px}
 .burrow{display:flex;gap:6px}
@@ -277,7 +280,7 @@ const sleep = ms => HEADLESS ? Promise.resolve() : new Promise(res => setTimeout
 
 let S = null;
 const ui = { targets:null, mode:null, pending:null, buttons:[], status:"", peek:null, justId:null,
-             flash:null, selected:null, swapFx:null, over:false, handoffName:null };
+             flash:null, selected:null, swapFx:null, over:false, handoffName:null, lastPos:[null,null] };
 
 function wait(ms){ const s = S; return sleep(ms).then(() => { if (S !== s) throw ABORT; }); }
 
@@ -734,11 +737,13 @@ function renderBoard(){
     if (!card) { inner = '<div class="empty"></div>'; label = "Empty space"; }
     else if (card.faceUp || ui.peek === card.id) { inner = cardFront(card, ui.peek===card.id && !card.faceUp, card.id===ui.justId); label = cardName(card); }
     else { inner = `<div class="card back"><img src="${ART.back}" alt=""></div>`; label = "Hidden card"; }
-    if (bk.has(k)) { cls.push("occupied"); const i = bk.get(k); inner += `<div class="bunny p${i}"><img src="${ART["b"+i]}" alt=""></div>`; label += `, ${S.players[i].name}’s bunny`; }
+    // Only play the hop animation when this bunny actually moved since the last redraw.
+    if (bk.has(k)) { cls.push("occupied"); const i = bk.get(k); inner += `<div class="bunny p${i}${ui.lastPos[i] !== k ? " hop" : ""}"><img src="${ART["b"+i]}" alt=""></div>`; label += `, ${S.players[i].name}’s bunny`; }
     if (t && ui.mode === "shock" && t.dir) inner += `<div class="tag">${ARROW[t.dir]}</div>`;
     html += `<button class="${cls.join(" ")}" data-k="${k}" ${t ? "" : 'tabindex="-1"'} aria-label="Row ${r+1}, column ${c+1}: ${esc(label)}">${inner}</button>`;
   }
   $("#board").innerHTML = html;
+  ui.lastPos = S.players.map(pl => pl.pos ? key(pl.pos.r, pl.pos.c) : null);
   $("#burrow").innerHTML = S.players.map((pl,i) => pl.pos ? "" :
     `<span class="chip p${i}"><img src="${ART["b"+i]}" alt="">${esc(pl.name)}</span>`).join("");
 }
