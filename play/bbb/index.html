@@ -240,6 +240,39 @@ details.rules li{margin-bottom:6px}
   .card{border-width:1.5px}
   .brand img{display:none}
 }
+/* Phones turned sideways: the whole board fits on one screen, with a slim sidebar for the
+   players, the turn message and the buttons. Nothing scrolls, so every move stays in view.
+   Only applies to short landscape screens; desktop and portrait phones are unchanged. */
+@media (orientation: landscape) and (max-height: 520px){
+  body.playing{--side:176px}
+  body.playing .wrap{max-width:none;padding:8px max(8px, env(safe-area-inset-right)) 8px max(8px, env(safe-area-inset-left))}
+  body.playing header.top{position:fixed;top:8px;left:max(8px, env(safe-area-inset-left));width:var(--side);margin:0;z-index:5}
+  body.playing .brand{display:none}
+  body.playing .hdr-acts{flex:1 1 auto;min-width:0;flex-wrap:wrap;gap:8px 6px}
+  body.playing .ghost{padding:4px 9px;font-size:12px;border-width:2px;box-shadow:2px 2px 0 var(--hard)}
+  body.playing .shine::before{inset:-5px}
+  body.playing #game{display:grid;grid-template-columns:var(--side) minmax(0,1fr);gap:10px;align-items:start;height:calc(100dvh - 16px)}
+  body.playing .topbar{display:flex;flex-direction:column;gap:8px;margin:0;padding-top:72px}
+  body.playing .topbar .status{order:3;height:auto;min-height:0;padding:8px;gap:6px}
+  body.playing .status .msg{font-size:13px;-webkit-line-clamp:5}
+  body.playing .status .acts{min-height:0;flex-direction:column;gap:6px;width:100%}
+  body.playing .status .btn{padding:6px 10px;font-size:13px;border-width:2px;box-shadow:2px 2px 0 var(--hard)}
+  body.playing .player{padding:6px 8px;gap:0;box-shadow:2px 2px 0 var(--hard);border-width:2px}
+  body.playing .avatar,body.playing .where{display:none}
+  body.playing .pname{font-size:13px}
+  body.playing .diff{font-size:11px}
+  body.playing .stats{gap:5px;margin-top:2px;flex-wrap:nowrap}
+  body.playing .slot,body.playing .pip{width:16px;height:16px;border-width:2px}
+  body.playing .field{justify-self:center;width:min(100%, calc((100dvh - 50px) * 1.96 + 16px));padding:5px;border-width:3px;border-radius:14px;box-shadow:3px 3px 0 var(--hard)}
+  body.playing .board{gap:3px}
+  body.playing .entry{margin-top:3px;min-height:18px;font-size:11px}
+  body.playing .chip{padding:1px 8px 1px 2px;font-size:11px}
+  body.playing .chip img{width:16px;height:16px}
+  body.playing .tag{min-width:18px;height:18px;font-size:11px;top:-6px;right:-6px;border-width:2px}
+  body.playing .bunny{border-width:2px;box-shadow:0 0 0 2px var(--pc)}
+  body.playing .card{border-width:1.5px}
+  body.playing .log{display:none}
+}
 @media (prefers-reduced-motion: reduce){
   *{animation:none !important;transition:none !important}
 }
@@ -1033,12 +1066,14 @@ function startGame(cfg){
                       selected:null, swapFx:null, over:false, handoffName:null });
   lastCfg = cfg; S = createState(cfg);
   $("#setup").hidden = true; $("#game").hidden = false; $("#newGameBtn").hidden = false;
+  document.body.classList.add("playing");
   render(); runGame();
 }
 function showSetup(){
   if (ui.pending) { const p = ui.pending; ui.pending = null; p.rej(ABORT); }
   S = null; ui.over = false; ui.mode = null;
   $("#overlay").hidden = true; $("#game").hidden = true; $("#setup").hidden = false; $("#newGameBtn").hidden = true;
+  document.body.classList.remove("playing");
 }
 function syncSetup(){
   const mode = document.querySelector('input[name="mode"]:checked').value;
