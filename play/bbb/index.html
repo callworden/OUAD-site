@@ -135,6 +135,9 @@ details.rules li{margin-bottom:6px}
 .where{font-size:13px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* Fixed height so the board never shifts when the message or buttons change. */
 .status{padding:10px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;height:132px;overflow:hidden}
+.status.shocking{background:#3cb4e5;color:#141414}
+.status.shocking .btn.alt{background:#fff;color:#141414}
+.cell.zap{--target:#3cb4e5}
 .status .msg{flex:none;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .status .acts{flex:none;min-height:44px;align-items:center}
 .status .msg{font-weight:800;font-size:17px}
@@ -164,6 +167,7 @@ details.rules li{margin-bottom:6px}
 .cell.flash .card{box-shadow:0 0 0 5px var(--target)}
 .cell.swapped .card{animation:wiggle .5s ease}
 .tag{position:absolute;top:-9px;right:-9px;z-index:4;background:var(--target);color:#141414;border:2.5px solid var(--line);border-radius:999px;min-width:26px;height:26px;display:grid;place-items:center;font-weight:900;font-size:15px}
+.tag.warn{background:#e4002b;color:#fff;padding:0 6px;grid-auto-flow:column;gap:2px}
 .just{animation:flip .32s ease-out}
 @keyframes flip{from{transform:rotateX(90deg)}to{transform:none}}
 @keyframes pulse{50%{box-shadow:0 0 0 4px var(--target),0 0 14px 3px var(--target)}}
@@ -702,9 +706,19 @@ async function playTurn(){
         }
       }
       else {
-        setStatus(`${me.name}, spend a Universal Shock to bounce ${opp.name}? Pick a glowing card, or skip.`);
-        const v = await pick(targets, { mode:"shock", buttons:[{ label:"Don’t shock", value:"skip" }] });
-        choice = v === "skip" ? null : v;
+        // Step 1: ask first, so a stray click can't fire a Shock by accident.
+        const who = me.name === "You" ? "Your" : `${me.name}’s`;
+        setStatus(`⚡ ${who} move is done. Shock ${opp.name}? (${me.shocks} left)`);
+        const ask = await pick([], { mode:"shockAsk", buttons:[{ label:`⚡ Shock ${opp.name}`, value:"yes", main:true }, { label:"End turn", value:"no" }] });
+        if (ask === "yes") {
+          // Step 2: pick where to push them (targets glow blue, not the yellow used for moving).
+          const gift = targets.some(t => { const cd = S.grid[t.r][t.c]; return cd && cd.faceUp && cd.type === "carrot"; });
+          setStatus(gift
+            ? `⚡ Pick where to push ${opp.name}. Careful: the red 🥕 target gives them a Carrot.`
+            : `⚡ Pick a blue card to push ${opp.name} onto.`);
+          const v = await pick(targets, { mode:"shock", buttons:[{ label:"Cancel, end turn", value:"skip" }] });
+          choice = v === "skip" ? null : v;
+        }
       }
       if (choice) {
         me.shocks--; SFX.play("bigZap");
@@ -939,6 +953,7 @@ function renderBoard(){
     const t = ui.targets && ui.targets.get(k);
     const cls = ["cell"];
     if (t) cls.push("target");
+    if (t && ui.mode === "shock") cls.push("zap");
     if (ui.selected === k) cls.push("selected");
     if (ui.flash === k) cls.push("flash");
     if (ui.swapFx && ui.swapFx.includes(k)) cls.push("swapped");
@@ -948,7 +963,11 @@ function renderBoard(){
     else { inner = `<div class="card back"><img src="${ART.back}" alt=""></div>`; label = "Hidden card"; }
     // Only play the hop animation when this bunny actually moved since the last redraw.
     if (bk.has(k)) { cls.push("occupied"); const i = bk.get(k); inner += `<div class="bunny p${i}${ui.lastPos[i] !== k ? " hop" : ""}"><img src="${ART["b"+i]}" alt=""></div>`; label += `, ${S.players[i].name}’s bunny`; }
-    if (t && ui.mode === "shock" && t.dir) inner += `<div class="tag">${ARROW[t.dir]}</div>`;
+    // Warn when a Shock would push the opponent onto a Carrot (they'd collect it).
+    if (t && ui.mode === "shock" && t.dir) {
+      const gift = card && card.faceUp && card.type === "carrot";
+      inner += gift ? `<div class="tag warn" title="This gives them the Carrot">${ARROW[t.dir]}🥕</div>` : `<div class="tag">${ARROW[t.dir]}</div>`;
+    }
     html += `<button class="${cls.join(" ")}" data-k="${k}" ${t ? "" : 'tabindex="-1"'} aria-label="Row ${r+1}, column ${c+1}: ${esc(label)}">${inner}</button>`;
   }
   $("#board").innerHTML = html;
@@ -959,8 +978,10 @@ function renderBoard(){
 
 function renderStatus(){
   $("#msg").textContent = ui.status;
+  // The Shock phase gets its own look so it's never mistaken for a move.
+  document.querySelector(".status").classList.toggle("shocking", ui.mode === "shock" || ui.mode === "shockAsk");
   const btns = ui.mode === "handoff" ? [] : ui.buttons;
-  $("#acts").innerHTML = btns.map(b => `<button class="btn alt" data-v="${esc(b.value)}">${esc(b.label)}</button>`).join("");
+  $("#acts").innerHTML = btns.map(b => `<button class="btn ${b.main ? "" : "alt"}" data-v="${esc(b.value)}">${esc(b.label)}</button>`).join("");
 }
 
 function renderLog(){
