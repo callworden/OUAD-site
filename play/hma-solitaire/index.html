@@ -204,6 +204,35 @@ body.big-corners .card.up.covered .corner { display: block; }
   .card { transition: none; }
   .card.nope, .card.flip > * { animation: none; }
 }
+
+/* ---- short landscape screens (phones turned sideways) ----
+   Header and controls share one slim bar so the table gets the height. */
+@media (orientation: landscape) and (max-height: 540px) {
+  body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .bar { padding-top: 4px; padding-bottom: 4px; }
+  .bar.top { grid-column: 1; grid-row: 1; }
+  .bar.bottom {
+    grid-column: 2; grid-row: 1;
+    justify-content: flex-end; gap: 2px;
+    box-shadow: 0 2px 0 var(--brass), 0 4px 0 var(--signal);
+  }
+  #table {
+    grid-column: 1 / -1; grid-row: 2;
+    margin-left: env(safe-area-inset-left, 0px);
+    margin-right: env(safe-area-inset-right, 0px);
+  }
+  .title { font-size: 15px; }
+  .title small { font-size: 11px; }
+  .stats { font-size: 12px; }
+  .shop { font-size: 13px; padding: 4px 9px; }
+  .bar.bottom button { font-size: 0; gap: 0; min-width: 42px; min-height: 40px; padding: 4px 8px; }
+  .bar.bottom #finish { font-size: 14px; min-height: 34px; }
+  #toast { bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
+}
 </style>
 </head>
 <body>
@@ -618,29 +647,54 @@ body.big-corners .card.up.covered .corner { display: block; }
   }
 
   // ---- layout --------------------------------------------------------------
+  // Two arrangements, picked by whichever gives bigger cards for the space:
+  //  classic: stock, waste and foundations in a row above the tableau (portrait, desktop)
+  //  wide:    stock/waste in a column on the left, foundations 2x2 on the right,
+  //           so the tableau gets the full height (phones in landscape)
+  const MAX_W = 120;
+  const GAP = 0.075;          // gap between cards, as a fraction of card width
+  const SIDE = 0.3;           // extra space around the tableau in wide mode
+  const FAN_V = 0.16;         // vertical waste fan (draw 3, wide mode), fraction of card height
+
   function layout() {
     const r = table.getBoundingClientRect();
-    const pad = Math.max(6, Math.min(16, r.width * 0.02));
-    const ratio = 0.075;                                   // gap as a fraction of card width
-    const wByWidth = (r.width - 2 * pad) / (7 + 6 * ratio);
-    const wByHeight = (r.height - 2 * pad) / (1.4 * 2.9);  // top row + a reasonable column
-    const W = Math.floor(Math.min(wByWidth, wByHeight, 120));
+    const pad = Math.max(6, Math.min(16, Math.min(r.width, r.height) * 0.025));
+    const aw = r.width - 2 * pad, ah = r.height - 2 * pad;
+    const wClassic = Math.min(aw / (7 + 6 * GAP), ah / (1.4 * 2.9), MAX_W);
+    const wWide = Math.min(aw / (10 + 7 * GAP + 2 * SIDE), ah / (1.4 * 2.45), MAX_W);
+    const wide = wWide > wClassic * 1.1;
+
+    const W = Math.floor(wide ? wWide : wClassic);
     const H = Math.round(W * 1.4);
-    const gap = Math.round(W * ratio);
-    const left = Math.round((r.width - (7 * W + 6 * gap)) / 2);
-    L = {
-      W, H, gap, pad,
-      x: Array.from({ length: 7 }, (_, i) => left + i * (W + gap)),
-      topY: pad,
-      tabY: pad + H + Math.round(gap * 1.8) + 4,
-      bottom: r.height - pad,
-    };
-    table.style.setProperty('--w', W + 'px');
+    const gap = Math.max(3, Math.round(W * GAP));
+    L = { W, H, gap, pad, wide, bottom: r.height - pad };
+
+    if (!wide) {
+      const left = Math.round((r.width - (7 * W + 6 * gap)) / 2);
+      const x = i => left + i * (W + gap);
+      L.t = [0, 1, 2, 3, 4, 5, 6].map(x);
+      L.stock = { x: x(0), y: pad };
+      L.waste = { x: x(1), y: pad, fanX: W * 0.38, fanY: 0 };
+      L.f = [0, 1, 2, 3].map(i => ({ x: x(3 + i), y: pad }));
+      L.tabY = pad + H + Math.round(gap * 1.8) + 4;
+    } else {
+      const side = Math.round(W * SIDE);
+      const total = W + side + 7 * W + 6 * gap + side + 2 * W + gap;
+      const left = Math.round((r.width - total) / 2);
+      const t0 = left + W + side;
+      L.t = [0, 1, 2, 3, 4, 5, 6].map(i => t0 + i * (W + gap));
+      const fx = t0 + 7 * W + 6 * gap + side;
+      L.stock = { x: left, y: pad };
+      L.waste = { x: left, y: pad + H + gap, fanX: 0, fanY: H * FAN_V };
+      L.f = [0, 1, 2, 3].map(i => ({ x: fx + (i % 2) * (W + gap), y: pad + Math.floor(i / 2) * (H + gap) }));
+      L.tabY = pad;
+    }
+    document.body.classList.toggle('wide', wide);
     for (const el of Object.values(els)) { el.style.width = W + 'px'; el.style.height = H + 'px'; }
-    const place = (el, x, y) => { el.style.width = W + 'px'; el.style.height = H + 'px'; el.style.transform = `translate(${x}px,${y}px)`; };
-    place(slots.stock, L.x[0], L.topY);
-    for (let f = 0; f < 4; f++) place(slots['f' + f], L.x[3 + f], L.topY);
-    for (let t = 0; t < 7; t++) place(slots['t' + t], L.x[t], L.tabY);
+    const place = (el, p) => { el.style.width = W + 'px'; el.style.height = H + 'px'; el.style.transform = `translate(${p.x}px,${p.y}px)`; };
+    place(slots.stock, L.stock);
+    L.f.forEach((p, i) => place(slots['f' + i], p));
+    L.t.forEach((x, i) => place(slots['t' + i], { x, y: L.tabY }));
   }
 
   // Offsets for one tableau column, squeezed if the column would run off the table.
@@ -664,19 +718,21 @@ body.big-corners .card.up.covered .corner { display: block; }
   // ---- rendering -----------------------------------------------------------
   function positions(s) {
     const pos = {};
-    s.stock.forEach((c, i) => { pos[c.id] = { x: L.x[0], y: L.topY, z: 100 + i, up: false }; });
+    s.stock.forEach((c, i) => { pos[c.id] = { x: L.stock.x, y: L.stock.y, z: 100 + i, up: false }; });
     const wl = s.waste.length, fanFrom = Math.max(0, wl - 3);
     s.waste.forEach((c, i) => {
-      const fan = s.drawCount === 3 && i >= fanFrom ? (i - fanFrom) * L.W * 0.38 : 0;
-      pos[c.id] = { x: L.x[1] + fan, y: L.topY, z: 200 + i, up: true };
+      const k = s.drawCount === 3 && i >= fanFrom ? i - fanFrom : 0;
+      // A vertical fan shows each card's top strip, so give it the large corner too.
+      const covered = L.waste.fanY > 0 && s.drawCount === 3 && i >= fanFrom && i < wl - 1;
+      pos[c.id] = { x: L.waste.x + k * L.waste.fanX, y: L.waste.y + k * L.waste.fanY, z: 200 + i, up: true, covered };
     });
     s.foundations.forEach((p, f) => p.forEach((c, i) => {
-      pos[c.id] = { x: L.x[3 + f], y: L.topY, z: 300 + f * 15 + i, up: true };
+      pos[c.id] = { x: L.f[f].x, y: L.f[f].y, z: 300 + f * 15 + i, up: true };
     }));
     s.tableau.forEach((col, t) => {
       const ys = columnYs(col);
       col.forEach((c, i) => {
-        pos[c.id] = { x: L.x[t], y: ys[i], z: 400 + t * 25 + i, up: c.faceUp, covered: i < col.length - 1 };
+        pos[c.id] = { x: L.t[t], y: ys[i], z: 400 + t * 25 + i, up: c.faceUp, covered: i < col.length - 1 };
       });
     });
     return pos;
@@ -790,12 +846,12 @@ body.big-corners .card.up.covered .corner { display: block; }
 
   function dropTargets() {
     const out = [];
-    for (let f = 0; f < 4; f++) out.push({ dst: { pile: 'foundation', index: f }, r: { x: L.x[3 + f], y: L.topY, w: L.W, h: L.H } });
+    for (let f = 0; f < 4; f++) out.push({ dst: { pile: 'foundation', index: f }, r: { x: L.f[f].x, y: L.f[f].y, w: L.W, h: L.H } });
     for (let t = 0; t < 7; t++) {
       const col = state.tableau[t];
       const ys = columnYs(col);
       const bottom = (col.length ? ys[ys.length - 1] : L.tabY) + L.H;
-      out.push({ dst: { pile: 'tableau', index: t }, r: { x: L.x[t], y: L.tabY, w: L.W, h: bottom - L.tabY } });
+      out.push({ dst: { pile: 'tableau', index: t }, r: { x: L.t[t], y: L.tabY, w: L.W, h: bottom - L.tabY } });
     }
     return out;
   }
