@@ -497,6 +497,32 @@ button.card { cursor: pointer; }
 .past-keystones .card.mini .cb { display: none; }
 .round-banner em { display: block; font-style: normal; color: var(--gold); margin-top: 4px; font-size: .95rem; }
 
+/* ── Get the Deck ─────────────────────────────────────────────────────────── */
+a.btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+/* A bright highlight runs around the border, and a soft gold halo pulses behind it. */
+@property --deck-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+.btn.deck, .top .btn.deck {
+  color: #1d1608; font-weight: 700;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(180deg, #f0c76a, #c8932f) padding-box,
+    conic-gradient(from var(--deck-angle), #fffbe9 0deg, #ffe08a 30deg, #8f6519 90deg, #5e3b21 180deg, #8f6519 270deg, #ffe08a 330deg, #fffbe9 360deg) border-box;
+  animation: deck-spin 2.2s linear infinite, deck-glow 2.2s ease-in-out infinite;
+}
+.btn.deck:hover { filter: brightness(1.08); }
+@keyframes deck-spin { to { --deck-angle: 360deg; } }
+@keyframes deck-glow {
+  0%, 100% { box-shadow: 0 2px 0 rgba(0, 0, 0, .25), 0 0 0 0 rgba(240, 199, 106, 0); }
+  50% { box-shadow: 0 2px 0 rgba(0, 0, 0, .25), 0 0 0 5px rgba(240, 199, 106, .3), 0 0 22px 4px rgba(240, 199, 106, .55); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn.deck, .top .btn.deck { animation: none; box-shadow: 0 0 0 4px rgba(240, 199, 106, .35); }
+}
+.btn.deck.big { font-size: 1.05rem; padding: 10px 22px; }
+.deck-cta { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 16px 0 0; text-align: center; }
+.deck-cta span { color: var(--on-felt-soft); font-size: .86rem; }
+.deck-cta.over { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(243, 236, 217, .14); }
+
 /* Short windows: compact setup (placed last so it wins) */
 @media (max-height: 680px) {
   .btn.toggle small { display: none; }
@@ -1165,7 +1191,10 @@ const GUILD = {
   foreman: { icon: '🚩', name: 'Foreman' },
 };
 
-const VERSION = '1.1.0';
+const VERSION = '1.1.1';
+// Where the "Get the Deck" buttons go. Change this one line to point at the shop page.
+const DECK_URL = 'https://www.drivethrucards.com/en/product/270284/stonerow-grinding-gears-edition';
+const deckLink = (label, cls = '') => `<a class="btn deck ${cls}" href="${DECK_URL}" target="_blank" rel="noopener">${label}</a>`;
 const ui = {
   game: null, history: [], selected: [], target: null, picker: null,
   hideHands: true, revealedFor: null, toast: '', toastTimer: null,
@@ -1676,6 +1705,7 @@ function setupHTML() {
     <h1>StoneRow</h1>
     <p class="by">by Once Upon A Dice</p>
     <p class="sub">Play against bots, pass-and-play with friends on one device, or both. Build StoneRows, break your rivals’, and stand tallest when the Tower is finished.</p>
+    <p class="deck-cta">${deckLink('Get the Deck', 'big')}<span>Play StoneRow at your own table</span></p>
     <p class="rules-link"><button type="button" class="btn link" data-act="rules">New to StoneRow? How to play</button></p>
     <p class="small-screen">StoneRow is built for a laptop or desktop screen. It works on smaller screens, but it’s cramped.</p>
     <p class="credits">Version ${VERSION}. © 2026 Once Upon A Dice. All rights reserved.</p>
@@ -1868,6 +1898,7 @@ function tableHTML() {
     <h1>StoneRow</h1>
     <p class="status" role="status">${statusHTML(g)}</p>
     <div class="tools">
+      ${deckLink('Get the Deck')}
       <button type="button" class="btn" data-act="sound" aria-pressed="${sound.on}">Sound ${sound.on ? 'on' : 'off'}</button>
       <button type="button" class="btn" data-act="rules">How to play</button>
       <button type="button" class="btn" data-act="log" aria-expanded="${ui.logOpen}">Game log</button>
@@ -1933,6 +1964,7 @@ function renderLayer() {
       <ul class="scores">${ranked.map(p => `<li class="${g.result.winners.includes(p.seat) ? 'win' : ''}"><span>${esc(p.name)}</span><span>${p.pts}</span></li>`).join('')}</ul>
       <button type="button" class="btn primary" data-act="rematch">Play again</button>
       <button type="button" class="btn" data-act="close-over">View the table</button>
+      <p class="deck-cta over">${deckLink('Get the Deck', 'big')}<span>Enjoyed it? Bring StoneRow to your game night.</span></p>
     </div></div>`;
     if (ui.overDismissed) html = '';
   } else if (g && g.overtime && !ui.overtimeSeen) {
