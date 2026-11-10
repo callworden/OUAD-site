@@ -48,6 +48,7 @@
                 <button class="filter-btn" data-filter="family">Kids</button>
                 <button class="filter-btn" data-filter="steampunk">Steampunk</button>
                 <button class="filter-btn" data-filter="strategy">Strategy</button>
+                <button class="filter-btn filter-btn--dev" data-filter="in-development">In Development</button>
 				
             </div>
         </div>
@@ -123,9 +124,9 @@
             <div class="game-card" data-categories="card-game fantasy family kid-friendly" data-players="2" data-playtime="15">
                 <div class="game-image">
 					<a href="/games/bbb.html">
-                    <img src="images/games/bounce-bunny-card.jpg" alt="Bounce Bunny Bounce">
+                    <img src="images/games/bbb/bbb-cover-new-edition.jpg" alt="Bounce Bunny Bounce">
 					</a>
-                    <div class="game-status prototype">New edition coming soon</div>
+                    <div class="game-status game-status--soon">New edition coming soon</div>
                 </div>
                 <div class="game-info">
                     <h3>Bounce Bunny Bounce</h3>
@@ -173,6 +174,34 @@
                 </div>
             </div>
 
+            <!-- ── In Development: only shown under the "In Development" filter ── -->
+            <!-- Blood Moon Rising -->
+            <div class="game-card game-card--dev" data-categories="in-development coop horror strategy" data-players="2-4" data-playtime="60" style="display: none;">
+                <div class="game-image">
+                    <a href="/games/blood-moon-rising.html">
+                    <img src="images/games/blood-moon-card.jpg" alt="Blood Moon Rising" class="img-dev">
+                    </a>
+                    <div class="game-dev-ribbon">In Development</div>
+                </div>
+                <div class="game-info">
+                    <h3>Blood Moon Rising</h3>
+                    <p class="game-tagline">A cooperative horror castle crawl through Dracula's domain. Printed and expanded digital versions in development.</p>
+                    <div class="game-meta">
+                        <div class="meta-item"><span class="meta-icon">👥</span><span>2-4 Players</span></div>
+                        <div class="meta-item"><span class="meta-icon">⏱️</span><span>60-120+ min</span></div>
+                        <div class="meta-item"><span class="meta-icon">🎯</span><span>Ages 14+</span></div>
+                    </div>
+                    <div class="game-tags">
+                        <span class="tag">Card Game</span>
+                        <span class="tag">Co-op</span>
+                        <span class="tag">Horror</span>
+                        <span class="tag">Strategy</span>
+                    </div>
+                    <div class="game-actions">
+                        <a href="/games/blood-moon-rising.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
     <!-- Design Philosophy -->
@@ -198,6 +227,8 @@
                 backdrop-filter: blur(6px);
             }
             /* Shared ribbon banner for in-dev cards on games page */
+            .filter-btn.filter-btn--dev { border-color: rgba(180,140,255,0.3); color: rgba(210,190,255,0.85); }
+            .filter-btn.filter-btn--dev.active { background: rgba(35,20,60,0.95); border-color: rgba(180,140,255,0.6); color: #fff; }
             .game-dev-ribbon {
                 position: absolute;
                 bottom: 0;
@@ -225,6 +256,7 @@
                 opacity: 0.72;
                 filter: grayscale(15%) brightness(0.9);
             }
+            .game-image .game-status.game-status--soon:not(.prototype) { background: rgba(153, 0, 0, 0.92); border: 1px solid #B31414; color: #FFF4E6; }
             .ouad-about { max-width: 46rem; margin: 0 auto; text-align: center; }
             .ouad-about__title { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.1; margin: 0 0 1.25rem; }
             .ouad-about__body { color: rgba(237, 227, 204, 0.75); font-size: 1.1rem; line-height: 1.7; margin: 0 0 1rem; }
@@ -382,12 +414,14 @@
 
                     var filter = btn.getAttribute('data-filter');
                     cards.forEach(function(card) {
-                        if (filter === 'all') {
-                            card.style.display = '';
-                        } else {
-                            var cats = (card.getAttribute('data-categories') || '').split(' ');
-                            card.style.display = cats.indexOf(filter) !== -1 ? '' : 'none';
-                        }
+                        // In-development games only appear under the "In Development" filter
+                        var isDev = card.classList.contains('game-card--dev');
+                        var cats = (card.getAttribute('data-categories') || '').split(' ');
+                        var show;
+                        if (filter === 'in-development') show = isDev;
+                        else if (isDev) show = false;
+                        else show = filter === 'all' || cats.indexOf(filter) !== -1;
+                        card.style.display = show ? '' : 'none';
                     });
                 });
             });
