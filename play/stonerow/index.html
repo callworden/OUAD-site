@@ -201,6 +201,11 @@ html, body { overflow-x: hidden; }
 .tower-pile { align-self: center; margin-left: clamp(4px, 1vw, 14px); }
 .n4 .tower .piece, .n3 .tower .piece { width: calc(var(--tw) * .42); height: calc(var(--tw) * .59); }
 .n4 .tower .piece.foreman, .n3 .tower .piece.foreman { margin-left: 8px; }
+.n4 .piles, .n3 .piles { gap: clamp(10px, 1.2vw, 18px); }
+.n4 .pile > span, .n3 .pile > span { max-width: 92px; }
+.n4 .tower-pile, .n3 .tower-pile { margin-left: 2px; }
+.n4 .past-keystones, .n3 .past-keystones { margin-left: 8px; }
+.n4 .past-keystones .card.mini + .card.mini, .n3 .past-keystones .card.mini + .card.mini { margin-left: calc(var(--mw) * -.38); }
 .pile { display: flex; flex-direction: column; align-items: center; gap: clamp(3px, .7vh, 7px); font-size: .74rem; color: var(--on-felt-soft); }
 .pile > span { text-align: center; max-width: 116px; line-height: 1.2; }
 .pile .card, .pile .slot { width: var(--tw); height: var(--th); }
@@ -296,14 +301,18 @@ button.card { cursor: pointer; }
 .log-drawer li:first-child { color: var(--on-felt); }
 
 /* ── Setup ────────────────────────────────────────────────────────────────── */
-.setup-table .felt { display: grid; place-items: center; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: none; overflow: auto; }
-.setup { width: min(500px, 100%); background: rgba(0, 0, 0, .3); border: 1px solid var(--gold-soft); border-radius: 18px; padding: 26px 30px; }
+.setup-table .felt { padding: clamp(8px, 2vh, 22px) 20px; display: grid; place-items: center; grid-template-columns: 1fr; grid-template-rows: 1fr; grid-template-areas: none; overflow: auto; }
+.setup { width: min(500px, 100%); background: rgba(0, 0, 0, .3); border: 1px solid var(--gold-soft); border-radius: 18px; padding: clamp(14px, 3vh, 26px) 30px; }
+@media (min-width: 780px) {
+  .setup { width: min(900px, 100%); display: grid; grid-template-columns: 1fr 1.1fr; gap: 0 clamp(18px, 3vw, 36px); align-items: center; }
+}
+.setup fieldset:last-of-type { margin-bottom: 14px; }
 .setup h1 { font-size: 2.5rem; text-align: center; margin-bottom: 4px; }
 .setup .sub { color: var(--on-felt-soft); margin: 0 0 22px; text-align: center; }
-.setup fieldset { border: none; padding: 0; margin: 0 0 18px; }
+.setup fieldset { border: none; padding: 0; margin: 0 0 clamp(10px, 2vh, 18px); }
 .setup legend { font-weight: 700; margin-bottom: 8px; }
-.setup .fan { display: flex; justify-content: center; margin-bottom: 16px; height: 140px; }
-.setup .fan span { display: block; background-position: center; background-size: cover; width: 92px; height: 129px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, .45); margin: 0 -14px; }
+.setup .fan { display: flex; justify-content: center; margin-bottom: 16px; height: clamp(90px, 19vh, 140px); }
+.setup .fan span { display: block; background-position: center; background-size: cover; width: clamp(62px, 12.6vh, 92px); height: clamp(87px, 17.6vh, 129px); border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, .45); margin: 0 -14px; }
 .setup .fan span:nth-child(1) { transform: rotate(-12deg) translateY(10px); }
 .setup .fan span:nth-child(2) { transform: rotate(-4deg); }
 .setup .fan span:nth-child(3) { transform: rotate(4deg); }
@@ -471,10 +480,46 @@ button.card { cursor: pointer; }
 .setup .by { text-align: center; margin: -2px 0 10px; color: var(--gold); font: 500 1rem/1.2 Cinzel, Georgia, serif; }
 .credits { text-align: center; color: var(--on-felt-soft); font-size: .78rem; margin: 14px 0 0; }
 .small-screen { display: none; text-align: center; color: var(--on-felt); font-size: .88rem; background: rgba(0, 0, 0, .25); border-radius: 8px; padding: 8px 10px; margin: 12px 0 0; }
-@media (max-width: 980px) { .small-screen { display: block; } }
+@media (max-width: 760px) { .small-screen { display: block; } }
+
+/* ── House rules ──────────────────────────────────────────────────────────── */
+.btn.toggle { display: flex; gap: 12px; align-items: flex-start; width: 100%; text-align: left; padding: 10px 12px; }
+.btn.toggle small { display: block; color: var(--on-felt-soft); font-size: .82rem; margin-top: 2px; line-height: 1.35; }
+.btn.toggle .switch { flex: none; width: 36px; height: 20px; border-radius: 999px; background: rgba(243, 236, 217, .25); position: relative; margin-top: 2px; transition: background .15s; }
+.btn.toggle .switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #f3ecd9; transition: transform .15s; }
+.btn.toggle[aria-pressed="true"] { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+.btn.toggle[aria-pressed="true"] .switch { background: var(--gold); }
+.btn.toggle[aria-pressed="true"] .switch::after { transform: translateX(16px); }
+.pile em { font-style: normal; color: var(--gold); }
+.past-keystones { display: flex; align-items: center; margin-left: 12px; }
+.past-keystones .card.mini { width: calc(var(--mw) * .56); height: calc(var(--mh) * .56); border-width: 1px; opacity: .85; }
+.past-keystones .card.mini + .card.mini { margin-left: calc(var(--mw) * -.28); }
+.past-keystones .card.mini .cb { display: none; }
+.round-banner em { display: block; font-style: normal; color: var(--gold); margin-top: 4px; font-size: .95rem; }
+
+/* Short windows: compact setup (placed last so it wins) */
+@media (max-height: 680px) {
+  .btn.toggle small { display: none; }
+  .setup legend { margin-bottom: 4px; }
+  .setup .fan { margin-bottom: 8px; }
+  .seat-setup { margin-bottom: 5px; }
+  .setup input[type=text] { padding: 6px 10px; }
+  .setup .sub { margin-bottom: 12px; }
+}
+@media (max-height: 640px) {
+  .setup .fan { display: none; }
+  .setup h1 { font-size: 2rem; }
+}
 
 /* Narrow windows: not the target, but keep it usable by stacking the seats. */
-@media (max-width: 980px) {
+@media (max-width: 1100px) {
+  .felt { grid-template-columns: minmax(120px, 1fr) minmax(250px, 2fr) minmax(120px, 1fr); padding-left: 18px; padding-right: 18px; }
+  .top h1 { font-size: 1.2rem; }
+  .top .tools { gap: 5px; }
+  .top .tools .btn { padding: 5px 8px; font-size: .85rem; }
+  .pile > span { max-width: 92px; }
+}
+@media (max-width: 760px) {
   .room { height: auto; }
   .table { padding: 10px 10px 0; }
   .felt {
@@ -534,6 +579,12 @@ button.card { cursor: pointer; }
 //     becomes ONE StoneRow for the stealer (three of a kind is always 30).
 //   • Four of a kind = 40. Runs cap at 5 cards.
 //   • A broken StoneRow must be repaired before anyone can mortar onto it.
+//
+// HOUSE RULES (optional, off unless passed in config)
+//   • keystonePerRound: when each new round begins (as the next Tower card is
+//     raised), a new Keystone is flipped from the Quarry. The old one is retired
+//     beside the Tower and is out of play; StoneRows already built with it keep
+//     counting it. The Hammer rank changes to match the new Keystone.
 //   • Normal draw from the Brickyard = top card only.
 //   • GoldDigger: take the top 3 cards of the Quarry OR the top 3 of the Brickyard.
 //   • Empty Quarry → reshuffle the Brickyard (top card stays as the new Brickyard).
@@ -552,6 +603,7 @@ const CONFIG = {
   overtimeRounds: 6,
   maxRunLength: 5,
   fourOfAKindPoints: 40,
+  keystonePerRound: false,   // house rule: a new Keystone each round
 };
 
 class RuleError extends Error {}
@@ -666,6 +718,20 @@ function drawCard(s, seat) {
   }
 }
 
+// Flip the next Keystone: the Foreman is revealed (Overtime) and Guild cards are buried.
+function flipKeystone(s) {
+  for (let tries = 0; tries < 80; tries++) {
+    const id = takeFromQuarry(s);
+    if (id == null) return false;
+    if (s.cards[id].guild === 'foreman') { callOvertime(s, id, null); continue; }
+    if (s.cards[id].kind === 'guild') { s.quarry.unshift(id); continue; }
+    s.keystone = id;
+    s.hammerRank = s.cards[id].rank;
+    return true;
+  }
+  return false;
+}
+
 function newRow(s, cardIds, seat) {
   const id = `r${s.nextRowId++}`;
   s.rows[id] = { id, cards: [...cardIds], claims: [{ seat, cards: [...cardIds] }], broken: false, protected: false, attached: [] };
@@ -699,6 +765,13 @@ function endTurn(s) {
     if (s.round >= totalRounds(s)) return finish(s);
     s.round++;
     log(s, `Round ${s.round} begins. Tower card ${s.round} is raised.`);
+    if (s.cfg.keystonePerRound) {
+      const old = s.keystone;
+      if (flipKeystone(s)) {
+        s.retired.push(old);
+        log(s, `New Keystone: ${describe(s.cards[s.keystone])}. Every ${s.cards[s.keystone].name} is now a Hammer.`);
+      }
+    }
   }
   s.current = (s.current + 1) % s.players.length;
   s.phase = 'draw';
@@ -730,6 +803,7 @@ function createGame({ players, seed = Date.now(), config = {} }) {
     brickyard: [],                 // top of pile = end of array
     keystone: null,
     hammerRank: null,
+    retired: [],                   // past Keystones (house rule), out of play
     foreman: null,
     spent: [],                     // GoldDiggers placed by the Keystone
     rows: {},
@@ -750,14 +824,7 @@ function createGame({ players, seed = Date.now(), config = {} }) {
   for (let k = 0; k < cfg.handSize[n]; k++) for (let p = 0; p < n; p++) drawCard(s, p);
 
   // Keystone: a Guild card can't be the Keystone, so bury it and flip again.
-  for (;;) {
-    const id = takeFromQuarry(s);
-    if (s.cards[id].guild === 'foreman') { callOvertime(s, id, null); continue; }
-    if (s.cards[id].kind === 'guild') { s.quarry.unshift(id); continue; }
-    s.keystone = id;
-    s.hammerRank = s.cards[id].rank;
-    break;
-  }
+  flipKeystone(s);
   for (;;) {
     const id = takeFromQuarry(s);
     if (s.cards[id].guild === 'foreman') { callOvertime(s, id, null); continue; }
@@ -1098,11 +1165,11 @@ const GUILD = {
   foreman: { icon: '🚩', name: 'Foreman' },
 };
 
-const VERSION = '1.0.1';
+const VERSION = '1.1.0';
 const ui = {
   game: null, history: [], selected: [], target: null, picker: null,
   hideHands: true, revealedFor: null, toast: '', toastTimer: null,
-  setup: { n: 2, names: ['Player 1', 'Bot 2', 'Bot 3', 'Bot 4'], types: ['human', 'bot', 'bot', 'bot'], skill: 'sharp', hide: true },
+  setup: { n: 2, names: ['Player 1', 'Bot 2', 'Bot 3', 'Bot 4'], types: ['human', 'bot', 'bot', 'bot'], skill: 'sharp', hide: true, house: { keystonePerRound: false } },
   types: [], skill: 'sharp', viewer: 0, botTimer: null, logOpen: false,
 };
 const isBot = seat => ui.types[seat] === 'bot';
@@ -1138,6 +1205,7 @@ function locate(g, id) {
   if (!g) return 'quarry';
   if (g.quarry.includes(id)) return 'quarry';
   if (g.brickyard.includes(id)) return 'brickyard';
+  if (g.retired?.includes(id)) return 'tower';
   if (id === g.keystone || g.spent.includes(id)) return 'keystone';
   if (id === g.foreman) return 'tower';
   for (const p of g.players) if (p.hand.includes(id)) return `hand-${p.seat}`;
@@ -1270,7 +1338,7 @@ function markRows(prev, g) {
   }
 }
 
-function roundBanner(g) {
+function roundBanner(g, prev) {
   const b = document.createElement('div');
   b.className = 'round-banner';
   const strong = document.createElement('strong');
@@ -1278,6 +1346,11 @@ function roundBanner(g) {
   const span = document.createElement('span');
   span.textContent = `Tower card ${g.round} is raised`;
   b.append(strong, span);
+  if (prev && prev.keystone !== g.keystone) {
+    const k = document.createElement('em');
+    k.textContent = `New Keystone: ${g.cards[g.keystone].name}s are Hammers`;
+    b.append(k);
+  }
   fxLayer().appendChild(b);
   b.animate([
     { opacity: 0, transform: 'translate(-50%, -50%) scale(.9)' },
@@ -1301,7 +1374,11 @@ function afterRender(before, prev, g) {
   }
   if (!changed) return;
   if (fresh) { sfx('deal', 0, Math.min(dealt || 12, 24)); if (g.overtime) sfx('overtime', 0.9); return; }
-  if (g.round > prev.round && !g.gameOver) { if (motionOK()) roundBanner(g); sfx('round', 0.35); }
+  if (g.round > prev.round && !g.gameOver) {
+    if (motionOK()) roundBanner(g, prev);
+    else if (prev.keystone !== g.keystone) toast(`New Keystone: ${g.cards[g.keystone].name}s are Hammers.`);
+    sfx('round', 0.35);
+  }
   if (g.overtime && !prev.overtime) sfx('overtime', 0.2);
   if (g.gameOver && !prev.gameOver) sfx('win', 0.45);
 }
@@ -1413,6 +1490,10 @@ const RULES_HTML = `
   <section>
     <h3>Rounds and the Tower</h3>
     <p>A round is one turn per player, ending with the dealer. After the dealer’s turn, the next Tower card is raised. The game ends after round 5, or round 6 in Overtime. If the Quarry runs out, the Brickyard (except its top card) is shuffled into a new Quarry.</p>
+  </section>
+  <section>
+    <h3>House rules</h3>
+    <p><b>New Keystone each round</b> (optional, chosen when you set up a game). When each new round begins and the next Tower card is raised, a fresh Keystone is flipped from the Quarry and becomes the new Hammer rank. The old Keystone is retired beside the Tower and leaves play. StoneRows already built with an old Keystone keep counting it, but only the current Keystone can be borrowed for new building.</p>
   </section>
   <p class="credits">StoneRow digital, version ${VERSION}. © 2026 Once Upon A Dice. All rights reserved.</p>`;
 
@@ -1551,7 +1632,7 @@ function startGame() {
   ui.types = types.slice(0, n);
   ui.skill = skill;
   const players = names.slice(0, n).map((x, i) => x.trim() || defaultName(ui.types[i], i));
-  ui.game = createGame({ players, seed: (Math.random() * 2 ** 32) >>> 0 });
+  ui.game = createGame({ players, seed: (Math.random() * 2 ** 32) >>> 0, config: { ...ui.setup.house } });
   ui.history = []; ui.selected = []; ui.target = null; ui.picker = null; ui.overtimeSeen = false; ui.overDismissed = false;
   ui.viewer = humans()[0] ?? 0;
   // Pass screens are only needed when two or more people share the device.
@@ -1590,11 +1671,15 @@ function applyFan() {
 
 function setupHTML() {
   const s = ui.setup;
-  return `<div class="room"><main class="table setup-table"><div class="felt"><div class="setup">
+  return `<div class="room"><main class="table setup-table"><div class="felt"><div class="setup"><div class="setup-intro">
     <div class="fan" aria-hidden="true">${['bm-gm', 'nr-arc', 'es-sur', 'eq-ap'].map(k => `<span class="a-${k}"></span>`).join('')}</div>
     <h1>StoneRow</h1>
     <p class="by">by Once Upon A Dice</p>
     <p class="sub">Play against bots, pass-and-play with friends on one device, or both. Build StoneRows, break your rivals’, and stand tallest when the Tower is finished.</p>
+    <p class="rules-link"><button type="button" class="btn link" data-act="rules">New to StoneRow? How to play</button></p>
+    <p class="small-screen">StoneRow is built for a laptop or desktop screen. It works on smaller screens, but it’s cramped.</p>
+    <p class="credits">Version ${VERSION}. © 2026 Once Upon A Dice. All rights reserved.</p>
+  </div><div class="setup-form">
     <fieldset><legend>Players</legend><div class="seg">
       ${[2, 3, 4].map(n => `<button type="button" class="btn" data-setup-n="${n}" aria-pressed="${s.n === n}">${n}</button>`).join('')}
     </div></fieldset>
@@ -1608,12 +1693,15 @@ function setupHTML() {
     ${s.types.slice(0, s.n).includes('bot') ? `<fieldset><legend>Bot skill</legend><div class="seg">
       ${[['casual', 'Casual'], ['sharp', 'Sharp']].map(([k, l]) => `<button type="button" class="btn" data-setup-skill="${k}" aria-pressed="${s.skill === k}">${l}</button>`).join('')}
     </div></fieldset>` : ''}
+    <fieldset class="house"><legend>House rules</legend>
+      <button type="button" class="btn toggle" data-setup-house="keystonePerRound" aria-pressed="${s.house.keystonePerRound}">
+        <span class="switch" aria-hidden="true"></span>
+        <span><b>New Keystone each round</b><small>When each Tower card is raised, a fresh Keystone is flipped and the Hammer rank changes. Rows already built with an old Keystone keep counting it.</small></span>
+      </button>
+    </fieldset>
     ${s.types.slice(0, s.n).filter(t => t === 'human').length > 1 ? `<label class="check"><input type="checkbox" id="hide" ${s.hide ? 'checked' : ''}> Hide hands between turns</label>` : ''}
     <button type="button" class="btn primary" data-act="start">Deal the cards</button>
-    <p class="rules-link"><button type="button" class="btn link" data-act="rules">New to StoneRow? How to play</button></p>
-    <p class="small-screen">StoneRow is built for a laptop or desktop screen. It works on smaller screens, but it’s cramped.</p>
-    <p class="credits">Version ${VERSION}. © 2026 Once Upon A Dice. All rights reserved.</p>
-  </div></div></main></div>`;
+  </div></div></div></main></div>`;
 }
 
 function overtimeText(g) {
@@ -1629,8 +1717,9 @@ function towerHTML(g) {
     return `<div class="piece ${cls} a-tower-${n}"></div>`;
   }).join('');
   const foreman = g.overtime ? `<div class="piece foreman a-foreman" title="${esc(overtimeText(g))}"></div>` : '';
+  const past = g.retired?.length ? `<div class="past-keystones" data-tip="Past Keystones, retired beside the Tower. Rows built with them keep counting them.">${g.retired.map(id => cardHTML(g.cards[id], { mini: true, cid: `${id}@past` })).join('')}</div>` : '';
   return `<div class="tower" data-zone="tower" data-tip="The Tower: one card is raised after each of the dealer’s turns. The game ends when it’s finished." aria-label="Round ${g.round} of ${total}">
-    <div class="strip">${pieces}${foreman}</div>
+    <div class="strip">${pieces}${foreman}${past}</div>
     <div class="label"><strong>Round ${g.round}</strong>of ${total}${g.overtime ? ', Overtime called' : ''}</div>
   </div>`;
 }
@@ -1647,8 +1736,10 @@ function statusHTML(g) {
 function rowHTML(g, row, targets) {
   const isTarget = targets?.includes(row.id);
   const tag = isTarget ? 'button' : 'div';
-  const cards = row.cards.map(id => cardHTML(g.cards[id], { mini: true, keystoneRef: id === g.keystone, cid: id === g.keystone ? `${id}@${row.id}` : id,
-    tip: id === g.keystone ? 'The shared Keystone: it counts toward this row but stays on the table.' : '' })).join('');
+  const isRef = id => id === g.keystone || g.retired?.includes(id);
+  const cards = row.cards.map(id => cardHTML(g.cards[id], { mini: true, keystoneRef: isRef(id), cid: isRef(id) ? `${id}@${row.id}` : id,
+    tip: id === g.keystone ? 'The shared Keystone: it counts toward this row but stays on the table.'
+      : isRef(id) ? 'A past Keystone: it still counts toward this row.' : '' })).join('');
   const pts = row.claims.map(c => {
     const combo = evaluateCombo(c.cards.map(id => g.cards[id]), g.cfg);
     return { seat: c.seat, pts: combo ? combo.points : 0 };
@@ -1731,7 +1822,7 @@ function actionsAfterHint(g, hintBtn) {
 function keystoneHTML(g, key) {
   const plural = `${esc(key.name)}s`;
   const usable = g.phase === 'action' && !ui.target && myTurn(g);
-  return `${cardHTML(key, { button: usable, sel: ui.selected.includes(key.id), hammer: true, tip: `The Keystone: every ${key.name} is a Hammer. Anyone can build with it, any number of times; it stays here.` })}
+  return `${cardHTML(key, { button: usable, sel: ui.selected.includes(key.id), hammer: true, tip: `The Keystone: every ${key.name} is a Hammer. Anyone can build with it, any number of times; it stays here.${g.cfg.keystonePerRound ? ' House rule: a new Keystone is flipped each round.' : ''}` })}
     <span>Keystone: ${plural} are Hammers</span>`;
 }
 
@@ -1911,10 +2002,11 @@ function handle(act) {
 }
 
 document.addEventListener('click', e => {
-  const el = e.target.closest('[data-act],[data-card],[data-row],[data-setup-n],[data-setup-type],[data-setup-skill]');
+  const el = e.target.closest('[data-act],[data-card],[data-row],[data-setup-n],[data-setup-type],[data-setup-skill],[data-setup-house]');
   if (!el) return;
   if (el.dataset.setupN) { ui.setup.n = +el.dataset.setupN; return render(); }
   if (el.dataset.setupSkill) { ui.setup.skill = el.dataset.setupSkill; return render(); }
+  if (el.dataset.setupHouse) { const k = el.dataset.setupHouse; ui.setup.house[k] = !ui.setup.house[k]; return render(); }
   if (el.dataset.setupType) {
     const [i, t] = el.dataset.setupType.split(':');
     const old = ui.setup.types[i];
