@@ -13,24 +13,25 @@
     <link rel="stylesheet" href="../styles/card-lightbox.css">
     <link rel="stylesheet" href="../styles/dev-progress.css">
     <link rel="stylesheet" href="../styles/card-reveal.css">
+    <link rel="stylesheet" href="/styles/site-nav.css">
 </head>
 <body>
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <img src="../images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
-            </a>
-            <div class="nav-links">
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo"><img src="/images/misc/logo.png" alt="Once Upon A Dice" width="205" height="100"></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu">Menu</button>
+            <nav class="nav-menu" id="navMenu" aria-label="Main">
                 <a href="/">Home</a>
-                <a href="/games.html" class="active">Games</a>
-                <!-- <a href="/shop.html">Shop</a> -->
+                <a href="/games.html" aria-current="page">Games</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/#podcast">Podcast</a>
                 <a href="/events.html">Events</a>
-                <a href="/news.html">News</a>
                 <a href="/about.html">About</a>
                 <a href="/contact.html">Contact</a>
-            </div>
+                <a href="/#play" class="nav-play">Play free</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <section class="game-hero">
         <div class="hero-content">
@@ -216,5 +217,6 @@
     if (history.scrollRestoration) { history.scrollRestoration = 'manual'; }
     window.scrollTo(0, 0);
     </script>
+<script src="/scripts/site-nav.js" defer></script>
 </body>
 </html>

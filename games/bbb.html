@@ -11,25 +11,26 @@
     <link rel="stylesheet" href="../styles/rebrand.css">
 	<link rel="stylesheet" href="../styles/deck-display.css">
 	<link rel="stylesheet" href="../styles/card-lightbox.css">
+    <link rel="stylesheet" href="/styles/site-nav.css">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <img src="../images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
-            </a>
-                                    <div class="nav-links">
-                <a href="/" >Home</a>
-                <a href="/games.html" class="active">Games</a>
-                <!-- <a href="/shop.html">Shop</a> -->
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo"><img src="/images/misc/logo.png" alt="Once Upon A Dice" width="205" height="100"></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu">Menu</button>
+            <nav class="nav-menu" id="navMenu" aria-label="Main">
+                <a href="/">Home</a>
+                <a href="/games.html" aria-current="page">Games</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/#podcast">Podcast</a>
                 <a href="/events.html">Events</a>
-                <a href="/news.html">News</a>
                 <a href="/about.html">About</a>
                 <a href="/contact.html">Contact</a>
-            </div>
+                <a href="/#play" class="nav-play">Play free</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Game Hero -->
     <section class="game-hero">
@@ -43,7 +44,7 @@
                 <div class="hero-image-section">
                     <!-- Main Display Image -->
                     <div class="main-image-container">
-                        <img src="../images/games/bbb/bounce-bunny-card.jpg" alt="StoneRow" id="mainImage" class="main-image">
+                        <img src="../images/games/bbb/bounce-bunny-card.jpg" alt="Bounce Bunny Bounce" id="mainImage" class="main-image">
                         
                         <!-- Navigation Arrows -->
                         <button class="gallery-nav prev" id="prevImage" aria-label="Previous image">
@@ -64,14 +65,14 @@
                     <!-- Thumbnail Gallery -->
                     <div class="thumbnail-gallery">
                         <div class="thumbnail-container" id="thumbnailContainer">
-                            <button class="thumbnail active" data-image="../images/games/bbb/bb1.png" data-alt="StoneRow Box">
-                                <img src="../images/games/bbb/bb1.png" alt="Box">
+                            <button class="thumbnail active" data-image="../images/games/bbb/bounce-bunny-card.jpg" data-alt="Bounce Bunny Bounce">
+                                <img src="../images/games/bbb/bounce-bunny-card.jpg" alt="">
                             </button>
-                            <button class="thumbnail" data-image="../images/games/bbb/bb2.png" data-alt="Player Cards">
-                                <img src="../images/games/bbb/bb2.png" alt="Box">
+                            <button class="thumbnail" data-image="../images/games/bbb/bb2.png" data-alt="Bounce Bunny Bounce character card">
+                                <img src="../images/games/bbb/bb2.png" alt="">
                             </button>
-                            <button class="thumbnail" data-image="../images/games/bbb/bb3.png" data-alt="Stone Tokens">
-                                <img src="../images/games/bbb/bb3.png" alt="Box">
+                            <button class="thumbnail" data-image="../images/games/bbb/bb3.png" data-alt="Bounce Bunny Bounce character card">
+                                <img src="../images/games/bbb/bb3.png" alt="">
                             </button>
 
                         </div>
@@ -124,6 +125,7 @@
                     </div>
 
                     <div class="cta-buttons">
+                        <a href="/play/bbb/" target="_blank" rel="noopener" class="btn btn-large btn-play-free">Play Free Online</a>
                         <a href="https://www.drivethrucards.com/en/product/336921/bounce-bunny-bounce?src=hottest_filtered" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large btn-animated-border">Buy Now-$15</a>
                         <a href="https://dtrpg-public-files.s3.us-east-2.amazonaws.com/custom_previews/14404/336921.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Official Rules</a>
                     </div>
@@ -196,6 +198,7 @@
         }
         window.scrollTo(0, 0);
     </script>
+<script src="/scripts/site-nav.js" defer></script>
 </body>
 </html>
 

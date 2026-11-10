@@ -6,6 +6,7 @@
     <title>Shop - Once Upon A Dice</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/rebrand.css">
+    <link rel="stylesheet" href="/styles/site-nav.css">
     <style>
         .shop-hero {
             max-width: 1200px;
@@ -230,22 +231,22 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
-            </a>
-                                    <div class="nav-links">
-                <a href="/" >Home</a>
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo"><img src="/images/misc/logo.png" alt="Once Upon A Dice" width="205" height="100"></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu">Menu</button>
+            <nav class="nav-menu" id="navMenu" aria-label="Main">
+                <a href="/">Home</a>
                 <a href="/games.html">Games</a>
-                <a href="/shop.html" class="active">Shop</a>
+                <a href="/shop.html" aria-current="page">Shop</a>
+                <a href="/#podcast">Podcast</a>
                 <a href="/events.html">Events</a>
-                <a href="/news.html">News</a>
                 <a href="/about.html">About</a>
                 <a href="/contact.html">Contact</a>
-            </div>
+                <a href="/#play" class="nav-play">Play free</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Shop Hero -->
     <section class="shop-hero">
@@ -342,6 +343,7 @@
     </footer>
 
     <script src="scripts/main.js"></script>
+<script src="/scripts/site-nav.js" defer></script>
 </body>
 </html>
 

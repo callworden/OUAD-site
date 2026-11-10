@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/pages.css">
     <link rel="stylesheet" href="styles/rebrand.css">
+    <link rel="stylesheet" href="/styles/site-nav.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -298,21 +299,22 @@
 </head>
 <body>
 
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <img src="images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
-            </a>
-            <div class="nav-links">
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo"><img src="/images/misc/logo.png" alt="Once Upon A Dice" width="205" height="100"></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu">Menu</button>
+            <nav class="nav-menu" id="navMenu" aria-label="Main">
                 <a href="/">Home</a>
                 <a href="/games.html">Games</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/#podcast">Podcast</a>
                 <a href="/events.html">Events</a>
-                <a href="/news.html" class="active">News</a>
                 <a href="/about.html">About</a>
                 <a href="/contact.html">Contact</a>
-            </div>
+                <a href="/#play" class="nav-play">Play free</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <section class="page-header">
         <div class="header-content">
@@ -534,5 +536,6 @@
         }
     </script>
 
+<script src="/scripts/site-nav.js" defer></script>
 </body>
 </html>

@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/site-nav.css">
     <link rel="stylesheet" href="styles/home.css">
 </head>
 <body>
@@ -22,19 +23,17 @@
 <!-- ============ NAV ============ -->
 <header class="site-nav">
     <div class="nav-inner">
-        <a href="/" class="nav-logo"><img src="images/misc/logo.png" alt="Once Upon A Dice" width="205" height="100"></a>
-
-        <button class="nav-toggle" aria-expanded="false" aria-controls="navMenu">Menu</button>
-
+        <a href="/" class="nav-logo"><img src="/images/misc/logo.png" alt="Once Upon A Dice" width="205" height="100"></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu">Menu</button>
         <nav class="nav-menu" id="navMenu" aria-label="Main">
             <a href="/" aria-current="page">Home</a>
             <a href="/games.html">Games</a>
             <a href="/shop.html">Shop</a>
-            <a href="#podcast">Podcast</a>
+            <a href="/#podcast">Podcast</a>
             <a href="/events.html">Events</a>
             <a href="/about.html">About</a>
             <a href="/contact.html">Contact</a>
-            <a href="#play" class="nav-play">Play free</a>
+            <a href="/#play" class="nav-play">Play free</a>
         </nav>
     </div>
 </header>
@@ -62,24 +61,24 @@
 
         <!-- Fanned hand: each card links to its digital version, or its game page if digital isn't ready -->
         <div class="fan" aria-label="Our decks">
-            <a class="fan-card" href="/play/bbb/" style="--i:0; --r:-18deg">
-                <img src="images/games/bounce-bunny-card.jpg" alt="" width="400" height="560">
+            <a class="fan-card" href="/play/bbb/" target="_blank" rel="noopener" style="--i:0; --r:-18deg">
+                <img src="images/games/bounce-bunny-card.jpg" alt="" width="500" height="700">
                 <span class="fan-tag fan-tag--play">Play Bounce Bunny Bounce</span>
             </a>
-            <a class="fan-card" href="/play/hma-solitaire/" style="--i:1; --r:-6deg">
+            <a class="fan-card" href="/play/hma-solitaire/" target="_blank" rel="noopener" style="--i:1; --r:-6deg">
                 <img src="images/games/52poker.jpg" alt="" width="400" height="560">
                 <span class="fan-tag fan-tag--play">Play HMA Solitaire</span>
             </a>
-            <a class="fan-card" href="/games/her-majestys-airships.html" style="--i:2; --r:6deg">
+            <a class="fan-card" href="/play/stonerow/" target="_blank" rel="noopener" style="--i:2; --r:6deg">
+                <img src="images/games/stonerow-white-card.jpg" alt="" width="697" height="983">
+                <span class="fan-tag fan-tag--play">Play StoneRow</span>
+            </a>
+            <a class="fan-card" href="/games/her-majestys-airships.html" style="--i:3; --r:18deg">
                 <img src="images/games/her-majesty-airship-card.jpg" alt="" width="400" height="560">
                 <span class="fan-tag">Her Majesty’s Airships</span>
             </a>
-            <a class="fan-card" href="/games/stonerow.html" style="--i:3; --r:18deg">
-                <img src="images/games/stonerow-white-card.jpg" alt="" width="697" height="983">
-                <span class="fan-tag">StoneRow</span>
-            </a>
         </div>
-        <p class="fan-note">Two games are playable online today. The rest are on their way.</p>
+        <p class="fan-note">Three games are playable online today, with more on the way.</p>
     </div>
 </section>
 
@@ -87,7 +86,7 @@
 <section class="section" id="play">
     <div class="section-head">
         <h2>Playable right now</h2>
-        <p>In your browser, on your phone or computer. Play the computer or pass the device to a friend.</p>
+        <p>In your browser, on your phone or computer. Each game opens in its own tab, so you can come right back here.</p>
     </div>
 
     <div class="play-grid">
@@ -102,7 +101,7 @@
                 <p>Radioactive carrot chaos for two. Bounce across the field, grab three carrots, and shock your opponent into trouble.</p>
                 <p class="meta">2 players, 10–20 minutes, ages 8+</p>
                 <div class="play-actions">
-                    <a href="/play/bbb/" class="btn btn-play">Play now</a>
+                    <a href="/play/bbb/" class="btn btn-play" target="_blank" rel="noopener">Play now</a>
                     <a href="https://www.drivethrucards.com/en/product/336921/bounce-bunny-bounce" class="text-link" target="_blank" rel="noopener">Or get the printed deck, $15</a>
                 </div>
             </div>
@@ -119,8 +118,24 @@
                 <p>Classic Klondike solitaire, played with every card from our steampunk poker deck. One player, as many hands as you like.</p>
                 <p class="meta">1 player, 5–10 minutes, all ages</p>
                 <div class="play-actions">
-                    <a href="/play/hma-solitaire/" class="btn btn-play">Play now</a>
+                    <a href="/play/hma-solitaire/" class="btn btn-play" target="_blank" rel="noopener">Play now</a>
                     <a href="https://www.drivethrucards.com/en/product/429164/her-majesty-s-airships-52-card-poker-deck" class="text-link" target="_blank" rel="noopener">Or get the printed deck, $15</a>
+                </div>
+            </div>
+        </article>
+        <article class="play-panel play-panel--sr">
+            <div class="play-art" aria-hidden="true">
+                <img src="images/games/srgallery/stonerow-earthstone-01.jpg" alt="" style="--r:-9deg">
+                <img src="images/games/srgallery/stonerow-nightrock-01.jpg" alt="" style="--r:0deg">
+                <img src="images/games/srgallery/stonerow-bloodmoon-01.jpg" alt="" style="--r:9deg">
+            </div>
+            <div class="play-body">
+                <h3>StoneRow</h3>
+                <p>Build, break, and steal StoneRows as rival guilds race to raise the best towers. Play against bots or pass the device around.</p>
+                <p class="meta">2–4 players, 15–20 minutes, ages 10+</p>
+                <div class="play-actions">
+                    <a href="/play/stonerow/" class="btn btn-play" target="_blank" rel="noopener">Play now</a>
+                    <a href="https://www.drivethrucards.com/en/product/270284/stonerow-grinding-gears-edition" class="text-link" target="_blank" rel="noopener">Or get the printed deck, $25</a>
                 </div>
             </div>
         </article>
@@ -144,7 +159,7 @@
         <!-- Bounce Bunny Bounce -->
         <div class="shelf-row" role="row">
             <div class="shelf-game" role="cell">
-                <img src="images/games/bounce-bunny-card.jpg" alt="" width="400" height="560">
+                <img src="images/games/bounce-bunny-card.jpg" alt="" width="500" height="700">
                 <div>
                     <h3><a href="/games/bbb.html">Bounce Bunny Bounce</a></h3>
                     <p>A carrot-finding competition. Easy to learn, hard to stop playing.</p>
@@ -153,7 +168,7 @@
             </div>
             <div class="shelf-cell" role="cell" data-label="Play online">
                 <span class="status status--live">Ready to play</span>
-                <a href="/play/bbb/" class="btn btn-play btn-sm">Play free</a>
+                <a href="/play/bbb/" class="btn btn-play btn-sm" target="_blank" rel="noopener">Play free</a>
             </div>
             <div class="shelf-cell" role="cell" data-label="Printed deck">
                 <span class="price">$15</span>
@@ -173,11 +188,31 @@
             </div>
             <div class="shelf-cell" role="cell" data-label="Play online">
                 <span class="status status--live">Solitaire, ready to play</span>
-                <a href="/play/hma-solitaire/" class="btn btn-play btn-sm">Play free</a>
+                <a href="/play/hma-solitaire/" class="btn btn-play btn-sm" target="_blank" rel="noopener">Play free</a>
             </div>
             <div class="shelf-cell" role="cell" data-label="Printed deck">
                 <span class="price">$15</span>
                 <a href="https://www.drivethrucards.com/en/product/429164/her-majesty-s-airships-52-card-poker-deck" class="btn btn-buy btn-sm" target="_blank" rel="noopener">Buy the deck</a>
+            </div>
+        </div>
+
+        <!-- StoneRow -->
+        <div class="shelf-row" role="row">
+            <div class="shelf-game" role="cell">
+                <img src="images/games/stonerow-white-card.jpg" alt="" width="697" height="983">
+                <div>
+                    <h3><a href="/games/stonerow.html">StoneRow</a> <small>Grinding Gears Edition</small></h3>
+                    <p>Medieval tower-building and guild rivalry. Simple rules, fast fun, four guilds.</p>
+                    <p class="meta">2 players, 15–20 min, ages 10+</p>
+                </div>
+            </div>
+            <div class="shelf-cell" role="cell" data-label="Play online">
+                <span class="status status--live">Ready to play</span>
+                <a href="/play/stonerow/" class="btn btn-play btn-sm" target="_blank" rel="noopener">Play free</a>
+            </div>
+            <div class="shelf-cell" role="cell" data-label="Printed deck">
+                <span class="price">$25</span>
+                <a href="https://www.drivethrucards.com/en/product/270284/stonerow-grinding-gears-edition" class="btn btn-buy btn-sm" target="_blank" rel="noopener">Buy the deck</a>
             </div>
         </div>
 
@@ -198,26 +233,6 @@
             <div class="shelf-cell" role="cell" data-label="Printed deck">
                 <span class="price">$25</span>
                 <a href="https://www.drivethrucards.com/en/product/429835/her-majesty-s-airships-the-aerosphere" class="btn btn-buy btn-sm" target="_blank" rel="noopener">Buy the deck</a>
-            </div>
-        </div>
-
-        <!-- StoneRow -->
-        <div class="shelf-row" role="row">
-            <div class="shelf-game" role="cell">
-                <img src="images/games/stonerow-white-card.jpg" alt="" width="697" height="983">
-                <div>
-                    <h3><a href="/games/stonerow.html">StoneRow</a> <small>Grinding Gears Edition</small></h3>
-                    <p>Medieval tower-building and guild rivalry. Simple rules, fast fun, four guilds.</p>
-                    <p class="meta">2 players, 15–20 min, ages 10+</p>
-                </div>
-            </div>
-            <div class="shelf-cell" role="cell" data-label="Play online">
-                <span class="status">In the works</span>
-                <a href="#newsletter" class="btn btn-ghost btn-sm">Tell me when</a>
-            </div>
-            <div class="shelf-cell" role="cell" data-label="Printed deck">
-                <span class="price">$25</span>
-                <a href="https://www.drivethrucards.com/en/product/270284/stonerow-grinding-gears-edition" class="btn btn-buy btn-sm" target="_blank" rel="noopener">Buy the deck</a>
             </div>
         </div>
 
@@ -260,31 +275,29 @@
 </section>
 
 <!-- ============ PODCAST ============ -->
-<!-- TODO: replace the podcast name, description, episode, cover art, and the four platform links below -->
 <section class="podcast" id="podcast">
     <div class="podcast-inner">
-        <div class="podcast-cover">
-            <!-- Swap for real podcast cover art (square, 1400px+), e.g. images/podcast/cover.jpg -->
+        <a class="podcast-cover" href="https://open.spotify.com/show/2vw92SP1oFvm0P6OcsgPyD" target="_blank" rel="noopener" aria-label="Once Upon A Dice Podcast on Spotify">
             <img src="images/misc/hero-logo.png" alt="">
-            <span class="podcast-cover-title">The Once Upon A Dice Podcast</span>
-        </div>
+            <span class="podcast-cover-title">Podcast</span>
+        </a>
 
         <div class="podcast-copy">
-            <h2>The Once Upon A Dice Podcast</h2>
-            <p class="podcast-lede">Chris and Amy on running a two-person game studio: designing the games, writing the worlds behind them, and what happens when a playtest goes sideways.</p>
+            <h2>Once Upon A Dice Podcast</h2>
+            <p class="podcast-lede">Fantasy author Amy Allworden and game designer Chris Allworden explore the wonderfully chaotic world of creativity: storytelling, game design, works in progress, and the creative challenges in between.</p>
 
-            <div class="episode">
-                <p class="episode-label">Latest episode</p>
-                <h3 class="episode-title">Episode 1: Why we’re giving our games away</h3>
-                <p class="episode-desc">Our first episode: the decision to put every game online for free, and what we hope happens next.</p>
-                <!-- Optional: paste a Spotify or YouTube embed here instead of the text above -->
-            </div>
+            <a class="episode" href="https://open.spotify.com/show/2vw92SP1oFvm0P6OcsgPyD" target="_blank" rel="noopener">
+                <span class="episode-label">Latest episode, 30 min</span>
+                <span class="episode-title">Welcome to the Podcast</span>
+                <span class="episode-desc">Our very first episode. Chris and Amy talk about the path that got them here, their plans, and the journey ahead.</span>
+            </a>
 
             <div class="listen">
-                <a href="#" class="listen-link" target="_blank" rel="noopener">Spotify</a>
-                <a href="#" class="listen-link" target="_blank" rel="noopener">Apple Podcasts</a>
-                <a href="#" class="listen-link" target="_blank" rel="noopener">YouTube</a>
-                <a href="#" class="listen-link" target="_blank" rel="noopener">RSS</a>
+                <a href="https://open.spotify.com/show/2vw92SP1oFvm0P6OcsgPyD" class="btn btn-play" target="_blank" rel="noopener">Listen on Spotify</a>
+                <!-- When a platform goes live: swap its <span> for <a href="URL" class="listen-link" target="_blank" rel="noopener">Name</a> -->
+                <span class="listen-link is-soon" aria-disabled="true">YouTube <small>Coming soon</small></span>
+                <span class="listen-link is-soon" aria-disabled="true">Apple Podcasts <small>Coming soon</small></span>
+                <span class="listen-link is-soon" aria-disabled="true">RSS <small>Coming soon</small></span>
             </div>
         </div>
     </div>
@@ -294,15 +307,13 @@
 <section class="section table-talk">
     <div class="teaser">
         <h2>Next at the table</h2>
-        <a class="event" href="https://teslacon.com/" target="_blank" rel="noopener">
-            <span class="event-date"><span class="event-month">Nov</span><span class="event-days">12–15</span></span>
+        <div class="event event--quiet">
             <span class="event-info">
-                <strong>TeslaCon 2026</strong>
-                <span>Marriott Madison West, WI</span>
-                <span class="event-desc">Play Her Majesty’s Airships in person and pick up a printed deck.</span>
+                <strong>We’re in creative mode!</strong>
+                <span class="event-desc">No events on the calendar right now while we make new games and stories. Stay posted for next year’s events.</span>
             </span>
-        </a>
-        <a href="/events.html" class="text-link">All events</a>
+        </div>
+        <a href="#newsletter" class="text-link">Get event news by email</a>
     </div>
 
     <div class="teaser">
@@ -357,8 +368,9 @@
         </div>
         <div class="footer-col">
             <h2>Play free</h2>
-            <a href="/play/bbb/">Bounce Bunny Bounce</a>
-            <a href="/play/hma-solitaire/">HMA Solitaire</a>
+            <a href="/play/bbb/" target="_blank" rel="noopener">Bounce Bunny Bounce</a>
+            <a href="/play/hma-solitaire/" target="_blank" rel="noopener">HMA Solitaire</a>
+            <a href="/play/stonerow/" target="_blank" rel="noopener">StoneRow</a>
             <a href="/games.html">All games</a>
         </div>
         <div class="footer-col">
@@ -369,7 +381,7 @@
         </div>
         <div class="footer-col">
             <h2>Listen and follow</h2>
-            <a href="#podcast">The podcast</a>
+            <a href="https://open.spotify.com/show/2vw92SP1oFvm0P6OcsgPyD" target="_blank" rel="noopener">Podcast on Spotify</a>
             <a href="#newsletter">Newsletter</a>
             <a href="mailto:hello@onceuponadice.com">hello@onceuponadice.com</a>
         </div>
@@ -377,24 +389,8 @@
     <p class="footer-legal">&copy; 2026 Once Upon A Dice</p>
 </footer>
 
+<script src="/scripts/site-nav.js" defer></script>
 <script>
-/* Mobile nav toggle */
-(function () {
-    var btn = document.querySelector('.nav-toggle');
-    var menu = document.getElementById('navMenu');
-    btn.addEventListener('click', function () {
-        var open = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-        menu.classList.toggle('is-open', !open);
-    });
-    menu.addEventListener('click', function (e) {
-        if (e.target.tagName === 'A') {
-            btn.setAttribute('aria-expanded', 'false');
-            menu.classList.remove('is-open');
-        }
-    });
-})();
-
 /* Newsletter: same Netlify Function + payload as the current site */
 (function () {
     var form = document.getElementById('newsletterForm');

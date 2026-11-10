@@ -11,25 +11,26 @@
     <link rel="stylesheet" href="../styles/rebrand.css">
 	<link rel="stylesheet" href="../styles/deck-display.css">
 	<link rel="stylesheet" href="../styles/card-lightbox.css">
+    <link rel="stylesheet" href="/styles/site-nav.css">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <img src="../images/misc/logo.png" alt="Once Upon A Dice" class="logo-image">
-            </a>
-                                    <div class="nav-links">
-                <a href="/" >Home</a>
-                <a href="/games.html" class="active">Games</a>
-                <!-- <a href="/shop.html">Shop</a> -->
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo"><img src="/images/misc/logo.png" alt="Once Upon A Dice" width="205" height="100"></a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navMenu">Menu</button>
+            <nav class="nav-menu" id="navMenu" aria-label="Main">
+                <a href="/">Home</a>
+                <a href="/games.html" aria-current="page">Games</a>
+                <a href="/shop.html">Shop</a>
+                <a href="/#podcast">Podcast</a>
                 <a href="/events.html">Events</a>
-                <a href="/news.html">News</a>
                 <a href="/about.html">About</a>
                 <a href="/contact.html">Contact</a>
-            </div>
+                <a href="/#play" class="nav-play">Play free</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <!-- Game Hero -->
     <section class="game-hero">
@@ -139,6 +140,7 @@
                     </div>
 
                     <div class="cta-buttons">
+                        <a href="/play/stonerow/" target="_blank" rel="noopener" class="btn btn-large btn-play-free">Play Free Online</a>
                         <a href="https://www.drivethrucards.com/en/product/270284/stonerow-grinding-gears-edition" class="btn btn-primary btn-large btn-animated-border">Buy Now-$25</a>
 						<a href="../games/rules/StoneRowGG-Official-Rules.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Official Rules</a>
                         
@@ -319,6 +321,7 @@
         }
         window.scrollTo(0, 0);
     </script>
+<script src="/scripts/site-nav.js" defer></script>
 </body>
 </html>
 
