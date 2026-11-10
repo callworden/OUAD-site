@@ -429,3 +429,60 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Play-free button on game pages (opens the digital version in a new tab) */
+.btn.btn-play-free {
+    background: #C8941A;
+    color: #120C00;
+    border: 2px solid #C8941A;
+    font-weight: 600;
+}
+.btn.btn-play-free:hover {
+    background: #DDA83A;
+    border-color: #DDA83A;
+    color: #120C00;
+}
+
+/* Blood Moon Rising: digital + printed versions */
+.bmr-versions { padding: 4rem 0 2rem; }
+.bmr-versions .section-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.bmr-versions h2 { margin: 0 0 0.5rem; }
+.bmr-versions h2 { text-align: center; }
+.bmr-versions-intro { color: rgba(237, 227, 204, 0.7); max-width: 40em; margin: 0 auto 2rem; text-align: center; }
+.version-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.5rem; align-items: start; }
+.version {
+    background: #141012; border: 1px solid rgba(180, 0, 30, 0.3); border-radius: 14px; overflow: hidden;
+    display: flex; flex-direction: column;
+}
+.version-shot { display: block; border-bottom: 1px solid rgba(180, 0, 30, 0.3); }
+.version-shot img, .version-thumbs img { display: block; width: 100%; height: auto; }
+.version-body { padding: 1.5rem 1.6rem 1.8rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+.version-body h3 { margin: 0; font-size: 1.6rem; }
+.version-body p { margin: 0; }
+.version-status {
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em;
+    color: rgba(205, 188, 255, 0.9); background: rgba(20, 14, 36, 0.9);
+    border: 1px solid rgba(180, 140, 255, 0.3); border-radius: 999px; padding: 0.25rem 0.75rem;
+}
+.version-meta { color: rgba(237, 227, 204, 0.6); font-size: 0.9rem; }
+.version-thumbs { display: grid; grid-template-columns: 1fr 1.4fr; gap: 0.75rem; width: 100%; align-items: start; margin: 0.25rem 0 0.5rem; }
+.version-thumbs a { display: block; border-radius: 8px; overflow: hidden; border: 1px solid rgba(180, 0, 30, 0.3); }
+.version-thumbs a:hover, .version-shot:hover { opacity: 0.9; }
+.version-fan {
+    height: 260px; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 1.5rem;
+    background: #1a0508; border-bottom: 1px solid rgba(180, 0, 30, 0.3);
+}
+.version-fan img {
+    width: 130px; aspect-ratio: 5 / 7; object-fit: cover; border-radius: 8px; margin: 0 -26px;
+    transform: rotate(var(--r)); transform-origin: 50% 140%;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+}
+.version-fan img:nth-child(2) { z-index: 1; }
+@media (max-width: 900px) {
+    .version-grid { grid-template-columns: 1fr; }
+    .bmr-versions .section-content { padding: 0 1.25rem; }
+}
+@media (max-width: 480px) {
+    .version-fan { height: 210px; }
+    .version-fan img { width: 100px; margin: 0 -20px; }
+}

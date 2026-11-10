@@ -28,7 +28,7 @@
         <nav class="nav-menu" id="navMenu" aria-label="Main">
             <a href="/" aria-current="page">Home</a>
             <a href="/games.html">Games</a>
-            <a href="/shop.html">Shop</a>
+            <a href="/#games">Shop</a>
             <a href="/#podcast">Podcast</a>
             <a href="/events.html">Events</a>
             <a href="/about.html">About</a>
@@ -61,24 +61,25 @@
 
         <!-- Fanned hand: each card links to its digital version, or its game page if digital isn't ready -->
         <div class="fan" aria-label="Our decks">
-            <a class="fan-card" href="/play/bbb/" target="_blank" rel="noopener" style="--i:0; --r:-18deg">
-                <img src="images/games/bounce-bunny-card.jpg" alt="" width="500" height="700">
-                <span class="fan-tag fan-tag--play">Play Bounce Bunny Bounce</span>
-            </a>
-            <a class="fan-card" href="/play/hma-solitaire/" target="_blank" rel="noopener" style="--i:1; --r:-6deg">
+            <a class="fan-card" href="/play/hma-solitaire/" target="_blank" rel="noopener" style="--i:0; --r:-18deg">
                 <img src="images/games/52poker.jpg" alt="" width="400" height="560">
                 <span class="fan-tag fan-tag--play">Play HMA Solitaire</span>
             </a>
-            <a class="fan-card" href="/play/stonerow/" target="_blank" rel="noopener" style="--i:2; --r:6deg">
+            <a class="fan-card" href="/play/stonerow/" target="_blank" rel="noopener" style="--i:1; --r:-6deg">
                 <img src="images/games/stonerow-white-card.jpg" alt="" width="697" height="983">
                 <span class="fan-tag fan-tag--play">Play StoneRow</span>
             </a>
-            <a class="fan-card" href="/games/her-majestys-airships.html" style="--i:3; --r:18deg">
+            <a class="fan-card" href="/games/her-majestys-airships.html" style="--i:2; --r:6deg">
                 <img src="images/games/her-majesty-airship-card.jpg" alt="" width="400" height="560">
                 <span class="fan-tag">Her Majesty’s Airships</span>
             </a>
+            <a class="fan-card" href="/games/bbb.html" style="--i:3; --r:18deg">
+                <img src="images/games/bounce-bunny-card.jpg" alt="" width="500" height="700">
+                <span class="stamp" aria-hidden="true">Coming<br>soon</span>
+                <span class="fan-tag">Bounce Bunny Bounce: new edition coming soon</span>
+            </a>
         </div>
-        <p class="fan-note">Three games are playable online today, with more on the way.</p>
+        <p class="fan-note">Two games are playable online today, with more on the way.</p>
     </div>
 </section>
 
@@ -90,23 +91,6 @@
     </div>
 
     <div class="play-grid">
-        <article class="play-panel play-panel--bbb">
-            <div class="play-art" aria-hidden="true">
-                <img src="images/games/bbb/bb2.png" alt="" style="--r:-9deg">
-                <img src="images/games/bounce-bunny-card.jpg" alt="" style="--r:0deg">
-                <img src="images/games/bbb/bb3.png" alt="" style="--r:9deg">
-            </div>
-            <div class="play-body">
-                <h3>Bounce Bunny Bounce</h3>
-                <p>Radioactive carrot chaos for two. Bounce across the field, grab three carrots, and shock your opponent into trouble.</p>
-                <p class="meta">2 players, 10–20 minutes, ages 8+</p>
-                <div class="play-actions">
-                    <a href="/play/bbb/" class="btn btn-play" target="_blank" rel="noopener">Play now</a>
-                    <a href="https://www.drivethrucards.com/en/product/336921/bounce-bunny-bounce" class="text-link" target="_blank" rel="noopener">Or get the printed deck, $15</a>
-                </div>
-            </div>
-        </article>
-
         <article class="play-panel play-panel--hma">
             <div class="play-art" aria-hidden="true">
                 <img src="images/games/poker/hearts/king.jpg" alt="" style="--r:-9deg">
@@ -154,26 +138,6 @@
             <span role="columnheader" class="shelf-game-h">Game</span>
             <span role="columnheader">Play online</span>
             <span role="columnheader">Printed deck</span>
-        </div>
-
-        <!-- Bounce Bunny Bounce -->
-        <div class="shelf-row" role="row">
-            <div class="shelf-game" role="cell">
-                <img src="images/games/bounce-bunny-card.jpg" alt="" width="500" height="700">
-                <div>
-                    <h3><a href="/games/bbb.html">Bounce Bunny Bounce</a></h3>
-                    <p>A carrot-finding competition. Easy to learn, hard to stop playing.</p>
-                    <p class="meta">2 players, 10–20 min, ages 8+</p>
-                </div>
-            </div>
-            <div class="shelf-cell" role="cell" data-label="Play online">
-                <span class="status status--live">Ready to play</span>
-                <a href="/play/bbb/" class="btn btn-play btn-sm" target="_blank" rel="noopener">Play free</a>
-            </div>
-            <div class="shelf-cell" role="cell" data-label="Printed deck">
-                <span class="price">$15</span>
-                <a href="https://www.drivethrucards.com/en/product/336921/bounce-bunny-bounce" class="btn btn-buy btn-sm" target="_blank" rel="noopener">Buy the deck</a>
-            </div>
         </div>
 
         <!-- Steampunk Poker Deck / HMA Solitaire -->
@@ -236,6 +200,29 @@
             </div>
         </div>
 
+        <!-- Bounce Bunny Bounce: new edition on the way. When the new deck is confirmed:
+             swap both cells back to "Ready to play" / price + Buy, using the NEW DriveThruCards link -->
+        <div class="shelf-row" role="row">
+            <div class="shelf-game" role="cell">
+                <div class="soon-thumb">
+                    <img src="images/games/bounce-bunny-card.jpg" alt="" width="500" height="700">
+                    <span class="soon-ribbon">Coming soon</span>
+                </div>
+                <div>
+                    <h3><a href="/games/bbb.html">Bounce Bunny Bounce</a> <small>New edition</small></h3>
+                    <p>A carrot-finding competition. Easy to learn, hard to stop playing.</p>
+                    <p class="meta">2 players, 10–20 min, ages 8+</p>
+                </div>
+            </div>
+            <div class="shelf-cell" role="cell" data-label="Play online">
+                <span class="status">Coming soon</span>
+                <a href="#newsletter" class="btn btn-ghost btn-sm">Tell me when</a>
+            </div>
+            <div class="shelf-cell" role="cell" data-label="Printed deck">
+                <span class="status">New edition coming soon</span>
+                <a href="#newsletter" class="btn btn-ghost btn-sm">Tell me when</a>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -339,7 +326,7 @@
             </div>
             <div class="wip-body">
                 <h3><a href="/games/blood-moon-rising.html">Blood Moon Rising</a></h3>
-                <p>A cooperative horror castle crawl through Dracula’s domain. Printed deck planned for 2026.</p>
+                <p>A cooperative horror castle crawl through Dracula’s domain. Digital and printed versions in development.</p>
                 <p class="wip-links"><a href="/games/blood-moon-rising.html" class="text-link">Sneak peek</a> <a href="#newsletter" class="text-link">Tell me when</a></p>
             </div>
         </div>
@@ -368,14 +355,13 @@
         </div>
         <div class="footer-col">
             <h2>Play free</h2>
-            <a href="/play/bbb/" target="_blank" rel="noopener">Bounce Bunny Bounce</a>
             <a href="/play/hma-solitaire/" target="_blank" rel="noopener">HMA Solitaire</a>
             <a href="/play/stonerow/" target="_blank" rel="noopener">StoneRow</a>
             <a href="/games.html">All games</a>
         </div>
         <div class="footer-col">
             <h2>Printed decks</h2>
-            <a href="/shop.html">Shop</a>
+            <a href="/#games">Shop</a>
             <a href="https://www.drivethrucards.com/" target="_blank" rel="noopener">DriveThruCards</a>
             <a href="/events.html">Find us at events</a>
         </div>

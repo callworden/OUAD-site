@@ -12,7 +12,7 @@
     --sn-gold: #C8941A;
     --sn-gold-hi: #DDA83A;
     --sn-line: rgba(237, 227, 204, 0.14);
-    --sn-gutter: clamp(1.25rem, 4vw, 2.5rem);
+    --sn-gutter: clamp(20px, 4vw, 40px);
 
     position: sticky; top: 0; z-index: 1000;
     background: rgba(0, 0, 0, 0.92);
@@ -21,30 +21,31 @@
     border-bottom: 1px solid var(--sn-line);
     font-family: 'Jost', 'Segoe UI', system-ui, sans-serif;
     line-height: 1.4;
+    font-size: 16px; /* px throughout so pages that change the root font size can't resize the menu */
 }
 .site-nav *, .site-nav *::before, .site-nav *::after { box-sizing: border-box; }
 .site-nav .nav-inner {
-    max-width: 1200px; margin: 0 auto; padding: 0.6rem var(--sn-gutter);
-    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    max-width: 1200px; margin: 0 auto; padding: 10px var(--sn-gutter);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
 }
 .site-nav .nav-logo { display: block; flex: none; }
 .site-nav .nav-logo img { display: block; height: 52px; width: auto; max-width: none; }
-.site-nav .nav-menu { display: flex; align-items: center; gap: 1.6rem; margin: 0; padding: 0; }
+.site-nav .nav-menu { display: flex; align-items: center; gap: 26px; margin: 0; padding: 0; }
 .site-nav .nav-menu a {
-    color: var(--sn-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500;
+    color: var(--sn-muted); text-decoration: none; font-size: 15px; font-weight: 500;
     transition: color 0.15s; background: none; border: 0;
 }
 .site-nav .nav-menu a:hover,
 .site-nav .nav-menu a[aria-current="page"] { color: var(--sn-text); }
 .site-nav .nav-menu .nav-play {
-    color: #120C00; background: var(--sn-gold); padding: 0.55rem 1.1rem; border-radius: 999px;
+    color: #120C00; background: var(--sn-gold); padding: 9px 18px; border-radius: 999px;
     font-weight: 600;
 }
 .site-nav .nav-menu .nav-play:hover { color: #120C00; background: var(--sn-gold-hi); }
 .site-nav .nav-toggle {
     display: none; background: none; border: 1px solid rgba(237, 227, 204, 0.28); color: var(--sn-text);
-    font: 500 0.95rem 'Jost', 'Segoe UI', system-ui, sans-serif;
-    padding: 0.5rem 1rem; border-radius: 999px; cursor: pointer;
+    font: 500 15px 'Jost', 'Segoe UI', system-ui, sans-serif;
+    padding: 8px 16px; border-radius: 999px; cursor: pointer;
 }
 .site-nav :focus-visible { outline: 2px solid var(--sn-gold-hi); outline-offset: 3px; border-radius: 4px; }
 
@@ -54,9 +55,9 @@
         display: none; position: absolute; top: 100%; left: 0; right: 0;
         flex-direction: column; align-items: stretch; gap: 0;
         background: #000; border-bottom: 1px solid var(--sn-line);
-        padding: 0.5rem var(--sn-gutter) 1.25rem;
+        padding: 8px var(--sn-gutter) 20px;
     }
     .site-nav .nav-menu.is-open { display: flex; }
-    .site-nav .nav-menu a { padding: 0.8rem 0; border-bottom: 1px solid var(--sn-line); font-size: 1.05rem; }
-    .site-nav .nav-menu .nav-play { margin-top: 1rem; text-align: center; border-bottom: 0; padding: 0.85rem; }
+    .site-nav .nav-menu a { padding: 13px 0; border-bottom: 1px solid var(--sn-line); font-size: 17px; }
+    .site-nav .nav-menu .nav-play { margin-top: 16px; text-align: center; border-bottom: 0; padding: 14px; }
 }
