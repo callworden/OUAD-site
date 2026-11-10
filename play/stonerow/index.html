@@ -9,12 +9,12 @@
 <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<!-- Social previews: replace YOUR-SITE with the page's real address (see README) -->
+<!-- Social previews -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="StoneRow | Play online">
 <meta property="og:description" content="Build, break and steal StoneRows against bots or friends. A card game by Once Upon A Dice.">
-<meta property="og:image" content="https://YOUR-SITE/games/stonerow/og-image.jpg">
-<meta property="og:url" content="https://YOUR-SITE/games/stonerow/">
+<meta property="og:image" content="https://onceuponadice.com/play/stonerow/og-image.jpg">
+<meta property="og:url" content="https://onceuponadice.com/play/stonerow/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,9 +50,10 @@
   --earthstone: #5c6b1f;
   --everquartz: #1d7a82;
   --guild: #6e5420;
-  --cw: 96px; --ch: 134px;   /* hand */
-  --tw: 82px; --th: 115px;   /* centre piles */
-  --mw: 50px; --mh: 70px;    /* StoneRows */
+  /* Card sizes follow the window so the whole table always fits on screen */
+  --cw: clamp(56px, min(10.6vh, 5.8vw), 104px); --ch: calc(var(--cw) * 1.4);   /* hand */
+  --tw: clamp(50px, min(9.4vh, 5.2vw), 90px);   --th: calc(var(--tw) * 1.4);   /* centre piles */
+  --mw: clamp(34px, min(6.2vh, 3.3vw), 54px);   --mh: calc(var(--mw) * 1.4);   /* StoneRows */
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -102,32 +103,40 @@ h1, h2, .display { font-family: Cinzel, "Trajan Pro", Georgia, serif; font-weigh
 .top .btn[aria-expanded="true"] { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
 
 /* ── Room & table ─────────────────────────────────────────────────────────── */
-.room { display: flex; flex-direction: column; height: 100%; min-height: 720px; }
-.top { display: flex; align-items: center; justify-content: space-between; padding: 10px 30px 0; }
+.room { display: flex; flex-direction: column; height: 100vh; height: 100dvh; min-height: 500px; overflow: hidden; }
+html, body { overflow-x: hidden; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: clamp(6px, 1.2vh, 10px) clamp(14px, 2.2vw, 30px) 0; }
 .top h1 { font-size: 1.45rem; }
 .top .tools { display: flex; gap: 8px; }
-.table { flex: 1; min-height: 0; display: flex; padding: 14px 30px 0; }
+.table { flex: 1; min-height: 0; display: flex; padding: clamp(6px, 1.4vh, 14px) clamp(14px, 2.2vw, 30px) 0; }
 .felt {
   flex: 1; min-height: 0; min-width: 0; position: relative;
-  border: 18px solid transparent; border-radius: 210px / 150px;
+  border: clamp(10px, 1.8vh, 18px) solid transparent; border-radius: clamp(90px, 15vw, 210px) / clamp(70px, 16vh, 150px);
   background:
     radial-gradient(rgba(255, 255, 255, .035) 1px, transparent 1.4px) 0 0 / 5px 5px padding-box,
     radial-gradient(ellipse at 50% 45%, var(--felt-hi), var(--felt) 55%, var(--felt-lo) 100%) padding-box,
     linear-gradient(160deg, var(--rail-hi), var(--rail) 38%, var(--rail-lo) 100%) border-box;
   box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .3), inset 0 0 70px rgba(0, 0, 0, .5), 0 18px 34px rgba(0, 0, 0, .35);
   color: var(--on-felt);
-  padding: 22px 56px 52px;
-  display: grid; gap: 12px 24px;
-  grid-template-columns: minmax(210px, 1fr) minmax(400px, 1.5fr) minmax(210px, 1fr);
-  grid-template-rows: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+  padding: clamp(8px, 2vh, 22px) clamp(24px, 3.6vw, 56px) clamp(30px, 5.4vh, 52px);
+  display: grid; gap: clamp(4px, 1.1vh, 12px) clamp(12px, 1.8vw, 24px);
+  grid-template-columns: minmax(165px, 1fr) minmax(320px, 2.1fr) minmax(165px, 1fr);
+  grid-template-rows: auto minmax(min-content, 1fr) auto;
+  overflow: auto;
 }
-.n2 .felt { grid-template-areas: "top top top" ". center ." "bottom bottom bottom"; }
+.n2 .felt { grid-template-areas: "top top top" "center center center" "bottom bottom bottom"; }
 .n3 .felt { grid-template-areas: "left center right" "left center right" "bottom bottom bottom"; }
 .n4 .felt { grid-template-areas: "left top right" "left center right" "bottom bottom bottom"; }
 
 /* ── Seats ────────────────────────────────────────────────────────────────── */
-.seat-zone { min-height: 0; overflow: auto; display: flex; flex-direction: column; gap: 10px; padding: 6px 8px; }
-.seat-zone.top { grid-area: top; align-items: center; }
+.seat-zone { min-height: 0; min-width: 0; overflow: auto; display: flex; flex-direction: column; gap: clamp(4px, 1vh, 10px); padding: 4px 8px; }
+.seat-zone.top, .seat-zone.bottom { min-height: auto; flex-wrap: nowrap; } /* these rows size to their content; only side seats scroll */
+.seat-zone.top .seat-head, .seat-zone.bottom .plate { flex: none; }
+.seat-zone.top .rows, .seat-zone.bottom .rows { flex-wrap: nowrap; overflow-x: auto; min-width: 0; justify-content: flex-start; padding-bottom: 2px; }
+.rows.crowded .card.mini { width: calc(var(--mw) * .8); height: calc(var(--mh) * .8); }
+.rows.crowded .row { padding: 4px 6px 3px; }
+.rows.crowded .row .info { font-size: .74rem; }
+.seat-zone.top { grid-area: top; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: center; gap: 6px 18px; overflow: visible; }
 .seat-zone.left { grid-area: left; align-items: flex-start; justify-content: center; }
 .seat-zone.right { grid-area: right; align-items: flex-end; justify-content: center; }
 .seat-zone.bottom { grid-area: bottom; flex-direction: row; align-items: flex-end; justify-content: center; gap: 18px; overflow: visible; }
@@ -155,12 +164,12 @@ h1, h2, .display { font-family: Cinzel, "Trajan Pro", Georgia, serif; font-weigh
 }
 .pts { font: 700 1.3rem/1 Cinzel, Georgia, serif; color: var(--gold); margin-left: 4px; min-width: 1.6em; text-align: right; }
 .backs { display: flex; align-items: center; }
-.back-mini { width: 26px; height: 37px; border-radius: 4px; flex: none; background-color: #000; background-position: center; background-size: cover; border: 1px solid #000; box-shadow: 0 1px 0 rgba(0, 0, 0, .45); }
-.back-mini + .back-mini { margin-left: -17px; }
+.back-mini { width: calc(var(--mw) * .52); height: calc(var(--mw) * .73); border-radius: 4px; flex: none; background-color: #000; background-position: center; background-size: cover; border: 1px solid #000; box-shadow: 0 1px 0 rgba(0, 0, 0, .45); }
+.back-mini + .back-mini { margin-left: calc(var(--mw) * -.34); }
 .backs .n { margin-left: 8px; font-size: .82rem; color: var(--on-felt-soft); }
 
 /* ── StoneRows on the felt ────────────────────────────────────────────────── */
-.rows { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: flex-start; }
+.rows { display: flex; flex-wrap: wrap; gap: clamp(4px, .8vh, 8px) 12px; align-items: flex-start; }
 .seat-zone.top .rows, .seat-zone.bottom .rows { justify-content: center; }
 .seat-zone.right .rows { justify-content: flex-end; }
 .rows .empty { color: var(--on-felt-soft); font-size: .85rem; font-style: italic; padding: 6px 2px; }
@@ -169,7 +178,7 @@ h1, h2, .display { font-family: Cinzel, "Trajan Pro", Georgia, serif; font-weigh
   border: 2px solid transparent; border-radius: 9px; background: rgba(0, 0, 0, .2); text-align: left;
 }
 .row .cards { display: flex; }
-.row .cards .card + .card { margin-left: -20px; }
+.row .cards .card + .card { margin-left: calc(var(--mw) * -.4); }
 .row .info { font-size: .8rem; color: var(--on-felt-soft); display: flex; gap: 6px; flex-wrap: wrap; max-width: 240px; }
 .row .info b { color: var(--on-felt); }
 .row.broken .cards { filter: grayscale(.85); opacity: .5; }
@@ -180,18 +189,26 @@ h1, h2, .display { font-family: Cinzel, "Trajan Pro", Georgia, serif; font-weigh
 .row.target:hover { background: rgba(220, 170, 71, .32); }
 
 /* ── Centre of the table ──────────────────────────────────────────────────── */
-.center { grid-area: center; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
-.status { margin: 0; background: rgba(0, 0, 0, .34); border: 1px solid rgba(243, 236, 217, .12); padding: 6px 18px; border-radius: 999px; font-size: 1rem; text-align: center; }
+.center { grid-area: center; min-height: 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(6px, 1.6vh, 16px); }
+.status { margin: 0; background: var(--panel); color: var(--on-felt); border: 1px solid var(--gold-soft); padding: 5px 18px; border-radius: 999px; font-size: .98rem; text-align: center; flex: 0 1 auto; min-width: 0; }
+.top h1 { flex: 1 1 0; white-space: nowrap; }
+.top .tools { flex: 0 0 auto; justify-content: flex-end; }
+.top .tools .btn { white-space: nowrap; }
+.top .status { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 1250px) { .top .tools .btn { padding: 6px 10px; font-size: .9rem; } }
 .status strong { font-family: Cinzel, Georgia, serif; }
-.piles { display: flex; gap: 28px; align-items: flex-start; }
-.pile { display: flex; flex-direction: column; align-items: center; gap: 7px; font-size: .78rem; color: var(--on-felt-soft); }
-.pile > span { text-align: center; max-width: 150px; line-height: 1.3; }
+.piles { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(12px, 2vw, 28px); align-items: flex-start; }
+.tower-pile { align-self: center; margin-left: clamp(4px, 1vw, 14px); }
+.n4 .tower .piece, .n3 .tower .piece { width: calc(var(--tw) * .42); height: calc(var(--tw) * .59); }
+.n4 .tower .piece.foreman, .n3 .tower .piece.foreman { margin-left: 8px; }
+.pile { display: flex; flex-direction: column; align-items: center; gap: clamp(3px, .7vh, 7px); font-size: .74rem; color: var(--on-felt-soft); }
+.pile > span { text-align: center; max-width: 116px; line-height: 1.2; }
 .pile .card, .pile .slot { width: var(--tw); height: var(--th); }
 .pile .slot { border: 2px dashed rgba(243, 236, 217, .28); border-radius: 8px; }
 .card.back.stack { box-shadow: 1px 1px 0 #0b0b0b, 3px 3px 0 #000, 4px 4px 0 #2a2a2a, 0 8px 12px rgba(0, 0, 0, .45); }
 .tower { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .tower .strip { display: flex; align-items: center; }
-.tower .piece { width: 44px; height: 61px; border-radius: 5px; overflow: hidden; flex: none; background-position: center; background-size: cover; box-shadow: 0 2px 0 rgba(0, 0, 0, .35); }
+.tower .piece { width: calc(var(--tw) * .5); height: calc(var(--tw) * .7); border-radius: 5px; overflow: hidden; flex: none; background-position: center; background-size: cover; box-shadow: 0 2px 0 rgba(0, 0, 0, .35); }
 .tower .piece + .piece { margin-left: -2px; }
 .tower .piece.down { filter: saturate(.2) brightness(.55); opacity: .5; }
 .tower .piece.ot.down { opacity: .28; }
@@ -249,19 +266,19 @@ button.card { cursor: pointer; }
 @keyframes breathe { 50% { box-shadow: 0 0 0 5px transparent, 0 0 8px transparent; } }
 
 /* ── Your hand, fanned along the rail ─────────────────────────────────────── */
-.hand-area { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: -40px; padding: 0 30px 14px; }
+.hand-area { position: relative; z-index: 2; flex: none; display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: -22px; padding: 0 30px clamp(4px, 1.2vh, 14px); }
 .actions {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; min-height: 44px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; min-height: 40px;
   background: var(--panel); color: var(--on-felt); border: 1px solid var(--gold-soft);
   border-radius: 999px; padding: 5px 8px 5px 18px; box-shadow: 0 6px 16px rgba(0, 0, 0, .35); max-width: 900px;
 }
 .actions:has(> .btn:first-child) { padding-left: 8px; }
 .hint { margin: 0; color: var(--on-felt-soft); padding-right: 10px; }
-.hand { display: flex; justify-content: center; padding: 26px 24px 4px; min-height: calc(var(--ch) + 30px); }
-.hand .card { --r: 0deg; --y: 0px; margin-left: -16px; transform-origin: 50% 130%; transform: translateY(var(--y)) rotate(var(--r)); }
+.hand { display: flex; justify-content: center; padding: calc(var(--ch) * .17) 24px 0; height: calc(var(--ch) * 1.32); flex: none; }
+.hand .card { --r: 0deg; --y: 0px; margin-left: calc(var(--cw) * -.17); transform-origin: 50% 130%; transform: translateY(var(--y)) rotate(var(--r)); }
 .hand .card:first-child { margin-left: 0; }
 .hand button.card:hover { transform: translateY(calc(var(--y) - 10px)) rotate(var(--r)); z-index: 1; }
-.hand .card.sel { transform: translateY(calc(var(--y) - 26px)) rotate(var(--r)); z-index: 1; }
+.hand .card.sel { transform: translateY(calc(var(--y) - var(--ch) * .19)) rotate(var(--r)); z-index: 1; }
 .hand .waiting .card { filter: brightness(.92); }
 
 /* ── Game log drawer ──────────────────────────────────────────────────────── */
@@ -269,9 +286,9 @@ button.card { cursor: pointer; }
   position: fixed; top: 0; right: 0; bottom: 0; width: 330px; z-index: 15;
   background: var(--panel); color: var(--on-felt); border-left: 2px solid var(--gold-soft);
   padding: calc(18px + env(safe-area-inset-top, 0px)) 18px 18px; overflow-y: auto;
-  transform: translateX(100%); transition: transform .2s ease; box-shadow: -10px 0 24px rgba(0, 0, 0, .3);
+  transform: translateX(100%); transition: transform .2s ease, visibility .2s; visibility: hidden;
 }
-.log-drawer.open { transform: none; }
+.log-drawer.open { transform: none; visibility: visible; box-shadow: -10px 0 24px rgba(0, 0, 0, .3); }
 .log-drawer header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .log-drawer h2 { font-size: 1.05rem; }
 .log-drawer ol { margin: 0; padding-left: 22px; font-size: .92rem; color: var(--on-felt-soft); }
@@ -432,9 +449,9 @@ button.card { cursor: pointer; }
   position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 94vw); z-index: 18;
   background: var(--panel); color: var(--on-felt); border-left: 2px solid var(--gold-soft);
   padding: calc(18px + env(safe-area-inset-top, 0px)) 24px 30px; overflow-y: auto;
-  transform: translateX(100%); transition: transform .22s ease; box-shadow: -12px 0 28px rgba(0, 0, 0, .35);
+  transform: translateX(100%); transition: transform .22s ease, visibility .22s; visibility: hidden;
 }
-.rules-drawer.open { transform: none; }
+.rules-drawer.open { transform: none; visibility: visible; box-shadow: -12px 0 28px rgba(0, 0, 0, .35); }
 .rules-drawer header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; position: sticky; top: -18px; background: var(--panel); padding: 6px 0; }
 .rules-drawer h2 { font-size: 1.2rem; }
 .rules-drawer h3 { font: 700 .98rem/1.3 Cinzel, Georgia, serif; color: var(--gold); margin: 18px 0 6px; }
@@ -1081,7 +1098,7 @@ const GUILD = {
   foreman: { icon: '🚩', name: 'Foreman' },
 };
 
-const VERSION = '1.0.0';
+const VERSION = '1.0.1';
 const ui = {
   game: null, history: [], selected: [], target: null, picker: null,
   hideHands: true, revealedFor: null, toast: '', toastTimer: null,
@@ -1563,10 +1580,11 @@ function render() {
 function applyFan() {
   const cards = document.querySelectorAll('.hand .card');
   const mid = (cards.length - 1) / 2;
+  const h = cards[0]?.offsetHeight || 134;
   cards.forEach((el, i) => {
     const o = i - mid;
     el.style.setProperty('--r', `${Math.max(-15, Math.min(15, o * 2.6))}deg`);
-    el.style.setProperty('--y', `${Math.min(34, o * o * 1.1)}px`);
+    el.style.setProperty('--y', `${Math.min(h * .12, o * o * h * .005)}px`);
   });
 }
 
@@ -1648,6 +1666,7 @@ function rowHTML(g, row, targets) {
     </div></${tag}>`;
 }
 
+const rowsClass = (g, seat) => `rows${Object.values(g.rows).filter(r => r.claims[0].seat === seat).length >= 3 ? ' crowded' : ''}`;
 function rowsHTML(g, seat, targets) {
   const rows = Object.values(g.rows).filter(r => r.claims[0].seat === seat);
   if (!rows.length) return '<span class="empty">No StoneRows yet.</span>';
@@ -1713,7 +1732,7 @@ function keystoneHTML(g, key) {
   const plural = `${esc(key.name)}s`;
   const usable = g.phase === 'action' && !ui.target && myTurn(g);
   return `${cardHTML(key, { button: usable, sel: ui.selected.includes(key.id), hammer: true, tip: `The Keystone: every ${key.name} is a Hammer. Anyone can build with it, any number of times; it stays here.` })}
-    <span>Keystone: ${plural} are Hammers${usable ? '<br>Tap to build with it' : ''}</span>`;
+    <span>Keystone: ${plural} are Hammers</span>`;
 }
 
 function plateHTML(g, seat, scores) {
@@ -1733,7 +1752,7 @@ function opponentHTML(g, seat, pos, scores, targets) {
   const backs = Array.from({ length: Math.min(count, 9) }, () => '<span class="back-mini a-back"></span>').join('');
   return `<section class="seat-zone ${pos}" aria-label="${name(seat)}">
     <div class="seat-head">${plateHTML(g, seat, scores)}<span class="backs" data-zone="hand-${seat}" aria-label="${count} cards in hand">${backs}<span class="n">${count}</span></span></div>
-    <div class="rows">${rowsHTML(g, seat, targets)}</div>
+    <div class="${rowsClass(g, seat)}">${rowsHTML(g, seat, targets)}</div>
   </section>`;
 }
 
@@ -1756,6 +1775,7 @@ function tableHTML() {
   return `<div class="room">
   <header class="top">
     <h1>StoneRow</h1>
+    <p class="status" role="status">${statusHTML(g)}</p>
     <div class="tools">
       <button type="button" class="btn" data-act="sound" aria-pressed="${sound.on}">Sound ${sound.on ? 'on' : 'off'}</button>
       <button type="button" class="btn" data-act="rules">How to play</button>
@@ -1770,7 +1790,6 @@ function tableHTML() {
       ${others.map((seat, i) => opponentHTML(g, seat, positions[i], scores, targets)).join('')}
 
       <section class="center" aria-label="Centre of the table">
-        <p class="status">${statusHTML(g)}</p>
         <div class="piles">
           <div class="pile" data-zone="keystone">${keystoneHTML(g, key)}</div>
           <div class="pile">
@@ -1783,13 +1802,13 @@ function tableHTML() {
               : '<div class="slot"></div>'}
             <span>Brickyard (${g.brickyard.length})</span>
           </div>
+          <div class="pile tower-pile">${towerHTML(g)}</div>
         </div>
-        ${towerHTML(g)}
       </section>
 
       <section class="seat-zone bottom" aria-label="${name(viewer)}’s StoneRows">
         ${plateHTML(g, viewer, scores)}
-        <div class="rows">${rowsHTML(g, viewer, targets)}</div>
+        <div class="${rowsClass(g, viewer)}">${rowsHTML(g, viewer, targets)}</div>
       </section>
     </div>
   </main>
