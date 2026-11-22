@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Unholy Recipe — Blood Moon Rising</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;600;800&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Ink-and-flat-colour world of the room cards: hard black, bone text, card red, candle yellow.
+     Layout: the room card is the stage in the centre; party on the left; moon, journal and satchel on the right. */
+  --ink:#000;
+  --panel:#0e0b0b;
+  --bone:#ece3d1;
+  --ash:#8f877a;
+  --blood:#e3262c;
+  --candle:#f6c64a;
+  --display:"Grenze Gotisch","Times New Roman",serif;
+  --body:"IM Fell English","Iowan Old Style",Georgia,serif;
+  --caps:"IM Fell English SC","IM Fell English",Georgia,serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#000;color:var(--bone);font-family:var(--body);overflow:hidden}
+button{font:inherit;color:inherit}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;margin:-450px 0 0 -800px;transform-origin:center;overflow:hidden;
+  background:radial-gradient(ellipse 60% 70% at 50% 50%, #1a0c0d 0%, #000 75%);user-select:none;-webkit-user-select:none}
+.btn{font-family:var(--caps);font-size:19px;letter-spacing:.16em;padding:13px 24px;background:#000;border:2px solid var(--bone);color:var(--bone);cursor:pointer;box-shadow:4px 4px 0 var(--blood)}
+.btn:hover,.btn:focus-visible{background:var(--blood);color:#000;outline:none;box-shadow:4px 4px 0 var(--bone)}
+
+/* ---------- card ---------- */
+#cardwrap{position:absolute;left:484px;top:20px;width:631px;height:860px;perspective:1600px}
+#card{position:absolute;left:0;top:0;width:825px;height:1125px;transform-origin:0 0;transform-style:preserve-3d}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;border:6px solid #000;box-shadow:0 0 0 2px #2a2222, 0 30px 80px rgba(0,0,0,.9)}
+.face.back{transform:rotateY(180deg);background:#0b0707;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px}
+.face.back .m{width:300px;height:300px;border-radius:50%;background:var(--blood);border:8px solid #000;box-shadow:0 0 0 6px var(--bone)}
+.face.back b{font-family:var(--display);font-size:92px;font-weight:800;color:var(--bone);text-align:center;line-height:.9}
+#base{position:absolute;left:0;top:0;width:825px;height:1125px;display:block}
+#fx{position:absolute;left:0;top:0;width:825px;height:1125px;pointer-events:none;mix-blend-mode:screen}
+#cavity{position:absolute;left:504px;top:594px;width:86px;height:47px;background:#050303;box-shadow:inset 0 10px 14px #000, inset 0 -4px 0 #1b1412;opacity:0;transition:opacity .2s}
+#cavity.on{opacity:1}
+#scroll{position:absolute;left:14px;top:17px;width:58px;height:20px;border-radius:9px;background:linear-gradient(180deg,#e9d7ae,#bba273 70%,#8d7650);border:2px solid #000;opacity:0;transition:opacity .4s .8s}
+#cavity.on #scroll{opacity:1}
+#cavity.taken #scroll{opacity:0;transition:opacity .2s}
+#brick{position:absolute;left:504px;top:594px;width:86px;height:47px;background:url(art/kitchen.jpg) -504px -594px/825px 1125px;border:2px solid transparent}
+#brick.out{animation:brickout 1.6s cubic-bezier(.3,.7,.2,1) forwards}
+@keyframes brickout{
+  0%{transform:none}
+  30%{transform:translate(6px,-2px) scale(1.12);border-color:#000;box-shadow:8px 10px 0 rgba(0,0,0,.8)}
+  55%{transform:translate(14px,6px) scale(1.18) rotate(4deg);border-color:#000;box-shadow:10px 14px 0 rgba(0,0,0,.7)}
+  100%{transform:translate(70px,560px) scale(1.25) rotate(38deg);border-color:#000;opacity:0}}
+#towel{position:absolute;left:510px;top:644px;width:71px;height:118px;transform-origin:50% 0}
+#towel.pull{animation:tug .9s cubic-bezier(.3,.7,.3,1)}
+@keyframes tug{30%{transform:translateY(16px) scaleY(1.08)}60%{transform:translateY(10px) scaleY(1.05)}100%{transform:translateY(10px)}}
+#towel.pulled{transform:translateY(10px)}
+#arm{position:absolute;left:598px;top:0;width:125px;height:754px;transform:translateY(-820px);transform-origin:50% 0;pointer-events:none}
+#arm.drop{animation:armdrop 1.5s cubic-bezier(.5,0,.6,1) forwards, swing 4.5s 1.5s ease-in-out infinite}
+#arm.hung{transform:none;animation:swing 4.5s ease-in-out infinite}
+#arm.gone{display:none}
+@keyframes armdrop{0%{transform:translateY(-820px)}60%{transform:translateY(30px)}75%{transform:translateY(-14px)}88%{transform:translateY(8px)}100%{transform:none}}
+@keyframes swing{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.4deg)}}
+#runes{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1.2s}
+#runes.on{opacity:1}
+#runes .dim{opacity:.35}
+#windowmark{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1.2s}
+#windowmark.on{opacity:.75;animation:markpulse 2.6s ease-in-out infinite}
+@keyframes markpulse{50%{opacity:1}}
+#cardwrap.quake{animation:quake .7s}
+@keyframes quake{15%{transform:translate(-9px,4px)}30%{transform:translate(8px,-5px)}45%{transform:translate(-6px,6px)}60%{transform:translate(5px,-3px)}80%{transform:translate(-2px,2px)}}
+#golemfocus{position:absolute;inset:0;z-index:38;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.9)}
+#golemfocus.on{display:flex}
+#golemfocus .frame{position:relative;height:860px;aspect-ratio:1000/1364;border:6px solid #000;box-shadow:0 0 0 3px var(--bone),14px 14px 0 var(--blood);overflow:hidden;opacity:0;transform:scale(.88);transition:opacity 1.1s, transform 1.6s cubic-bezier(.2,.8,.2,1)}
+#golemfocus.show .frame{opacity:1;transform:none}
+#golemfocus img{width:100%;height:100%;display:block;object-fit:cover;transform-origin:50% 30%}
+#golemfocus.show img{animation:drift 24s ease-out forwards}
+@keyframes drift{to{transform:scale(1.07)}}
+#golemfocus .tag{position:absolute;left:24px;top:20px;font-family:var(--display);font-size:64px;font-weight:800;color:var(--bone);text-shadow:4px 4px 0 #000,-2px -2px 0 #000}
+#golemfocus .tag small{display:block;font-family:var(--caps);font-size:16px;letter-spacing:.3em;color:var(--candle);font-weight:normal;text-shadow:2px 2px 0 #000}
+#hotspots{position:absolute;inset:0}
+.hs{position:absolute;background:transparent;border:0;padding:0;cursor:pointer;outline:none;border-radius:14px}
+.hs:hover,.hs:focus-visible{box-shadow:inset 0 0 0 4px rgba(246,198,74,.7), inset 0 0 40px rgba(246,198,74,.18)}
+#stage.aiming .hs{cursor:crosshair}
+#stage.aiming .hs:hover,#stage.aiming .hs:focus-visible{box-shadow:inset 0 0 0 4px rgba(170,140,255,.9), inset 0 0 50px rgba(170,140,255,.25)}
+#aimbar{position:absolute;left:484px;top:20px;width:631px;padding:14px 18px;background:#000;border-bottom:3px solid #9a86ff;display:none;align-items:center;justify-content:space-between;gap:12px;z-index:20;font-size:22px}
+#aimbar.on{display:flex}
+#aimbar button{background:none;border:0;font-family:var(--caps);letter-spacing:.18em;color:var(--ash);cursor:pointer;font-size:17px}
+#aimbar button:hover,#aimbar button:focus-visible{color:var(--bone)}
+
+/* ---------- side panels ---------- */
+#left{position:absolute;left:36px;top:30px;width:420px;bottom:30px;display:flex;flex-direction:column;gap:22px}
+#roomtitle{font-family:var(--display);font-size:64px;font-weight:800;line-height:.9;margin:0;text-wrap:balance}
+#roomtitle small{display:block;font-family:var(--caps);font-size:17px;letter-spacing:.3em;color:var(--ash);font-weight:normal;margin-top:12px}
+#objective{font-style:italic;font-size:21px;line-height:1.4;color:var(--ash);border-left:3px solid var(--blood);padding-left:14px}
+#objective b{font-style:normal;color:var(--bone);font-weight:normal}
+#party{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+.plbl{font-family:var(--caps);font-size:15px;letter-spacing:.3em;color:var(--ash)}
+.hero{display:grid;grid-template-columns:78px 1fr;gap:14px;align-items:center}
+.hport{width:78px;height:78px;border-radius:50%;border:3px solid #000;box-shadow:0 0 0 2px #3a3030;background:#000 center/cover no-repeat;cursor:pointer;padding:0;transition:box-shadow .15s}
+.hport:hover,.hport:focus-visible{box-shadow:0 0 0 3px var(--candle);outline:none}
+.hname{font-family:var(--display);font-size:27px;font-weight:600;line-height:1}
+.skill{margin-top:6px;font-family:var(--caps);font-size:15px;letter-spacing:.14em;padding:6px 12px;background:#000;border:2px solid #4a3f6e;color:#c9bfff;cursor:pointer}
+.skill:hover,.skill:focus-visible{border-color:#9a86ff;color:#fff;outline:none}
+.skill:disabled{opacity:.35;cursor:default}
+
+#right{position:absolute;right:36px;top:30px;width:400px;bottom:30px;display:flex;flex-direction:column;gap:22px}
+#moon{display:flex;align-items:center;gap:16px;justify-content:flex-end}
+#moon .lbl{text-align:right;font-family:var(--caps);font-size:16px;letter-spacing:.24em;color:var(--ash)}
+#moon .lbl b{display:block;font-family:var(--display);font-size:34px;color:var(--bone);font-weight:600;letter-spacing:.01em;margin-top:2px}
+#moonsvg{width:80px;height:80px}
+#journal{flex:1;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 34%);mask-image:linear-gradient(180deg,transparent 0,#000 34%);background:var(--panel);border:2px solid #000;box-shadow:0 0 0 2px #2a2222;padding:22px 24px;font-size:23px;line-height:1.45;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+#journal p{margin:0 0 12px;color:var(--ash);transition:color .6s}
+#journal p:last-child{color:var(--bone);margin-bottom:0}
+#journal em{font-style:normal;color:var(--candle)}
+#satchel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.slot{aspect-ratio:1;border:2px solid #000;box-shadow:0 0 0 2px #2a2222;background:#0b0808 center/78% no-repeat;cursor:pointer;padding:0}
+.slot:disabled{cursor:default}
+.slot[data-item]:hover,.slot[data-item]:focus-visible{box-shadow:0 0 0 2px var(--candle);outline:none}
+.slot.sel{box-shadow:0 0 0 3px var(--candle), inset 0 0 26px rgba(246,198,74,.35)}
+.slot.new{animation:newitem 1.2s ease-out}
+@keyframes newitem{0%{box-shadow:0 0 0 0 rgba(246,198,74,.9)}100%{box-shadow:0 0 0 22px rgba(246,198,74,0)}}
+#mute{background:none;border:0;font-family:var(--caps);font-size:15px;letter-spacing:.2em;color:var(--ash);cursor:pointer;align-self:flex-end;padding:4px 0}
+#mute:hover,#mute:focus-visible{color:var(--bone)}
+#tip{position:absolute;pointer-events:none;font-family:var(--caps);font-size:21px;letter-spacing:.06em;color:var(--bone);background:#000;padding:4px 10px;border:2px solid #000;
+  white-space:nowrap;opacity:0;transition:opacity .12s;z-index:30}
+#tip b{color:var(--candle);font-weight:normal}
+#hurt{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .9s;background:radial-gradient(ellipse at center, transparent 40%, rgba(227,38,44,.5) 100%);z-index:25}
+#hurt.on{opacity:1;transition:opacity .06s}
+
+/* ---------- dialogue ---------- */
+#dlg{position:absolute;inset:0;display:none;z-index:40;cursor:pointer}
+#dlg.on{display:block}
+#dlg .shade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.85) 100%)}
+#portrait{position:absolute;left:46px;bottom:56px;width:330px;height:407px;background:center/cover no-repeat #000;border:5px solid #000;box-shadow:0 0 0 3px var(--bone),10px 10px 0 var(--blood);transition:opacity .3s, transform .45s}
+#portrait.off{opacity:0;transform:translateX(-30px)}
+#dbox{position:absolute;left:410px;right:80px;bottom:56px;min-height:190px;padding:28px 38px 34px;background:#000;border:3px solid var(--bone);box-shadow:8px 8px 0 var(--blood)}
+#dlg.narr #dbox{left:240px;right:240px;text-align:center}
+#dlg.ghost #dbox{border-color:#a9c9c2;box-shadow:8px 8px 0 #2f4f4a}
+#dname{font-family:var(--display);font-size:38px;font-weight:600;line-height:1;margin-bottom:10px}
+#dname small{font-family:var(--caps);font-size:16px;letter-spacing:.24em;color:var(--ash);margin-left:14px;font-weight:normal}
+#dtext{font-size:29px;line-height:1.42;max-width:62ch}
+#dlg.narr #dtext{font-style:italic;margin:0 auto}
+#dlg.ghost #dtext{font-style:italic;color:#cfe5e0}
+#dmore{position:absolute;right:22px;bottom:12px;font-family:var(--caps);font-size:15px;letter-spacing:.24em;color:var(--ash);opacity:0}
+#dmore.on{opacity:1;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+/* ---------- popups ---------- */
+#ov{position:absolute;inset:0;z-index:35;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.78)}
+#ov.on{display:flex}
+#ovpanel{position:relative;width:960px;padding:40px 54px 46px;background:var(--panel);border:3px solid var(--bone);box-shadow:10px 10px 0 var(--blood)}
+#ovclose{position:absolute;right:14px;top:10px;background:none;border:0;font-family:var(--caps);font-size:17px;letter-spacing:.2em;color:var(--ash);cursor:pointer;padding:8px}
+#ovclose:hover,#ovclose:focus-visible{color:var(--bone)}
+.ovtitle{font-family:var(--display);font-size:46px;font-weight:600;margin:0 0 4px}
+.ovsub{font-family:var(--caps);font-size:16px;letter-spacing:.26em;color:var(--ash);margin-bottom:24px}
+.parch{background:linear-gradient(180deg,#e2d1a8,#c9b184);color:#1d130d;padding:42px 56px;border:3px solid #000;transform:rotate(-.6deg);box-shadow:6px 6px 0 #000}
+.parch h3{font-family:var(--display);font-size:44px;margin:0 0 2px;color:#7a1014;font-weight:600}
+.parch .by{font-style:italic;font-size:20px;color:#5b4434;margin-bottom:20px}
+.parch p{font-size:26px;line-height:1.45;margin:0 0 14px;max-width:58ch}
+.parch .verse{font-style:italic;font-size:30px;line-height:1.5;text-align:center;margin:10px 0}
+.parch .scrawl{font-style:italic;color:#6a2a1c;font-size:22px;margin-top:18px}
+.jars{display:flex;gap:26px;justify-content:center;align-items:flex-end}
+.jar{background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;transition:transform .18s}
+.jar:hover,.jar:focus-visible{transform:translateY(-8px);outline:none}
+.jar:focus-visible svg{filter:drop-shadow(0 0 10px rgba(246,198,74,.8))}
+.jar span{font-family:var(--display);font-size:26px;font-weight:600}
+.bowlrow{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:26px}
+.hint{font-style:italic;color:var(--ash);text-align:center;font-size:21px;margin-top:18px;min-height:30px}
+.sigils{display:flex;gap:26px;justify-content:center;margin:8px 0 6px}
+.sig{width:170px;height:170px;background:#000;border:3px solid #3a3030;cursor:pointer;padding:16px;transition:border-color .15s, transform .15s}
+.sig:hover,.sig:focus-visible{border-color:var(--candle);transform:translateY(-6px);outline:none}
+.sig:disabled{opacity:.25;cursor:default;transform:none}
+.shake{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+
+/* ---------- screens ---------- */
+.screen{position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at 50% 35%, #1d0a0c 0%, #000 70%)}
+.screen.hide{display:none}
+.screen h1{font-family:var(--display);font-size:132px;font-weight:800;margin:0;line-height:.9;color:var(--bone);text-shadow:6px 6px 0 var(--blood)}
+.screen .kicker{font-family:var(--caps);font-size:21px;letter-spacing:.46em;color:var(--ash);margin:22px 0 8px}
+.screen p{font-size:24px;color:var(--ash);font-style:italic;margin:18px 0 0;max-width:58ch}
+.doors{display:flex;gap:30px;margin:38px 0 26px}
+.door{width:220px;height:330px;background:#0b0707;border:4px solid #000;box-shadow:0 0 0 2px #3a3030;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:46px !important;gap:14px;padding:20px;position:relative;transition:transform .2s, box-shadow .2s}
+.door:hover,.door:focus-visible{transform:translateY(-10px);box-shadow:0 0 0 3px var(--blood);outline:none}
+.door .num{font-family:var(--display);font-size:64px;font-weight:800;color:var(--bone);line-height:1}
+.door .smell{font-style:italic;font-size:20px;color:var(--ash);line-height:1.3}
+.door .mm{width:70px;height:70px;border-radius:50%;background:var(--blood);border:5px solid #000;box-shadow:0 0 0 3px var(--bone)}
+.door.cleared{background:url(art/kitchen.jpg) center/cover}
+.door.cleared::after{content:"Cleared";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-12deg);font-family:var(--display);font-size:46px;font-weight:800;color:var(--blood);border:4px solid var(--blood);padding:0 14px;background:rgba(0,0,0,.7)}
+.door.cleared > *{visibility:hidden}
+.reward{display:flex;gap:40px;align-items:center;margin:26px 0 30px}
+.rcard{width:250px;height:340px;background:#120c0a;border:5px solid #000;box-shadow:0 0 0 3px var(--candle), 10px 10px 0 var(--blood);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:14px;position:relative;overflow:hidden}
+.rcard b{font-family:var(--display);font-size:38px;font-weight:800;position:relative;text-shadow:3px 3px 0 #000}
+.rcard::before{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.9))}
+.rcard small{font-family:var(--caps);letter-spacing:.2em;color:var(--candle);font-size:14px;position:relative;text-shadow:2px 2px 0 #000}
+.stats{display:flex;flex-direction:column;gap:16px;text-align:left}
+.stats div{font-family:var(--caps);font-size:15px;letter-spacing:.26em;color:var(--ash)}
+.stats b{display:block;font-family:var(--display);font-size:46px;font-weight:600;color:var(--bone);letter-spacing:0;font-variant-numeric:tabular-nums}
+#fade{position:absolute;inset:0;background:#000;pointer-events:none;opacity:0;transition:opacity .6s;z-index:55}
+#fade.on{opacity:1}
+@media (prefers-reduced-motion: reduce){ #arm.drop,#arm.hung{animation:none;transform:none} #windowmark.on{animation:none} }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <section id="left">
+    <h1 id="roomtitle">The Kitchen<small>The Defiled wing · Room II</small></h1>
+    <div id="objective">The door has locked behind you. <b>Find out what this room wants.</b></div>
+    <div id="party"><div class="plbl">The party</div></div>
+  </section>
+
+  <div id="cardwrap">
+    <div id="card">
+      <div class="face front">
+        <img id="base" src="art/kitchen.jpg" alt="The castle kitchen: a red gothic window, a hearth with a candle, a stone pillar, towels on a hook, a cauldron of stew spilling blood, and drawers at the right.">
+        <div id="cavity"><div id="scroll"></div></div>
+        <div id="brick"></div>
+        <img id="towel" src="art/towel.png" alt="">
+        <img id="arm" src="art/arm.png" alt="">
+        
+        <canvas id="fx" width="825" height="1125"></canvas>
+        <svg id="runes" viewBox="0 0 825 1125" aria-hidden="true"></svg>
+        <svg id="windowmark" viewBox="0 0 825 1125" aria-hidden="true"></svg>
+        <div id="hotspots"></div>
+      </div>
+      <div class="face back"><div class="m"></div><b>Blood Moon<br>Rising</b></div>
+    </div>
+  </div>
+  <div id="aimbar"><span id="aimtext"></span><button id="aimcancel" type="button">Cancel</button></div>
+
+  <section id="right">
+    <div id="moon" aria-live="polite">
+      <div class="lbl">The moon is at<b id="moonlbl">Blood Moon I</b></div>
+      <svg id="moonsvg" viewBox="0 0 100 100" aria-hidden="true">
+        <clipPath id="mc"><circle cx="50" cy="50" r="42"/></clipPath>
+        <circle cx="50" cy="50" r="42" fill="#e3262c"/>
+        <circle id="moonshadow" cx="50" cy="50" r="44" fill="#120c0c" clip-path="url(#mc)"/>
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#000" stroke-width="6"/>
+        <circle cx="50" cy="50" r="47" fill="none" stroke="#ece3d1" stroke-width="2.5"/>
+      </svg>
+    </div>
+    <div id="journal" aria-live="polite"></div>
+    <div><div class="plbl" style="margin-bottom:10px">Satchel</div><div id="satchel" role="toolbar" aria-label="Satchel"></div></div>
+    <button id="mute" type="button">Sound on</button>
+  </section>
+
+  <div id="tip"></div>
+  <div id="hurt"></div>
+
+  <div id="ov" role="dialog" aria-modal="true"><div id="ovpanel"><button id="ovclose" type="button">Close ✕</button><div id="ovbody"></div></div></div>
+  <div id="dlg" role="dialog" aria-live="polite"><div class="shade"></div><div id="portrait" class="off"></div>
+    <div id="dbox"><div id="dname"></div><div id="dtext"></div><div id="dmore">Continue ▸</div></div></div>
+  <div id="golemfocus" aria-hidden="true"><div class="frame"><img src="art/golem.jpg" alt="The Golem: a hulking thing of wood, bone and iron, a caged head, a red heart-shaped plate stitched to its chest, and the cook's face set into its arm."><div class="tag"><small>Summoned</small>The Golem</div></div></div>
+  <div id="fade"></div>
+
+  <div class="screen" id="hub">
+    <div class="kicker">Blood Moon Rising · The Defiled wing</div>
+    <h1>Four Doors</h1>
+    <p id="hubtext">The stair ends in a round hall. Four doors, no signs. Somewhere beyond one of them is the servant you need.</p>
+    <div class="doors" id="doors"></div>
+    <p style="font-size:19px;margin-top:4px">Best with headphones, in the dark.</p>
+  </div>
+
+  <div class="screen hide" id="end">
+    <div class="kicker">Room cleared</div>
+    <h1>The Golem Rises</h1>
+    <div class="reward">
+      <div class="rcard">
+        <img src="art/golem.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%">
+        <svg hidden viewBox="0 0 440 600" aria-hidden="true">
+          <g stroke="#000" stroke-width="10" stroke-linejoin="round"><path d="M70 600 C60 500 50 430 80 370 C100 330 150 310 220 305 C290 310 340 330 360 370 C390 430 380 500 370 600Z" fill="#8e5f1f"/><path d="M150 312 C140 250 160 205 220 200 C280 205 300 250 290 312Z" fill="#9c6a24"/></g>
+          <g fill="#f6c64a" stroke="#000" stroke-width="6"><ellipse cx="195" cy="262" rx="18" ry="12"/><ellipse cx="248" cy="262" rx="18" ry="12"/></g></svg>
+        <small>Summon · joins the party</small><b>The Golem</b>
+      </div>
+      <div class="stats">
+        <div>The moon reached<b id="stMoon">II</b></div>
+        <div>Time in the kitchen<b id="stTime">0:00</b></div>
+        <div>Mistakes<b id="stMiss">0</b></div>
+      </div>
+    </div>
+    <button class="btn" id="tohub" type="button">Return to the four doors</button>
+  </div>
+</div>
+
+<script>
+const W=1600,H=900, CS=860/1125;
+const $=s=>document.querySelector(s);
+const stage=$('#stage'), RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let SCALE=1;
+
+/* ================= state ================= */
+const fresh=()=>({inRoom:false, cleared:false, inv:[], f:{}, moon:1, mistakes:0, elapsed:0, ticks:0, stew:0, log:[]});
+let S=fresh(), sel=null, busy=false, aim=null;
+
+const HEROES={
+  hexweaver:{name:'The Hexweaver',craft:'Runes & wards',tint:'#a57ad0',style:'hair',skill:'Reveal runes',aim:false},
+  spectromancer:{name:'The Spectromancer',craft:'Speaks with the dead',tint:'#86c2b8',style:'hood',skill:'Commune',aim:true},
+  paladine:{name:'The Paladine',craft:'Force & faith',tint:'#d8a948',style:'helm',skill:'Force',aim:true},
+  voidstrider:{name:'The Voidstrider',craft:'Space & the rift',tint:'#6a83d6',style:'collar',skill:'Rift pull',aim:true},
+};
+const ITEMS={
+  recipe:{name:'The Unholy Recipe',read:'recipe'},
+  riddle:{name:'The Cook’s Riddle',read:'riddle'},
+  consomme:{name:'Blood Consommé',desc:'Four bloods, poured in their proper order. It is still warm.'},
+  ladle:{name:'Ladle',desc:'Iron, long-handled, crusted with something brown.'},
+  ember:{name:'Ladle of Living Ember',desc:'A coal from a fire that has never gone out. It pulses like a heart.'},
+  arm:{name:'The Arm',desc:'Grey, clawed, colder than the room. It once served this house.'},
+};
+const PAGES={
+  recipe:`<h3>The Unholy Recipe</h3><div class="by">for a servant who does not tire</div>
+   <p>A consommé of four bloods, poured in the order I taught you.</p>
+   <p>An ember from a fire that has never gone out.</p>
+   <p>An arm that once served this house.</p>
+   <p>Stir, and let a witch’s mark bind it.</p>
+   <p class="scrawl">The Master wants it ready by the Blood Moon. God forgive me, I have nearly finished it.</p>`,
+  riddle:`<h3>Scratched inside the drawer</h3><div class="by">in the cook’s cramped hand</div>
+   <p class="verse">Wolf to wake it, bat to thin,<br>rat to make the dark come in,<br>and last the maiden, pale and sweet,<br>to make my Master’s broth complete.</p>`,
+};
+
+/* ================= audio ================= */
+const Au={ctx:null,on:true,
+  init(){ if(this.ctx) return; try{ const c=this.ctx=new (window.AudioContext||window.webkitAudioContext)(); this.m=c.createGain(); this.m.gain.value=.9; this.m.connect(c.destination);
+    const len=c.sampleRate*2; this.brown=c.createBuffer(1,len,c.sampleRate); let d=this.brown.getChannelData(0),l=0; for(let i=0;i<len;i++){ l=(l+.02*(Math.random()*2-1))/1.02; d[i]=l*3.5; }
+    this.white=c.createBuffer(1,len,c.sampleRate); d=this.white.getChannelData(0); for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
+    const g=c.createGain(); g.gain.value=.07; const f=c.createBiquadFilter(); f.type='lowpass'; f.frequency.value=260; f.Q.value=4;
+    [43.65,44.1,65.4,87.3].forEach((fr,i)=>{ const o=c.createOscillator(); o.type=i>1?'sawtooth':'sine'; o.frequency.value=fr; const og=c.createGain(); og.gain.value=i>1?.18:.6; o.connect(og).connect(f); o.start(); });
+    const lfo=c.createOscillator(); lfo.frequency.value=.06; const lg=c.createGain(); lg.gain.value=140; lfo.connect(lg).connect(f.frequency); lfo.start(); f.connect(g).connect(this.m);
+    const n=this.src(), nf=c.createBiquadFilter(), ng=c.createGain(); nf.type='lowpass'; nf.frequency.value=600; ng.gain.value=.045; n.connect(nf).connect(ng).connect(this.m); n.start();
+    const crack=()=>{ this.pop(1800+Math.random()*2500,.04+Math.random()*.07); setTimeout(crack,70+Math.random()*450); }; crack();
+  }catch(e){ this.ctx=null; } },
+  src(b){ const s=this.ctx.createBufferSource(); s.buffer=b||this.brown; s.loop=true; return s; },
+  env(g,p,a,d,t0){ const t=t0||this.ctx.currentTime; g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(p,t+a); g.gain.exponentialRampToValueAtTime(.0001,t+a+d); },
+  pop(fr,v){ if(!this.ctx) return; const c=this.ctx,s=this.src(this.white),f=c.createBiquadFilter(),g=c.createGain(); f.type='bandpass'; f.frequency.value=fr; f.Q.value=3; s.connect(f).connect(g).connect(this.m); this.env(g,v,.002,.05); s.start(); s.stop(c.currentTime+.1); },
+  thump(v){ if(!this.ctx) return; const c=this.ctx; [0,.28].forEach((dt,i)=>{ const o=c.createOscillator(),g=c.createGain(),t=c.currentTime+dt; o.frequency.setValueAtTime(70,t); o.frequency.exponentialRampToValueAtTime(38,t+.25); o.connect(g).connect(this.m); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime((v||.35)*(i?.7:1),t+.01); g.gain.exponentialRampToValueAtTime(.0001,t+.35); o.start(t); o.stop(t+.4); }); },
+  sting(big){ if(!this.ctx) return; const c=this.ctx,g=c.createGain(),f=c.createBiquadFilter(),t=c.currentTime; f.type='lowpass'; f.frequency.value=big?2400:1400; f.connect(g).connect(this.m);
+    [98,103.8,146.8,155.6,big?207.6:0].filter(Boolean).forEach(fr=>{ const o=c.createOscillator(); o.type='sawtooth'; o.frequency.value=fr; o.detune.value=(Math.random()-.5)*30; o.connect(f); o.start(); o.stop(t+4); });
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(big?.22:.12,t+.04); g.gain.exponentialRampToValueAtTime(.0001,t+3.6); this.thump(.5); },
+  whisper(){ if(!this.ctx) return; const c=this.ctx,s=this.src(this.white),f=c.createBiquadFilter(),g=c.createGain(),t=c.currentTime; f.type='bandpass'; f.Q.value=6;
+    f.frequency.setValueAtTime(700,t); f.frequency.linearRampToValueAtTime(2300,t+.6); f.frequency.linearRampToValueAtTime(900,t+1.4); s.connect(f).connect(g).connect(this.m);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.16,t+.3); g.gain.linearRampToValueAtTime(.04,t+.8); g.gain.linearRampToValueAtTime(.13,t+1.1); g.gain.linearRampToValueAtTime(0,t+1.6); s.start(); s.stop(t+1.7); },
+  chime(){ if(!this.ctx) return; const c=this.ctx; [659.3,987.8,1318.5].forEach((fr,i)=>{ const o=c.createOscillator(),g=c.createGain(); o.frequency.value=fr; o.connect(g).connect(this.m); this.env(g,.07,.01,1.6,c.currentTime+i*.06); o.start(c.currentTime+i*.06); o.stop(c.currentTime+2); }); },
+  scrape(dur){ if(!this.ctx) return; const c=this.ctx,s=this.src(),f=c.createBiquadFilter(),g=c.createGain(),t=c.currentTime; f.type='bandpass'; f.frequency.value=300; f.Q.value=2; s.connect(f).connect(g).connect(this.m);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.5,t+.1); g.gain.linearRampToValueAtTime(.35,t+dur*.8); g.gain.linearRampToValueAtTime(0,t+dur); s.start(); s.stop(t+dur+.1); },
+  pour(){ if(!this.ctx) return; const c=this.ctx,s=this.src(this.white),f=c.createBiquadFilter(),g=c.createGain(),t=c.currentTime; f.type='bandpass'; f.frequency.setValueAtTime(500,t); f.frequency.linearRampToValueAtTime(260,t+.9); f.Q.value=1.5; s.connect(f).connect(g).connect(this.m); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.25,t+.08); g.gain.linearRampToValueAtTime(0,t+1); s.start(); s.stop(t+1.1); },
+  rift(){ if(!this.ctx) return; const c=this.ctx,o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter(),t=c.currentTime; o.type='sawtooth'; o.frequency.setValueAtTime(900,t); o.frequency.exponentialRampToValueAtTime(40,t+1.4); f.type='lowpass'; f.frequency.value=1200;
+    o.connect(f).connect(g).connect(this.m); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.18,t+.2); g.gain.exponentialRampToValueAtTime(.0001,t+1.6); o.start(); o.stop(t+1.7); },
+  heartbeat(){ if(this.hb) return; const beat=()=>{ if(S.moon>=5&&this.on&&S.inRoom) this.thump(.28); this.hb=setTimeout(beat,S.moon>=6?820:1150); }; beat(); },
+  toggle(){ this.on=!this.on; if(this.m) this.m.gain.setTargetAtTime(this.on?.9:0,this.ctx.currentTime,.1); return this.on; },
+};
+
+/* ================= portraits & icons (stand-ins) ================= */
+const PORT={};
+function portrait(id){ return `art/${id}.png`;
+}
+function portraitStandIn(id){ if(PORT[id]) return PORT[id];
+  const w=440,h=660,cv=document.createElement('canvas'); cv.width=w; cv.height=h; const c=cv.getContext('2d'), hero=HEROES[id], cx=w*.52, hy=h*.36;
+  c.lineWidth=10; c.lineJoin='round'; c.strokeStyle='#000';
+  const body=()=>{ c.beginPath(); c.moveTo(10,h); c.bezierCurveTo(20,h*.7,90,h*.6,cx-60,h*.56); c.lineTo(cx+60,h*.56); c.bezierCurveTo(w*.82,h*.6,w*.96,h*.7,w-10,h); c.closePath(); };
+  c.fillStyle='#1b1615'; body(); c.fill(); c.stroke();
+  c.fillStyle='#24201e'; c.fillRect(cx-28,hy+60,56,90); c.strokeRect(cx-28,hy+60,56,90);
+  c.beginPath(); c.ellipse(cx,hy,70,88,0,0,7); c.fillStyle='#2a2422'; c.fill(); c.stroke();
+  c.fillStyle='#0e0b0b';
+  const P=pts=>{ c.beginPath(); pts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y)); c.closePath(); c.fill(); c.stroke(); };
+  if(hero.style==='hair') P([[cx-80,hy-30],[cx-120,h*.7],[cx-40,h*.6],[cx-62,hy],[cx,hy-98],[cx+62,hy],[cx+40,h*.6],[cx+118,h*.68],[cx+80,hy-30],[cx,hy-104]]);
+  if(hero.style==='hood'){ P([[cx-150,h*.66],[cx-120,hy-90],[cx,hy-150],[cx+120,hy-90],[cx+150,h*.64],[cx+70,h*.58],[cx+64,hy-40],[cx,hy-86],[cx-64,hy-40],[cx-70,h*.58]]); c.fillStyle=hero.tint; [-24,24].forEach(dx=>{ c.beginPath(); c.ellipse(cx+dx,hy+4,9,4,0,0,7); c.fill(); }); }
+  if(hero.style==='helm'){ P([[cx-84,hy+30],[cx-80,hy-60],[cx,hy-112],[cx+80,hy-60],[cx+84,hy+30],[cx+60,hy+74],[cx-60,hy+74]]); c.fillStyle='#000'; c.fillRect(cx-58,hy-8,116,12); c.fillRect(cx-6,hy-8,12,70);
+    c.fillStyle='#0e0b0b'; [-1,1].forEach(s=>{ c.beginPath(); c.ellipse(cx+s*150,h*.62,90,46,s*.25,0,7); c.fill(); c.stroke(); }); }
+  if(hero.style==='collar'){ P([[cx-130,h*.6],[cx-100,hy+10],[cx-40,hy+96],[cx+40,hy+96],[cx+100,hy+10],[cx+130,h*.6]]); P([[cx-72,hy-30],[cx-50,hy-96],[cx+50,hy-96],[cx+72,hy-30],[cx,hy-70]]); }
+  c.globalCompositeOperation='source-atop'; const rim=c.createLinearGradient(w,0,w*.5,0); rim.addColorStop(0,hero.tint+'cc'); rim.addColorStop(.4,hero.tint+'22'); rim.addColorStop(1,'rgba(0,0,0,0)'); c.fillStyle=rim; c.fillRect(0,0,w,h);
+  const fire=c.createLinearGradient(0,0,w*.45,0); fire.addColorStop(0,'rgba(246,198,74,.3)'); fire.addColorStop(1,'rgba(0,0,0,0)'); c.fillStyle=fire; c.fillRect(0,0,w,h);
+  return PORT[id]=cv.toDataURL();
+}
+const ICON={};
+function icon(id){ if(ICON[id]) return ICON[id]; const cv=document.createElement('canvas'); cv.width=cv.height=132; const c=cv.getContext('2d'); c.scale(2,2); c.translate(33,33); c.lineJoin='round'; c.lineCap='round'; c.strokeStyle='#000'; c.lineWidth=3;
+  if(id==='recipe'||id==='riddle'){ c.rotate(-.12); c.fillStyle='#e2d1a8'; c.fillRect(-18,-24,36,48); c.strokeRect(-18,-24,36,48); c.strokeStyle='#6b4f36'; c.lineWidth=1.5; for(let i=0;i<6;i++){ c.beginPath(); c.moveTo(-12,-16+i*6); c.lineTo(12-(i%3)*4,-16+i*6); c.stroke(); }
+    c.fillStyle=id==='recipe'?'#e3262c':'#3a2a1c'; c.font='bold 16px "Grenze Gotisch",serif'; c.textAlign='center'; c.fillText(id==='recipe'?'R':'?',0,22); }
+  if(id==='consomme'){ c.fillStyle='#d8d0c0'; c.beginPath(); c.ellipse(0,4,24,14,0,0,7); c.fill(); c.stroke(); c.fillStyle='#8e0f16'; c.beginPath(); c.ellipse(0,0,20,8,0,0,7); c.fill(); c.fillStyle='#e3262c'; c.beginPath(); c.ellipse(-5,-1,8,3,0,0,7); c.fill(); }
+  if(id==='ladle'||id==='ember'){ c.rotate(-.7); c.fillStyle='#5a544e'; c.fillRect(-3,-30,6,36); c.strokeRect(-3,-30,6,36); c.beginPath(); c.ellipse(0,14,13,11,0,0,7); c.fillStyle='#3a3632'; c.fill(); c.stroke();
+    if(id==='ember'){ c.fillStyle='#f6c64a'; c.beginPath(); c.ellipse(0,12,8,6,0,0,7); c.fill(); c.fillStyle='#e3262c'; c.beginPath(); c.arc(2,13,3,0,7); c.fill(); } }
+  if(id==='arm'){ c.rotate(.5); c.fillStyle='#1e3442'; c.fillRect(-7,-30,14,34); c.strokeRect(-7,-30,14,34); c.fillStyle='#8c8a86'; c.fillRect(-6,4,12,10); c.strokeRect(-6,4,12,10); c.lineWidth=2.5; [-5,-2,2,5].forEach(x=>{ c.beginPath(); c.moveTo(x,14); c.lineTo(x*1.4,28); c.stroke(); }); }
+  return ICON[id]=cv.toDataURL(); }
+
+/* ================= sigils ================= */
+const SIGIL=[
+  '<circle cx="50" cy="50" r="38"/><path d="M50 12v76M12 50h76"/><circle cx="50" cy="50" r="12"/>',
+  '<path d="M50 10 L90 84 L10 84 Z"/><circle cx="50" cy="60" r="10"/><path d="M50 10v40"/>',
+  '<path d="M30 14 C80 14 80 86 30 86 C60 70 60 30 30 14 Z"/><path d="M60 30 L88 50 L60 70"/><path d="M14 50h40"/>',
+  '<path d="M20 20 L80 80 M80 20 L20 80"/><rect x="34" y="34" width="32" height="32" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="44"/>',
+];
+const MARK=2;
+function sigSVG(i,stroke,w){ return `<g fill="none" stroke="${stroke}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${SIGIL[i]}</g>`; }
+$('#windowmark').innerHTML=`<g transform="translate(78,8) scale(.88)">${sigSVG(MARK,'#000',14)}${sigSVG(MARK,'#fff3c4',6)}</g>`;
+$('#runes').innerHTML=[[400,340,.5,0],[560,900,.6,1],[760,900,.4,3],[120,980,.45,0],[300,620,.35,1]].map(([x,y,s,i])=>`<g class="dim" transform="translate(${x},${y}) scale(${s})">${sigSVG(i,'#c9bfff',7)}</g>`).join('')
+  + `<g transform="translate(78,8) scale(.88)">${sigSVG(MARK,'#fff3c4',8)}</g>`;
+
+/* ================= the room: hotspots ================= */
+const has=id=>S.inv.includes(id);
+const SPOTS=[
+  {id:'window',x:28,y:8,w:190,h:415,label:'Red window',act:()=>say(S.f.runes?'The witch’s mark still smoulders in the glass.':'Red glass, and behind it the Blood Moon, watching you cook.')},
+  {id:'mantel',x:0,y:455,w:370,h:140,label:'Bottles on the mantel',act:()=>{ if(S.f.consomme) say('The four blood jars stand empty now. The rest are only wine. Probably.'); else openJars(); }},
+  {id:'candle',x:76,y:718,w:88,h:190,label:'Candle',act:()=>say('A fat tallow candle. Its flame leans toward you, as if listening.'),
+    skill:{spectromancer:()=>commune()}},
+  {id:'fire',x:162,y:712,w:96,h:130,label:'Hearth fire',act:s=>{
+    if(s==='ladle'){ take('ladle'); give('ember'); Au.pop(900,.25); say('You scoop a coal from the heart of the fire. It doesn’t dim. It <em>beats</em>.'); }
+    else if(s) nope(); else say('The fire has burned here for three hundred years. Nobody feeds it. It feeds itself.'); },
+    skill:{spectromancer:()=>commune()}},
+  {id:'sconce',x:438,y:588,w:66,h:104,label:'Wall sconce',act:()=>say('Two candles. Someone keeps them lit, though nobody has cooked here in days.')},
+  {id:'towel',x:506,y:640,w:80,h:126,label:'Towels on a hook',act:()=>{
+    if(S.f.brick){ say('The hook has dropped as far as it will go.'); return; }
+    S.f.brick=true; const t=$('#towel'); t.classList.add('pull'); Au.thump(.25);
+    setTimeout(()=>{ t.classList.remove('pull'); t.classList.add('pulled'); $('#cavity').classList.add('on'); $('#brick').classList.add('out'); Au.scrape(1.3); },380);
+    setTimeout(()=>Au.thump(.45),1700);
+    say('You tug the towel. It won’t come free. The hook drops a notch with a heavy <em>clunk</em>, and the brick above it grinds out of the wall.'); },
+  },
+  {id:'brick',x:500,y:590,w:94,h:56,label:()=>S.f.brick?(S.f.recipe?'Hole in the wall':'Something in the wall'):'Brick',act:()=>{
+    if(!S.f.brick){ say('One brick sits a hair proud of its neighbours. The mortar around it is fresh.'); return; }
+    if(!S.f.recipe){ S.f.recipe=true; $('#cavity').classList.add('taken'); give('recipe'); setObjective(); Au.chime(); read('recipe'); }
+    else say('An empty hole, the size of a secret.'); },
+    skill:{paladine:()=>say(S.f.brick?'Nothing left to break here.':'The Paladine tries to prise the brick out with his fingers. It’s set in deep, on some kind of mechanism.')}},
+  {id:'vault',x:560,y:0,w:240,h:430,label:'Dark rafters',show:()=>!S.f.arm,act:()=>say('Rope creaks somewhere above you, taking a weight. You look up. There’s nothing there. The creaking goes on.'),
+    skill:{voidstrider:()=>riftPull(), spectromancer:()=>say('Up there. Something of his hangs up there. Not in this world, quite.'),paladine:()=>say('He can’t punch what isn’t there.')}},
+  {id:'arm',x:596,y:170,w:130,h:590,label:'The hanging arm',show:()=>S.f.arm&&!S.f.armTaken,act:()=>{
+    S.f.armTaken=true; $('#arm').classList.add('gone'); give('arm'); Au.thump(.3); say('You cut it down. It is lighter than it looks, and much colder than it should be.'); }},
+  {id:'counter',x:684,y:770,w:90,h:56,label:'Bowl on the counter',act:()=>say('A bowl of something red, with a spoon standing upright in it. The spoon is not touching the sides.')},
+  {id:'rightshelf',x:732,y:510,w:93,h:140,label:'Bottles on the shelf',act:()=>say('Vinegar, lamp oil, and one bottle labelled only <em>DO NOT</em>.')},
+  {id:'drawers',x:728,y:850,w:97,h:210,label:'Drawers',act:s=>{
+    if(S.f.drawer){ if(!has('riddle')){ give('riddle'); } read('riddle'); return; }
+    if(s) nope(); else say('Swollen shut with damp. One of them rattles when you pull. There’s something inside.'); },
+    skill:{paladine:()=>{ if(S.f.drawer){ say('Already open. The Paladine looks disappointed.'); return; } S.f.drawer=true; Au.thump(.5); Au.scrape(.4);
+      dialogue([{who:'paladine',text:'Stand back.'},{text:'One heave and the drawer comes out whole, front and all. Something is scratched into the wood inside.'}],()=>{ give('riddle'); read('riddle'); }); },
+      spectromancer:()=>say('He hid something in there. He’s ashamed of it. That’s all he’ll say.')}},
+  {id:'lid',x:120,y:930,w:220,h:120,label:'Pot lid',act:()=>say('A lid, dropped in a hurry. Whoever dropped it didn’t come back for it.')},
+  {id:'ladle',x:590,y:780,w:110,h:90,label:'Ladle',show:()=>!S.f.ladle,act:()=>{ S.f.ladle=true; give('ladle'); say('You pull the ladle from the stew. Something under the surface lets go of it, reluctantly.'); }},
+  {id:'cauldron',x:340,y:840,w:400,h:285,label:'Cauldron',act:s=>stew(s),
+    skill:{spectromancer:()=>say('The stew is screaming, very quietly. Nothing useful in it yet.'),hexweaver:()=>say('It wants binding. Show me the mark first.')}},
+];
+function lbl(h){ return typeof h.label==='function'?h.label():h.label; }
+function buildSpots(){
+  const root=$('#hotspots'); root.innerHTML='';
+  SPOTS.forEach(h=>{ if(h.show&&!h.show()) return; const b=document.createElement('button'); b.type='button'; b.className='hs'; b.dataset.hs=h.id;
+    Object.assign(b.style,{left:h.x+'px',top:h.y+'px',width:h.w+'px',height:h.h+'px'}); b.setAttribute('aria-label',lbl(h));
+    b.addEventListener('click',e=>{ e.stopPropagation(); if(busy) return;
+      if(aim){ const who=aim; endAim(); const fn=h.skill&&h.skill[who]; if(fn) fn(); else say(NOSKILL[who]); refresh(); return; }
+      const s=sel; sel=null; h.act(s); refresh(); });
+    b.addEventListener('mouseenter',()=>tip(aim?`${HEROES[aim].skill} on <b>${lbl(h)}</b>`:sel?`Use <b>${ITEMS[sel].name}</b> on ${lbl(h)}`:lbl(h)));
+    b.addEventListener('mouseleave',hideTip);
+    root.appendChild(b); });
+}
+const NOSKILL={spectromancer:'No one is listening there. Not even the dead.',paladine:'Nothing there worth breaking.',voidstrider:'Nothing on the other side of that.',hexweaver:''};
+
+/* ================= puzzles ================= */
+const BLOODS=[{n:'Maiden',c:'#ff3b3b'},{n:'Rat',c:'#7a2a1c'},{n:'Wolf',c:'#9c0f17'},{n:'Bat',c:'#3a0a2a'}];
+const ORDER=['Wolf','Bat','Rat','Maiden'];
+function openJars(){
+  let poured=[];
+  const jar=b=>`<button class="jar" type="button" data-n="${b.n}" aria-label="Jar of ${b.n} blood"><svg width="120" height="190" viewBox="0 0 120 190" aria-hidden="true">
+    <rect x="22" y="6" width="76" height="20" fill="#2a2420" stroke="#000" stroke-width="5"/>
+    <path d="M18 34 Q18 26 26 26 H94 Q102 26 102 34 V170 Q102 184 88 184 H32 Q18 184 18 170Z" fill="#cfd6d2" fill-opacity=".18" stroke="#000" stroke-width="6"/>
+    <path d="M24 70 H96 V168 Q96 178 86 178 H34 Q24 178 24 168Z" fill="${b.c}"/>
+    <rect x="30" y="96" width="60" height="44" fill="#e2d1a8" stroke="#000" stroke-width="4"/>
+    <rect x="30" y="40" width="8" height="120" fill="#fff" opacity=".25"/></svg><span>${b.n}</span></button>`;
+  overlay(`<div class="ovtitle">Four Jars of Blood</div><div class="ovsub">Hidden behind the wine, each with a hand-written label</div>
+    <div class="jars">${BLOODS.map(jar).join('')}</div>
+    <div class="bowlrow"><svg width="240" height="110" viewBox="0 0 240 110" aria-label="Mixing bowl"><path d="M10 30 Q120 150 230 30Z" fill="#d8d0c0" stroke="#000" stroke-width="6"/><g id="layers"></g></svg>
+    <button class="btn" id="emptybowl" type="button">Empty the bowl</button></div>
+    <div class="hint" id="jarhint">Pour them into the bowl. In what order is the question.</div>`,body=>{
+      const draw=()=>{ body.querySelector('#layers').innerHTML=poured.map((n,i)=>{ const c=BLOODS.find(b=>b.n===n).c; const y=30+i*14; const half=110-16-(y-30)*1.2; return `<path d="M${120-half} ${y+2} Q120 ${y+22} ${120+half} ${y+2}" stroke="${c}" stroke-width="12" fill="none"/>`; }).join(''); };
+      body.querySelectorAll('.jar').forEach(b=>b.addEventListener('click',()=>{
+        if(poured.includes(b.dataset.n)) return; poured.push(b.dataset.n); Au.pour(); draw(); b.style.opacity=.35;
+        if(poured.length===4){
+          if(poured.join()===ORDER.join()){ S.f.consomme=true; Au.chime(); setTimeout(()=>{ closeOv(); give('consomme'); say('The bloods settle into one another without mixing: four perfect layers. <em>Blood Consommé</em>.'); },700); }
+          else { mistake(); Au.whisper(); body.querySelector('#jarhint').textContent='It curdles, grey and stinking. The jars refill themselves. Try again.';
+            setTimeout(()=>{ poured=[]; draw(); body.querySelectorAll('.jar').forEach(j=>j.style.opacity=1); },900); const p=$('#ovpanel'); p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake'); }
+        }
+      }));
+      body.querySelector('#emptybowl').addEventListener('click',()=>{ poured=[]; draw(); body.querySelectorAll('.jar').forEach(j=>j.style.opacity=1); body.querySelector('#jarhint').textContent='You tip it out. Nothing is lost but a little blood.'; });
+    });
+}
+function commune(){
+  if(S.f.communed){ dialogue([{ghost:true,text:'Up… where I hung the meat… between here and elsewhere… and the mark, the mark is in the glass…'}]); return; }
+  S.f.communed=true; Au.whisper();
+  dialogue([
+    {text:'The Spectromancer cups the flame in his hands. It turns blue. A shape sits down by the fire that wasn’t there before.'},
+    {ghost:true,text:'I was the cook. I am still the cook. He doesn’t let anyone stop.'},
+    {ghost:true,text:'My arm… they took it for the stew. It hangs where I hung the meat, between here and elsewhere. Your void-walker could reach it.'},
+    {ghost:true,text:'And the witch should look at the window. Everything I was told to remember, I hid in the glass.'},
+    {text:'The flame turns yellow again. The shape is gone.'},
+  ]);
+}
+function riftPull(){
+  if(S.f.arm){ say('Nothing more on the other side.'); return; }
+  S.f.arm=true; S.f.rift=performance.now(); Au.rift(); busy=true;
+  setTimeout(()=>{ const a=$('#arm'); a.classList.add('drop'); Au.sting(false); }, 900);
+  setTimeout(()=>{ busy=false; Au.thump(.4); buildSpots();
+    dialogue([{who:'voidstrider',text:'Got it. It didn’t want to come.'},{text:'An arm drops out of nothing on a length of old rope and swings there, claws twitching. Grey. Wrapped in a sleeve gone black with age.'}]); },2400);
+}
+function revealRunes(){
+  Au.chime(); Au.whisper(); $('#runes').classList.add('on');
+  setTimeout(()=>{ $('#runes').classList.remove('on'); },6500);
+  if(!S.f.runes){ S.f.runes=true; $('#windowmark').classList.add('on');
+    dialogue([{who:'hexweaver',text:'The whole room is scrawled with old marks. Most are worn to nothing. But there, in the window: that one was burned in on purpose.'},{who:'hexweaver',text:'A binding mark. I’ll remember it.'}]); }
+  else say('The runes flare and fade. The mark in the window burns brightest.');
+}
+const STEW=['consomme','ember','arm'];
+function stew(s){
+  const st=S.stew;
+  if(!s){
+    if(st===3){ openSigils(); return; }
+    say(['Thin, greasy stew. It smells of iron and bay leaf. Something important is missing. Several things.','Blood consommé curls through the stew in dark ribbons.','It boils now, though there is no fire beneath it.'][st]); return; }
+  if(!STEW.includes(s)){ nope(); return; }
+  if(s===STEW[st]){ take(s); S.stew++; Au.thump(.3); Au.pour();
+    say(['You pour in the consommé. The stew drinks it and turns the colour of a bruise.','You tip in the living ember. The stew comes to a rolling boil with no fire under it.','You drop in the arm. It sinks, then rises again, fingers up, and waits. <em>Now the mark.</em>'][st]);
+    if(S.stew===3) setObjective();
+  } else { mistake(); Au.whisper(); say('The stew spits it back out at you. Not yet. Follow the recipe.'); }
+}
+function openSigils(){
+  overlay(`<div class="ovtitle">Bind the Stew</div><div class="ovsub">The Hexweaver raises her hand over the cauldron. Which mark does she trace?</div>
+    <div class="sigils">${SIGIL.map((_,i)=>`<button class="sig" type="button" data-i="${i}" aria-label="Mark ${i+1}"><svg viewBox="0 0 100 100" width="100%" height="100%">${sigSVG(i,'#ece3d1',5)}</svg></button>`).join('')}</div>
+    <div class="hint" id="sighint">${S.f.runes?'You saw one of these burned into the glass.':'She hesitates. She hasn’t seen the right mark yet.'}</div>`,body=>{
+      body.querySelectorAll('.sig').forEach(b=>b.addEventListener('click',()=>{
+        if(+b.dataset.i===MARK){ closeOv(); finale(); }
+        else { mistake(); Au.whisper(); b.disabled=true; body.querySelector('#sighint').textContent='The stew hisses and the mark slides off its surface like grease. Wrong.'; }
+      }));
+    });
+}
+
+/* ================= finale & flow ================= */
+function finale(){
+  busy=true; hideTip(); Au.sting(true); flash();
+  say('The Hexweaver traces the mark through the steam. It holds there, burning. The stew goes very still.');
+  setTimeout(()=>{ $('#cardwrap').classList.add('quake'); Au.thump(.7); Au.scrape(1.4); flash(); },1400);
+  setTimeout(()=>{ $('#cardwrap').classList.remove('quake'); const g=$('#golemfocus'); g.classList.add('on'); void g.offsetWidth; g.classList.add('show'); Au.sting(true); },2300);
+  setTimeout(()=>dialogue([
+    {text:'The cauldron cracks from rim to base. Out of the steam climbs something that should never have fit in any kitchen.'},
+    {who:'voidstrider',text:'\u2026Hello.'},
+    {who:'spectromancer',text:'Look at its arm. That face. It\u2019s the cook. He said he\u2019d finish it. He climbed in.'},
+    {who:'hexweaver',text:'It\u2019s listening. It\u2019s waiting for orders. Gods help us, it worked.'},
+    {who:'paladine',text:'Good. It can carry the heavy things. Let\u2019s go.'},
+    {text:'Behind you, the kitchen door unlocks itself.'},
+  ],()=>{ const g=$('#golemfocus'); g.classList.remove('on','show'); cleared(); }),4200);
+}
+function cleared(){
+  S.cleared=true; S.inRoom=false; snap();
+  $('#stMoon').textContent=ROMAN[S.moon]; const m=Math.floor(S.elapsed/60),s=Math.floor(S.elapsed%60); $('#stTime').textContent=`${m}:${String(s).padStart(2,'0')}`; $('#stMiss').textContent=S.mistakes;
+  $('#end').classList.remove('hide'); $('#tohub').focus();
+}
+function setObjective(){
+  const o=$('#objective');
+  if(S.stew===3) o.innerHTML='The stew waits. <b>Bind it with the witch’s mark.</b>';
+  else if(S.f.recipe) o.innerHTML=`Complete the unholy recipe: <b>${[['consomme','four bloods'],['ember','a living ember'],['arm','an arm that served this house']].map(([k,t],i)=>S.stew>i?`<s>${t}</s>`:t).join(', ')}</b>, then a witch’s mark.`;
+  else o.innerHTML='The door has locked behind you. <b>Find out what this room wants.</b>';
+}
+
+/* ================= hub ================= */
+const DOORS=[
+  {n:'I',smell:'Cold. Behind it, something chants in its sleep.'},
+  {n:'II',smell:'Warm. It smells of smoke, iron and bay leaf.',kitchen:true},
+  {n:'III',smell:'Claw marks on the inside, down low.'},
+  {n:'IV',smell:'Silent. Too silent. The handle is wet.'},
+];
+function renderHub(){
+  $('#doors').innerHTML=DOORS.map((d,i)=>`<button class="door${d.kitchen&&S.cleared?' cleared':''}" type="button" data-i="${i}"><div class="mm"></div><div class="num">${d.n}</div><div class="smell">${d.smell}</div></button>`).join('');
+  $('#doors').querySelectorAll('.door').forEach(b=>b.addEventListener('click',()=>{ Au.init(); const d=DOORS[+b.dataset.i];
+    if(d.kitchen){ if(S.cleared){ $('#hubtext').textContent='The kitchen is quiet now. Nothing in there wants anything from you any more.'; return; } enterKitchen(); }
+    else { Au.thump(.3); $('#hubtext').textContent=`Door ${d.n} won’t open. Something on the other side is still being built.`; } }));
+}
+function enterKitchen(){
+  $('#hub').classList.add('hide'); S.inRoom=true;
+  const card=$('#card'); card.dataset.flipping='1'; card.style.transition='none'; card.style.transform=`scale(${CS}) rotateY(180deg)`; void card.offsetWidth;
+  setTimeout(()=>{ card.style.transition='transform 1.1s cubic-bezier(.2,.8,.2,1)'; card.style.transform=`scale(${CS})`; Au.scrape(.5); },120);
+  setTimeout(()=>{ card.style.transition='none'; delete card.dataset.flipping; },1300);
+  setTimeout(()=>{ Au.thump(.6); flash();
+    dialogue([
+      {text:'The door swings shut behind you, and something in it turns with a heavy iron click.'},
+      {text:'Scratched into the inside of the door, at about the height of a child: NO ONE LEAVES UNTIL SUPPER IS SERVED.'},
+      {who:'paladine',text:'I’m not hungry.'},
+      {who:'spectromancer',text:'It isn’t for us. Someone in here is still cooking. I can feel him.'},
+      {who:'hexweaver',text:'Then let’s find out what he’s making, and finish it before the moon does.'},
+    ]); },1300);
+}
+
+/* ================= UI plumbing ================= */
+const ROMAN=['','I','II','III','IV','V','VI'];
+function setMoon(){ $('#moonlbl').textContent='Blood Moon '+ROMAN[S.moon]; $('#moonshadow').setAttribute('cx',50+(S.moon/6)*96); }
+function mistake(){ S.mistakes++; tick(1); }
+function tick(n){ const was=S.moon; S.moon=Math.min(6,S.moon+n); setMoon(); flash(); Au.thump(.4); if(S.moon>=5) Au.heartbeat(); if(S.moon===6&&was<6) setTimeout(()=>say('The moon is full and red. Somewhere far above you, Dracula opens his eyes.'),900); }
+function flash(){ const h=$('#hurt'); h.classList.add('on'); setTimeout(()=>h.classList.remove('on'),140); }
+function say(html){ S.log.push(html); if(S.log.length>5) S.log.shift(); $('#journal').innerHTML=S.log.map(t=>`<p>${t}</p>`).join(''); }
+function nope(){ say(['That doesn’t help here.','Nothing happens. The kitchen seems amused.','No. Think like the cook.'][Math.floor(Math.random()*3)]); }
+let newest=null;
+function give(id){ if(!has(id)) S.inv.push(id); newest=id; Au.chime(); renderInv(); }
+function take(id){ S.inv=S.inv.filter(i=>i!==id); if(sel===id) sel=null; renderInv(); }
+function renderInv(){ const box=$('#satchel'); box.innerHTML='';
+  for(let i=0;i<8;i++){ const id=S.inv[i], b=document.createElement('button'); b.type='button'; b.className='slot';
+    if(id){ b.dataset.item=id; b.style.backgroundImage=`url(${icon(id)})`; b.setAttribute('aria-label',ITEMS[id].name); if(sel===id) b.classList.add('sel'); if(newest===id) b.classList.add('new');
+      b.addEventListener('mouseenter',()=>tip(ITEMS[id].name)); b.addEventListener('mouseleave',hideTip);
+      b.addEventListener('click',e=>{ e.stopPropagation(); if(busy) return; endAim(); clickItem(id); }); }
+    else { b.disabled=true; b.setAttribute('aria-label','Empty'); }
+    box.appendChild(b); }
+  newest=null; }
+function clickItem(id){ const it=ITEMS[id];
+  if(it.read){ sel=null; renderInv(); read(it.read); return; }
+  if(sel===id){ sel=null; renderInv(); return; }
+  sel=id; renderInv(); say(`<em>${it.name}</em>. ${it.desc} Choose something in the room to use it on.`); }
+function renderParty(){ const p=$('#party'); p.querySelectorAll('.hero').forEach(n=>n.remove());
+  Object.entries(HEROES).forEach(([id,h])=>{ const row=document.createElement('div'); row.className='hero';
+    row.innerHTML=`<button class="hport" type="button" aria-label="${h.name}: ask for a hint" style="background-image:url(${portrait(id)});background-size:cover;background-position:50% 28%"></button>
+      <div><div class="hname">${h.name}</div><button class="skill" type="button">${h.skill}</button></div>`;
+    row.querySelector('.hport').addEventListener('click',()=>{ if(busy) return; endAim(); dialogue([{who:id,text:HINTS[id]()}]); });
+    row.querySelector('.hport').addEventListener('mouseenter',()=>tip(`${h.name} · <b>ask for a hint</b>`)); row.querySelector('.hport').addEventListener('mouseleave',hideTip);
+    row.querySelector('.skill').addEventListener('click',()=>{ if(busy) return; sel=null; renderInv(); if(!h.aim){ endAim(); revealRunes(); return; } startAim(id); });
+    p.appendChild(row); }); }
+function startAim(id){ aim=id; stage.classList.add('aiming'); $('#aimbar').classList.add('on'); $('#aimtext').innerHTML=`<b style="font-family:var(--display);font-size:28px">${HEROES[id].skill}</b> &nbsp;· choose a place in the room`; }
+function endAim(){ aim=null; stage.classList.remove('aiming'); $('#aimbar').classList.remove('on'); }
+$('#aimcancel').addEventListener('click',endAim);
+const HINTS={
+  hexweaver:()=> !S.f.recipe ? 'Cooks hide recipes where they can reach them with wet hands. Near the towels, perhaps.' : !S.f.runes ? 'A witch’s mark, the recipe says. Let me read the room first. Use my runes.' : S.stew<3 ? 'Follow the recipe in order: the bloods, the ember, the arm. Then me.' : 'The mark in the window. I’ll trace it at the cauldron.',
+  spectromancer:()=> !S.f.communed ? 'The cook is still here. Let me speak to him. Fire draws the dead, and the candle is close to the hearth.' : !S.f.arm ? 'He said the arm hangs where he hung the meat. Up in the dark, past the pillar. That needs the Voidstrider.' : 'He’s waiting for supper to be served. So am I, frankly.',
+  paladine:()=> !S.f.drawer ? 'Those drawers on the right are swollen shut. I can fix that. Loudly.' : !S.f.consomme ? 'The riddle says what goes first. The jars are on the mantel, behind the wine.' : 'A ladle and that fire. Even I can manage that one.',
+  voidstrider:()=> !S.f.arm ? 'There’s a fold in the air under the vaulting, right of the pillar. Something heavy is caught in it. Point me at it.' : 'I don’t like how that stew is looking at me.',
+};
+
+/* tooltip */
+function tip(html){ const t=$('#tip'); t.innerHTML=html; t.style.opacity=1; }
+function hideTip(){ $('#tip').style.opacity=0; }
+stage.addEventListener('pointermove',e=>{ const r=stage.getBoundingClientRect(); const x=(e.clientX-r.left)/SCALE, y=(e.clientY-r.top)/SCALE; mouse.x=x; mouse.y=y; const t=$('#tip'); t.style.left=(x+20)+'px'; t.style.top=(y+18)+'px'; });
+stage.addEventListener('contextmenu',e=>{ if(sel||aim){ e.preventDefault(); sel=null; endAim(); renderInv(); } });
+
+/* dialogue */
+let dq=[],di=0,dDone=null,typing=null,full='';
+function dialogue(lines,done){ busy=true; dq=lines; di=0; dDone=done||null; hideTip(); $('#dlg').classList.add('on'); line(); }
+function line(){ const L=dq[di],dlg=$('#dlg'),por=$('#portrait'); dlg.classList.toggle('ghost',!!L.ghost);
+  if(L.who){ dlg.classList.remove('narr'); const h=HEROES[L.who]; $('#dname').innerHTML=`${h.name}<small>${h.craft}</small>`; por.style.backgroundImage=`url(${portrait(L.who)})`; por.classList.remove('off'); }
+  else if(L.ghost){ dlg.classList.remove('narr'); $('#dname').innerHTML='Anselm<small>Cook to the Master, deceased</small>'; por.classList.add('off'); }
+  else { dlg.classList.add('narr'); $('#dname').textContent=''; por.classList.add('off'); }
+  full=L.text; const el=$('#dtext'); el.textContent=''; $('#dmore').classList.remove('on'); clearInterval(typing);
+  if(RM){ el.textContent=full; $('#dmore').classList.add('on'); typing=null; return; }
+  let i=0; typing=setInterval(()=>{ i+=2; el.textContent=full.slice(0,i); if(i>=full.length){ clearInterval(typing); typing=null; $('#dmore').classList.add('on'); } },22); }
+function advance(){ if(typing){ clearInterval(typing); typing=null; $('#dtext').textContent=full; $('#dmore').classList.add('on'); return; }
+  di++; if(di<dq.length){ line(); return; } $('#dlg').classList.remove('on'); busy=false; const d=dDone; dDone=null; refresh(); if(d) d(); }
+$('#dlg').addEventListener('click',advance);
+
+/* popups */
+function overlay(html,onOpen){ busy=true; hideTip(); $('#ovbody').innerHTML=html; $('#ov').classList.add('on'); if(onOpen) onOpen($('#ovbody')); setTimeout(()=>($('#ovbody').querySelector('button')||$('#ovclose')).focus(),30); }
+function closeOv(){ if(!$('#ov').classList.contains('on')) return; $('#ov').classList.remove('on'); busy=false; refresh(); }
+$('#ovclose').addEventListener('click',closeOv);
+$('#ov').addEventListener('click',e=>{ if(e.target.id==='ov') closeOv(); });
+function read(id){ overlay(`<div class="parch">${PAGES[id]}</div>`); if(id==='recipe') setObjective(); }
+
+addEventListener('keydown',e=>{ if($('#dlg').classList.contains('on')&&(e.key===' '||e.key==='Enter')){ e.preventDefault(); advance(); return; }
+  if(e.key==='Escape'){ if($('#ov').classList.contains('on')) closeOv(); else { sel=null; endAim(); renderInv(); } } });
+$('#mute').addEventListener('click',()=>{ $('#mute').textContent=Au.toggle()?'Sound on':'Sound off'; });
+$('#tohub').addEventListener('click',()=>{ $('#end').classList.add('hide'); renderHub(); $('#hubtext').textContent='The kitchen door stands open behind you. Three doors left.'; $('#hub').classList.remove('hide'); });
+function refresh(){ buildSpots(); renderInv(); setObjective(); snap(); }
+function snap(){ try{ window.claude?.hot?.snapshot?.(()=>S); }catch(e){} }
+
+/* ================= ambient fx ================= */
+const fx=$('#fx').getContext('2d'); let parts=[], mouse={x:800,y:450};
+function glow(x,y,r,col,a){ const g=fx.createRadialGradient(x,y,0,x,y,r); g.addColorStop(0,col); g.addColorStop(1,'rgba(0,0,0,0)'); fx.globalAlpha=a; fx.fillStyle=g; fx.fillRect(x-r,y-r,r*2,r*2); fx.globalAlpha=1; }
+let last=performance.now(), tx=0, ty=0;
+function loop(t){
+  const dt=(t-last)/1000; last=t;
+  if(S.inRoom&&!S.cleared){ S.elapsed+=dt; const k=Math.floor(S.elapsed/150); if(k>S.ticks){ S.ticks=k; tick(1); } }
+  fx.clearRect(0,0,825,1125);
+  const f1=.8+.2*Math.sin(t*.011)+.08*Math.sin(t*.037), f2=.85+.15*Math.sin(t*.017+1);
+  glow(208,790,190,'rgba(255,170,60,1)',.35*f1); glow(120,760,120,'rgba(255,210,120,1)',.3*f2); glow(470,620,90,'rgba(255,210,120,1)',.22*f2);
+  if(S.stew>=2) glow(550,860,220,'rgba(255,120,40,1)',.25+.1*Math.sin(t*.006));
+  if(parts.length<34&&Math.random()<.4) parts.push({x:180+Math.random()*60,y:800,vx:(Math.random()-.5)*.5,vy:-.8-Math.random()*1.4,l:1});
+  parts.forEach(p=>{ p.x+=p.vx+Math.sin(t*.003+p.y*.02)*.4; p.y+=p.vy; p.l-=.007; }); parts=parts.filter(p=>p.l>0&&p.y>560);
+  parts.forEach(p=>{ fx.fillStyle=`rgba(255,${150+p.l*80|0},60,${p.l})`; fx.fillRect(p.x,p.y,3,3); });
+  if(S.f.rift && t-S.f.rift<2400){ const k=(t-S.f.rift)/2400, a=Math.sin(k*Math.PI); fx.save(); fx.translate(662,120); fx.rotate(t*.004);
+    for(let i=0;i<5;i++){ fx.strokeStyle=`rgba(${120+i*20},${110+i*15},255,${a*(.9-i*.15)})`; fx.lineWidth=6-i; fx.beginPath(); fx.ellipse(0,0,40+i*18+k*30,14+i*7,i*.6,0,Math.PI*1.6); fx.stroke(); } fx.restore(); glow(662,120,160,'rgba(140,120,255,1)',a*.6); }
+  // card tilt
+  if(!RM){ const nx=(mouse.x-800)/800, ny=(mouse.y-450)/450; tx+=(nx-tx)*.05; ty+=(ny-ty)*.05;
+    const card=$('#card'); if(S.inRoom&&!card.dataset.flipping) card.style.transform=`scale(${CS}) rotateY(${tx*2.2}deg) rotateX(${-ty*1.6}deg)`; }
+  requestAnimationFrame(loop);
+}
+
+/* ================= boot ================= */
+function fit(){ SCALE=Math.min(innerWidth/W,innerHeight/H); stage.style.transform=`scale(${SCALE})`; }
+addEventListener('resize',fit);
+function start(data){
+  if(data&&data.inv){ S=Object.assign(fresh(),data); }
+  fit(); setMoon(); renderParty(); renderInv(); setObjective(); buildSpots(); renderHub();
+  $('#journal').innerHTML=S.log.map(t=>`<p>${t}</p>`).join('');
+  $('#card').style.transform=`scale(${CS})`;
+  if(S.f.brick){ $('#cavity').classList.add('on'); $('#brick').style.display='none'; $('#towel').classList.add('pulled'); if(S.f.recipe) $('#cavity').classList.add('taken'); }
+  if(S.f.arm&&!S.f.armTaken) $('#arm').classList.add('hung'); if(S.f.armTaken) $('#arm').classList.add('gone');
+  if(S.f.runes) $('#windowmark').classList.add('on');
+  if(S.inRoom) $('#hub').classList.add('hide');
+  requestAnimationFrame(loop);
+}
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+</body>
+</html>
