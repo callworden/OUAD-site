@@ -41,7 +41,13 @@ button{font:inherit;color:inherit}
 #fx{position:absolute;left:0;top:0;width:825px;height:1125px;pointer-events:none;mix-blend-mode:screen}
 #cavity{position:absolute;left:504px;top:594px;width:86px;height:47px;background:#050303;box-shadow:inset 0 10px 14px #000, inset 0 -4px 0 #1b1412;opacity:0;transition:opacity .2s}
 #cavity.on{opacity:1}
-#scroll{position:absolute;left:14px;top:17px;width:58px;height:20px;border-radius:9px;background:linear-gradient(180deg,#e9d7ae,#bba273 70%,#8d7650);border:2px solid #000;opacity:0;transition:opacity .4s .8s}
+#scroll{position:absolute;left:6px;top:10px;width:74px;height:27px;opacity:0;transition:opacity .4s .8s}
+#winfx,#drips{position:absolute;left:0;top:0;width:825px;height:1125px;pointer-events:none}
+#winrune{position:absolute;left:21px;top:1px;width:220px;height:437px;pointer-events:none;opacity:0;transition:opacity 1.8s}
+#winrune.on{opacity:1;animation:runeglow 3.2s ease-in-out infinite}
+@keyframes runeglow{50%{filter:brightness(1.35) drop-shadow(0 0 5px rgba(255,214,150,.8))}}
+#noladle{position:absolute;left:572px;top:768px;width:137px;height:118px;display:none}
+#noladle.on{display:block}
 #cavity.on #scroll{opacity:1}
 #cavity.taken #scroll{opacity:0;transition:opacity .2s}
 #brick{position:absolute;left:504px;top:594px;width:86px;height:47px;background:url(art/kitchen.jpg) -504px -594px/825px 1125px;border:2px solid transparent}
@@ -56,16 +62,16 @@ button{font:inherit;color:inherit}
 @keyframes tug{30%{transform:translateY(16px) scaleY(1.08)}60%{transform:translateY(10px) scaleY(1.05)}100%{transform:translateY(10px)}}
 #towel.pulled{transform:translateY(10px)}
 #arm{position:absolute;left:598px;top:0;width:125px;height:754px;transform:translateY(-820px);transform-origin:50% 0;pointer-events:none}
-#arm.drop{animation:armdrop 1.5s cubic-bezier(.5,0,.6,1) forwards, swing 4.5s 1.5s ease-in-out infinite}
+#arm.drop{animation:armdrop 1.7s cubic-bezier(.5,0,.6,1) forwards, armfade 1.7s ease-out, swing 4.5s 1.7s ease-in-out infinite}
 #arm.hung{transform:none;animation:swing 4.5s ease-in-out infinite}
 #arm.gone{display:none}
+@keyframes armfade{0%{opacity:0}45%{opacity:1}}
 @keyframes armdrop{0%{transform:translateY(-820px)}60%{transform:translateY(30px)}75%{transform:translateY(-14px)}88%{transform:translateY(8px)}100%{transform:none}}
 @keyframes swing{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.4deg)}}
 #runes{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1.2s}
 #runes.on{opacity:1}
 #runes .dim{opacity:.35}
-#windowmark{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1.2s}
-#windowmark.on{opacity:.75;animation:markpulse 2.6s ease-in-out infinite}
+
 @keyframes markpulse{50%{opacity:1}}
 #cardwrap.quake{animation:quake .7s}
 @keyframes quake{15%{transform:translate(-9px,4px)}30%{transform:translate(8px,-5px)}45%{transform:translate(-6px,6px)}60%{transform:translate(5px,-3px)}80%{transform:translate(-2px,2px)}}
@@ -194,12 +200,40 @@ button{font:inherit;color:inherit}
 .rcard b{font-family:var(--display);font-size:38px;font-weight:800;position:relative;text-shadow:3px 3px 0 #000}
 .rcard::before{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.9))}
 .rcard small{font-family:var(--caps);letter-spacing:.2em;color:var(--candle);font-size:14px;position:relative;text-shadow:2px 2px 0 #000}
-.stats{display:flex;flex-direction:column;gap:16px;text-align:left}
+.stats{display:grid;grid-template-columns:auto auto;gap:16px 40px;text-align:left}
 .stats div{font-family:var(--caps);font-size:15px;letter-spacing:.26em;color:var(--ash)}
 .stats b{display:block;font-family:var(--display);font-size:46px;font-weight:600;color:var(--bone);letter-spacing:0;font-variant-numeric:tabular-nums}
 #fade{position:absolute;inset:0;background:#000;pointer-events:none;opacity:0;transition:opacity .6s;z-index:55}
 #fade.on{opacity:1}
-@media (prefers-reduced-motion: reduce){ #arm.drop,#arm.hung{animation:none;transform:none} #windowmark.on{animation:none} }
+@media (prefers-reduced-motion: reduce){ #arm.drop,#arm.hung{animation:none;transform:none} #winrune.on{animation:none} }
+#hintrow{display:flex;align-items:center;gap:14px}
+.btn.small{font-size:15px;padding:8px 14px;box-shadow:3px 3px 0 var(--blood)}
+#hintcount{font-family:var(--caps);font-size:14px;letter-spacing:.2em;color:var(--ash)}
+.timer{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:4px}
+.tgl{font-family:var(--caps);font-size:18px;letter-spacing:.16em;padding:10px 20px;background:#000;border:2px solid var(--ash);color:var(--bone);cursor:pointer;display:flex;align-items:center;gap:12px}
+.tgl:hover,.tgl:focus-visible{border-color:var(--bone);outline:none}
+.tgl i{width:40px;height:22px;border-radius:11px;background:#2a2222;position:relative;transition:background .2s}
+.tgl i::after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--bone);transition:transform .2s}
+.tgl[aria-pressed="true"] i{background:var(--blood)}
+.tgl[aria-pressed="true"] i::after{transform:translateX(18px)}
+#timerdesc{font-style:italic;font-size:19px;color:var(--ash);max-width:52ch;text-align:center}
+#moon.untimed #moonsvg{opacity:.25}
+#ovpanel.dark{background:#040102}
+.bottles{display:flex;gap:34px;justify-content:center;align-items:flex-end;min-height:262px}
+.bottle{background:none;border:0;padding:0;cursor:pointer;transition:transform .2s, opacity .3s;transform-origin:50% 80%}
+.bottle img{width:118px;height:249px;display:block}
+.bottle:hover,.bottle:focus-visible{transform:translateY(-10px);outline:none}
+.bottle:focus-visible img{outline:2px solid var(--candle)}
+.bottle:disabled{opacity:.25;cursor:default;transform:none}
+.bottle.pour{animation:pour .75s ease-in-out}
+@keyframes pour{45%{transform:translate(30px,30px) rotate(-48deg)}70%{transform:translate(30px,30px) rotate(-52deg)}}
+.bowl{position:relative;width:440px;height:221px;margin:18px auto 0}
+.bowl img{position:absolute;inset:0;width:100%;height:100%}
+.bowl .fill{transition:opacity .6s;opacity:0}
+#dlg.drac #dbox{border-color:var(--blood);box-shadow:8px 8px 0 #000}
+#dlg.drac #dtext{color:#ffd7d7}
+#blackout{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity 1.4s;z-index:24}
+#blackout.on{opacity:.82}
 </style>
 </head>
 <body>
@@ -208,6 +242,7 @@ button{font:inherit;color:inherit}
   <section id="left">
     <h1 id="roomtitle">The Kitchen<small>The Defiled wing · Room II</small></h1>
     <div id="objective">The door has locked behind you. <b>Find out what this room wants.</b></div>
+    <div id="hintrow"><button class="btn small" id="hintbtn" type="button">Ask for a hint</button><span id="hintcount"></span></div>
     <div id="party"><div class="plbl">The party</div></div>
   </section>
 
@@ -215,14 +250,17 @@ button{font:inherit;color:inherit}
     <div id="card">
       <div class="face front">
         <img id="base" src="art/kitchen.jpg" alt="The castle kitchen: a red gothic window, a hearth with a candle, a stone pillar, towels on a hook, a cauldron of stew spilling blood, and drawers at the right.">
-        <div id="cavity"><div id="scroll"></div></div>
+        <canvas id="winfx" width="825" height="1125"></canvas>
+        <img id="winrune" src="art/window-rune.png" alt="">
+        <img id="noladle" src="art/no-ladle.png" alt="">
+        <div id="cavity"><img id="scroll" src="art/scroll.png" alt=""></div>
         <div id="brick"></div>
         <img id="towel" src="art/towel.png" alt="">
+        <canvas id="drips" width="825" height="1125"></canvas>
         <img id="arm" src="art/arm.png" alt="">
         
         <canvas id="fx" width="825" height="1125"></canvas>
         <svg id="runes" viewBox="0 0 825 1125" aria-hidden="true"></svg>
-        <svg id="windowmark" viewBox="0 0 825 1125" aria-hidden="true"></svg>
         <div id="hotspots"></div>
       </div>
       <div class="face back"><div class="m"></div><b>Blood Moon<br>Rising</b></div>
@@ -232,7 +270,7 @@ button{font:inherit;color:inherit}
 
   <section id="right">
     <div id="moon" aria-live="polite">
-      <div class="lbl">The moon is at<b id="moonlbl">Blood Moon I</b></div>
+      <div class="lbl"><span id="moonpre">The moon is at</span><b id="moonlbl">Blood Moon I</b></div>
       <svg id="moonsvg" viewBox="0 0 100 100" aria-hidden="true">
         <clipPath id="mc"><circle cx="50" cy="50" r="42"/></clipPath>
         <circle cx="50" cy="50" r="42" fill="#e3262c"/>
@@ -253,14 +291,22 @@ button{font:inherit;color:inherit}
   <div id="dlg" role="dialog" aria-live="polite"><div class="shade"></div><div id="portrait" class="off"></div>
     <div id="dbox"><div id="dname"></div><div id="dtext"></div><div id="dmore">Continue ▸</div></div></div>
   <div id="golemfocus" aria-hidden="true"><div class="frame"><img src="art/golem.jpg" alt="The Golem: a hulking thing of wood, bone and iron, a caged head, a red heart-shaped plate stitched to its chest, and the cook's face set into its arm."><div class="tag"><small>Summoned</small>The Golem</div></div></div>
+  <div id="blackout"></div>
   <div id="fade"></div>
+  <div class="screen hide" id="lost">
+    <div class="kicker">The Blood Moon is full</div>
+    <h1>Supper Is Served</h1>
+    <p>Dracula came down to see what was cooking. It was you.</p>
+    <div style="display:flex;gap:24px;margin-top:34px"><button class="btn" id="retry" type="button">Try again</button><button class="btn" id="retryun" type="button">Try again without the timer</button></div>
+  </div>
 
   <div class="screen" id="hub">
     <div class="kicker">Blood Moon Rising · The Defiled wing</div>
     <h1>Four Doors</h1>
     <p id="hubtext">The stair ends in a round hall. Four doors, no signs. Somewhere beyond one of them is the servant you need.</p>
     <div class="doors" id="doors"></div>
-    <p style="font-size:19px;margin-top:4px">Best with headphones, in the dark.</p>
+    <div class="timer"><button class="tgl" id="timerbtn" type="button" aria-pressed="false"><i></i><span id="timerlbl">Blood Moon timer: off</span></button><div id="timerdesc"></div></div>
+    <p style="font-size:19px;margin-top:14px">Best with headphones, in the dark.</p>
   </div>
 
   <div class="screen hide" id="end">
@@ -278,6 +324,7 @@ button{font:inherit;color:inherit}
         <div>The moon reached<b id="stMoon">II</b></div>
         <div>Time in the kitchen<b id="stTime">0:00</b></div>
         <div>Mistakes<b id="stMiss">0</b></div>
+        <div>Hints<b id="stHints">0</b></div>
       </div>
     </div>
     <button class="btn" id="tohub" type="button">Return to the four doors</button>
@@ -291,7 +338,7 @@ const stage=$('#stage'), RM=matchMedia('(prefers-reduced-motion: reduce)').match
 let SCALE=1;
 
 /* ================= state ================= */
-const fresh=()=>({inRoom:false, cleared:false, inv:[], f:{}, moon:1, mistakes:0, elapsed:0, ticks:0, stew:0, log:[]});
+const fresh=()=>({inRoom:false, cleared:false, timed:false, inv:[], f:{}, moon:1, mistakes:0, hints:0, hl:{}, elapsed:0, ticks:0, stew:0, log:[], doom:false});
 let S=fresh(), sel=null, busy=false, aim=null;
 
 const HEROES={
@@ -321,14 +368,13 @@ const PAGES={
 
 /* ================= audio ================= */
 const Au={ctx:null,on:true,
-  init(){ if(this.ctx) return; try{ const c=this.ctx=new (window.AudioContext||window.webkitAudioContext)(); this.m=c.createGain(); this.m.gain.value=.9; this.m.connect(c.destination);
+  init(){ if(this.ctx) return; try{ const c=this.ctx=new (window.AudioContext||window.webkitAudioContext)(); this.m=c.createGain(); this.m.gain.value=.8; const lim=c.createDynamicsCompressor(); lim.threshold.value=-14; lim.knee.value=6; lim.ratio.value=12; lim.attack.value=.002; lim.release.value=.25; this.m.connect(lim).connect(c.destination);
     const len=c.sampleRate*2; this.brown=c.createBuffer(1,len,c.sampleRate); let d=this.brown.getChannelData(0),l=0; for(let i=0;i<len;i++){ l=(l+.02*(Math.random()*2-1))/1.02; d[i]=l*3.5; }
     this.white=c.createBuffer(1,len,c.sampleRate); d=this.white.getChannelData(0); for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
     const g=c.createGain(); g.gain.value=.07; const f=c.createBiquadFilter(); f.type='lowpass'; f.frequency.value=260; f.Q.value=4;
     [43.65,44.1,65.4,87.3].forEach((fr,i)=>{ const o=c.createOscillator(); o.type=i>1?'sawtooth':'sine'; o.frequency.value=fr; const og=c.createGain(); og.gain.value=i>1?.18:.6; o.connect(og).connect(f); o.start(); });
     const lfo=c.createOscillator(); lfo.frequency.value=.06; const lg=c.createGain(); lg.gain.value=140; lfo.connect(lg).connect(f.frequency); lfo.start(); f.connect(g).connect(this.m);
-    const n=this.src(), nf=c.createBiquadFilter(), ng=c.createGain(); nf.type='lowpass'; nf.frequency.value=600; ng.gain.value=.045; n.connect(nf).connect(ng).connect(this.m); n.start();
-    const crack=()=>{ this.pop(1800+Math.random()*2500,.04+Math.random()*.07); setTimeout(crack,70+Math.random()*450); }; crack();
+    this.fire=new Audio('art/fireplace.mp3'); this.fire.loop=true; this.fire.volume=.55; this.fire.play().catch(()=>{});
   }catch(e){ this.ctx=null; } },
   src(b){ const s=this.ctx.createBufferSource(); s.buffer=b||this.brown; s.loop=true; return s; },
   env(g,p,a,d,t0){ const t=t0||this.ctx.currentTime; g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(p,t+a); g.gain.exponentialRampToValueAtTime(.0001,t+a+d); },
@@ -347,7 +393,9 @@ const Au={ctx:null,on:true,
   rift(){ if(!this.ctx) return; const c=this.ctx,o=c.createOscillator(),g=c.createGain(),f=c.createBiquadFilter(),t=c.currentTime; o.type='sawtooth'; o.frequency.setValueAtTime(900,t); o.frequency.exponentialRampToValueAtTime(40,t+1.4); f.type='lowpass'; f.frequency.value=1200;
     o.connect(f).connect(g).connect(this.m); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.18,t+.2); g.gain.exponentialRampToValueAtTime(.0001,t+1.6); o.start(); o.stop(t+1.7); },
   heartbeat(){ if(this.hb) return; const beat=()=>{ if(S.moon>=5&&this.on&&S.inRoom) this.thump(.28); this.hb=setTimeout(beat,S.moon>=6?820:1150); }; beat(); },
-  toggle(){ this.on=!this.on; if(this.m) this.m.gain.setTargetAtTime(this.on?.9:0,this.ctx.currentTime,.1); return this.on; },
+  thunder(){ if(!this.ctx) return; const c=this.ctx,s=this.src(),f=c.createBiquadFilter(),g=c.createGain(),t=c.currentTime+.7; f.type='lowpass'; f.frequency.value=140; s.connect(f).connect(g).connect(this.m);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.35,t+.35); g.gain.linearRampToValueAtTime(.2,t+1); g.gain.exponentialRampToValueAtTime(.0001,t+3.2); s.start(t); s.stop(t+3.4); },
+  toggle(){ this.on=!this.on; if(this.m) this.m.gain.setTargetAtTime(this.on?.8:0,this.ctx.currentTime,.1); if(this.fire) this.fire.muted=!this.on; return this.on; },
 };
 
 /* ================= portraits & icons (stand-ins) ================= */
@@ -385,15 +433,14 @@ function icon(id){ if(ICON[id]) return ICON[id]; const cv=document.createElement
 /* ================= sigils ================= */
 const SIGIL=[
   '<circle cx="50" cy="50" r="38"/><path d="M50 12v76M12 50h76"/><circle cx="50" cy="50" r="12"/>',
-  '<path d="M50 10 L90 84 L10 84 Z"/><circle cx="50" cy="60" r="10"/><path d="M50 10v40"/>',
+  '<path d="M50 8 L92 86 L8 86 Z"/><path d="M28 64 Q50 46 72 64 Q50 82 28 64 Z"/><circle cx="50" cy="64" r="6"/><path d="M50 8 V30"/>',
   '<path d="M30 14 C80 14 80 86 30 86 C60 70 60 30 30 14 Z"/><path d="M60 30 L88 50 L60 70"/><path d="M14 50h40"/>',
   '<path d="M20 20 L80 80 M80 20 L20 80"/><rect x="34" y="34" width="32" height="32" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="44"/>',
 ];
-const MARK=2;
+const MARK=1;
 function sigSVG(i,stroke,w){ return `<g fill="none" stroke="${stroke}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${SIGIL[i]}</g>`; }
-$('#windowmark').innerHTML=`<g transform="translate(78,8) scale(.88)">${sigSVG(MARK,'#000',14)}${sigSVG(MARK,'#fff3c4',6)}</g>`;
-$('#runes').innerHTML=[[400,340,.5,0],[560,900,.6,1],[760,900,.4,3],[120,980,.45,0],[300,620,.35,1]].map(([x,y,s,i])=>`<g class="dim" transform="translate(${x},${y}) scale(${s})">${sigSVG(i,'#c9bfff',7)}</g>`).join('')
-  + `<g transform="translate(78,8) scale(.88)">${sigSVG(MARK,'#fff3c4',8)}</g>`;
+$('#runes').innerHTML=[[400,340,.5,0],[560,900,.6,2],[760,900,.4,3],[120,980,.45,0],[300,620,.35,2]].map(([x,y,s,i])=>`<g class="dim" transform="translate(${x},${y}) scale(${s})">${sigSVG(i,'#c9bfff',7)}</g>`).join('')
+;
 
 /* ================= the room: hotspots ================= */
 const has=id=>S.inv.includes(id);
@@ -432,7 +479,7 @@ const SPOTS=[
       dialogue([{who:'paladine',text:'Stand back.'},{text:'One heave and the drawer comes out whole, front and all. Something is scratched into the wood inside.'}],()=>{ give('riddle'); read('riddle'); }); },
       spectromancer:()=>say('He hid something in there. He’s ashamed of it. That’s all he’ll say.')}},
   {id:'lid',x:120,y:930,w:220,h:120,label:'Pot lid',act:()=>say('A lid, dropped in a hurry. Whoever dropped it didn’t come back for it.')},
-  {id:'ladle',x:590,y:780,w:110,h:90,label:'Ladle',show:()=>!S.f.ladle,act:()=>{ S.f.ladle=true; give('ladle'); say('You pull the ladle from the stew. Something under the surface lets go of it, reluctantly.'); }},
+  {id:'ladle',x:590,y:780,w:110,h:90,label:'Ladle',show:()=>!S.f.ladle,act:()=>{ S.f.ladle=true; $('#noladle').classList.add('on'); give('ladle'); say('You pull the ladle from the stew. Something under the surface lets go of it, reluctantly.'); }},
   {id:'cauldron',x:340,y:840,w:400,h:285,label:'Cauldron',act:s=>stew(s),
     skill:{spectromancer:()=>say('The stew is screaming, very quietly. Nothing useful in it yet.'),hexweaver:()=>say('It wants binding. Show me the mark first.')}},
 ];
@@ -451,32 +498,36 @@ function buildSpots(){
 const NOSKILL={spectromancer:'No one is listening there. Not even the dead.',paladine:'Nothing there worth breaking.',voidstrider:'Nothing on the other side of that.',hexweaver:''};
 
 /* ================= puzzles ================= */
-const BLOODS=[{n:'Maiden',c:'#ff3b3b'},{n:'Rat',c:'#7a2a1c'},{n:'Wolf',c:'#9c0f17'},{n:'Bat',c:'#3a0a2a'}];
+const BLOODS=[{n:'Maiden',img:'maiden-blood',fill:'green-fill'},{n:'Rat',img:'rat-blood',fill:'red-fill'},{n:'Wolf',img:'wolf-blood',fill:'purple-fill'},{n:'Bat',img:'bat-blood',fill:'yellow-fill'}];
 const ORDER=['Wolf','Bat','Rat','Maiden'];
+const MIX=[1,.75,.5,.25];
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function openJars(){
   let poured=[];
-  const jar=b=>`<button class="jar" type="button" data-n="${b.n}" aria-label="Jar of ${b.n} blood"><svg width="120" height="190" viewBox="0 0 120 190" aria-hidden="true">
-    <rect x="22" y="6" width="76" height="20" fill="#2a2420" stroke="#000" stroke-width="5"/>
-    <path d="M18 34 Q18 26 26 26 H94 Q102 26 102 34 V170 Q102 184 88 184 H32 Q18 184 18 170Z" fill="#cfd6d2" fill-opacity=".18" stroke="#000" stroke-width="6"/>
-    <path d="M24 70 H96 V168 Q96 178 86 178 H34 Q24 178 24 168Z" fill="${b.c}"/>
-    <rect x="30" y="96" width="60" height="44" fill="#e2d1a8" stroke="#000" stroke-width="4"/>
-    <rect x="30" y="40" width="8" height="120" fill="#fff" opacity=".25"/></svg><span>${b.n}</span></button>`;
-  overlay(`<div class="ovtitle">Four Jars of Blood</div><div class="ovsub">Hidden behind the wine, each with a hand-written label</div>
-    <div class="jars">${BLOODS.map(jar).join('')}</div>
-    <div class="bowlrow"><svg width="240" height="110" viewBox="0 0 240 110" aria-label="Mixing bowl"><path d="M10 30 Q120 150 230 30Z" fill="#d8d0c0" stroke="#000" stroke-width="6"/><g id="layers"></g></svg>
-    <button class="btn" id="emptybowl" type="button">Empty the bowl</button></div>
-    <div class="hint" id="jarhint">Pour them into the bowl. In what order is the question.</div>`,body=>{
-      const draw=()=>{ body.querySelector('#layers').innerHTML=poured.map((n,i)=>{ const c=BLOODS.find(b=>b.n===n).c; const y=30+i*14; const half=110-16-(y-30)*1.2; return `<path d="M${120-half} ${y+2} Q120 ${y+22} ${120+half} ${y+2}" stroke="${c}" stroke-width="12" fill="none"/>`; }).join(''); };
-      body.querySelectorAll('.jar').forEach(b=>b.addEventListener('click',()=>{
-        if(poured.includes(b.dataset.n)) return; poured.push(b.dataset.n); Au.pour(); draw(); b.style.opacity=.35;
-        if(poured.length===4){
-          if(poured.join()===ORDER.join()){ S.f.consomme=true; Au.chime(); setTimeout(()=>{ closeOv(); give('consomme'); say('The bloods settle into one another without mixing: four perfect layers. <em>Blood Consommé</em>.'); },700); }
-          else { mistake(); Au.whisper(); body.querySelector('#jarhint').textContent='It curdles, grey and stinking. The jars refill themselves. Try again.';
-            setTimeout(()=>{ poured=[]; draw(); body.querySelectorAll('.jar').forEach(j=>j.style.opacity=1); },900); const p=$('#ovpanel'); p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake'); }
-        }
-      }));
-      body.querySelector('#emptybowl').addEventListener('click',()=>{ poured=[]; draw(); body.querySelectorAll('.jar').forEach(j=>j.style.opacity=1); body.querySelector('#jarhint').textContent='You tip it out. Nothing is lost but a little blood.'; });
+  overlay(`<div class="ovtitle">Four Bottles of Blood</div><div class="ovsub">Hidden behind the wine. They never stand in the same order twice</div>
+    <div class="bottles" id="bottles"></div>
+    <div class="bowl" id="bowl"><img src="art/empty-bowl.jpg" alt="An empty bowl carved from bone">${BLOODS.map(b=>`<img class="fill" data-fill="${b.n}" src="art/${b.fill}.png" alt="">`).join('')}</div>
+    <div class="row" style="margin-top:14px"><button class="btn small" id="emptybowl" type="button">Empty the bowl</button></div>
+    <div class="hint" id="jarhint">Pour them into the bone bowl. In what order is the question.</div>`,body=>{
+      const bowl=body.querySelector('#bowl');
+      const setFills=()=>{ bowl.querySelectorAll('.fill').forEach(f=>{ const i=poured.indexOf(f.dataset.fill); f.style.opacity=i<0?0:MIX[i]; f.style.zIndex=i<0?0:i+1; }); };
+      const lay=()=>{ const box=body.querySelector('#bottles'); box.innerHTML=shuffle(BLOODS).map(b=>`<button class="bottle" type="button" data-n="${b.n}" aria-label="Bottle of ${b.n} blood"><img src="art/${b.img}.jpg" alt=""></button>`).join('');
+        box.querySelectorAll('.bottle').forEach(btn=>btn.addEventListener('click',()=>pour(btn))); };
+      const reset=(msg)=>{ poured=[]; setFills(); lay(); if(msg) body.querySelector('#jarhint').textContent=msg; };
+      const pour=btn=>{ if(btn.disabled||poured.length>=4) return; btn.disabled=true; btn.classList.add('pour'); Au.pour();
+        setTimeout(()=>{ poured.push(btn.dataset.n); setFills();
+          if(poured.length===4) setTimeout(check,500); },380); };
+      const check=()=>{
+        if(poured.join()===ORDER.join()){ S.f.consomme=true; Au.chime(); body.querySelector('#jarhint').textContent='The bloods settle into one another and turn the colour of a bruise.';
+          setTimeout(()=>{ closeOv(); give('consomme'); say('Four bloods, poured in their proper order: <em>Blood Consommé</em>.'); },1100); }
+        else { mistake(); Au.whisper(); const p=$('#ovpanel'); p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake');
+          body.querySelector('#jarhint').textContent='It curdles, grey and stinking. When you look up, the bottles are full again, and standing in a different order.';
+          setTimeout(()=>reset(),1100); }
+      };
+      body.querySelector('#emptybowl').addEventListener('click',()=>reset('You tip it out. The bottles shuffle themselves while your back is turned.'));
+      lay();
     });
+  $('#ovpanel').classList.add('dark');
 }
 function commune(){
   if(S.f.communed){ dialogue([{ghost:true,text:'Up… where I hung the meat… between here and elsewhere… and the mark, the mark is in the glass…'}]); return; }
@@ -492,15 +543,15 @@ function commune(){
 function riftPull(){
   if(S.f.arm){ say('Nothing more on the other side.'); return; }
   S.f.arm=true; S.f.rift=performance.now(); Au.rift(); busy=true;
-  setTimeout(()=>{ const a=$('#arm'); a.classList.add('drop'); Au.sting(false); }, 900);
+  setTimeout(()=>{ const a=$('#arm'); a.classList.add('drop'); Au.sting(false); }, 700);
   setTimeout(()=>{ busy=false; Au.thump(.4); buildSpots();
     dialogue([{who:'voidstrider',text:'Got it. It didn’t want to come.'},{text:'An arm drops out of nothing on a length of old rope and swings there, claws twitching. Grey. Wrapped in a sleeve gone black with age.'}]); },2400);
 }
 function revealRunes(){
   Au.chime(); Au.whisper(); $('#runes').classList.add('on');
   setTimeout(()=>{ $('#runes').classList.remove('on'); },6500);
-  if(!S.f.runes){ S.f.runes=true; $('#windowmark').classList.add('on');
-    dialogue([{who:'hexweaver',text:'The whole room is scrawled with old marks. Most are worn to nothing. But there, in the window: that one was burned in on purpose.'},{who:'hexweaver',text:'A binding mark. I’ll remember it.'}]); }
+  if(!S.f.runes){ S.f.runes=true; $('#winrune').classList.add('on');
+    dialogue([{who:'hexweaver',text:'The whole room is scrawled with old marks. Most are worn to nothing. But there, at the top of the window: a triangle with an eye, burned into the glass on purpose.'},{who:'hexweaver',text:'A binding mark. I’ll remember it.'}]); }
   else say('The runes flare and fade. The mark in the window burns brightest.');
 }
 const STEW=['consomme','ember','arm'];
@@ -543,7 +594,7 @@ function finale(){
 }
 function cleared(){
   S.cleared=true; S.inRoom=false; snap();
-  $('#stMoon').textContent=ROMAN[S.moon]; const m=Math.floor(S.elapsed/60),s=Math.floor(S.elapsed%60); $('#stTime').textContent=`${m}:${String(s).padStart(2,'0')}`; $('#stMiss').textContent=S.mistakes;
+  $('#stMoon').textContent=ROMAN[S.moon]; const m=Math.floor(S.elapsed/60),s=Math.floor(S.elapsed%60); $('#stTime').textContent=`${m}:${String(s).padStart(2,'0')}`; $('#stMiss').textContent=S.mistakes; $('#stHints').textContent=S.hints; if(!S.timed) $('#stMoon').textContent='Untimed';
   $('#end').classList.remove('hide'); $('#tohub').focus();
 }
 function setObjective(){
@@ -566,6 +617,9 @@ function renderHub(){
     if(d.kitchen){ if(S.cleared){ $('#hubtext').textContent='The kitchen is quiet now. Nothing in there wants anything from you any more.'; return; } enterKitchen(); }
     else { Au.thump(.3); $('#hubtext').textContent=`Door ${d.n} won’t open. Something on the other side is still being built.`; } }));
 }
+function setTimerUI(){ const b=$('#timerbtn'); b.setAttribute('aria-pressed',S.timed); $('#timerlbl').textContent='Blood Moon timer: '+(S.timed?'on':'off');
+  $('#timerdesc').textContent=S.timed?'The moon rises with time and with every mistake. If it turns full, Dracula comes for supper and you start the room again.':'No clock. Take as long as you like.'; }
+$('#timerbtn').addEventListener('click',()=>{ if(S.inRoom) return; S.timed=!S.timed; setTimerUI(); setMoon(); updateHints(); });
 function enterKitchen(){
   $('#hub').classList.add('hide'); S.inRoom=true;
   const card=$('#card'); card.dataset.flipping='1'; card.style.transition='none'; card.style.transform=`scale(${CS}) rotateY(180deg)`; void card.offsetWidth;
@@ -583,9 +637,36 @@ function enterKitchen(){
 
 /* ================= UI plumbing ================= */
 const ROMAN=['','I','II','III','IV','V','VI'];
-function setMoon(){ $('#moonlbl').textContent='Blood Moon '+ROMAN[S.moon]; $('#moonshadow').setAttribute('cx',50+(S.moon/6)*96); }
-function mistake(){ S.mistakes++; tick(1); }
-function tick(n){ const was=S.moon; S.moon=Math.min(6,S.moon+n); setMoon(); flash(); Au.thump(.4); if(S.moon>=5) Au.heartbeat(); if(S.moon===6&&was<6) setTimeout(()=>say('The moon is full and red. Somewhere far above you, Dracula opens his eyes.'),900); }
+function setMoon(){
+  $('#moon').classList.toggle('untimed',!S.timed);
+  if(!S.timed){ $('#moonpre').textContent='No timer'; $('#moonlbl').textContent='Untimed'; $('#moonshadow').setAttribute('cx',50); return; }
+  $('#moonpre').textContent='The moon is at'; $('#moonlbl').textContent='Blood Moon '+ROMAN[S.moon]; $('#moonshadow').setAttribute('cx',50+(S.moon/6)*96); }
+function mistake(){ S.mistakes++; if(S.timed) tick(1); else flash(); }
+function tick(n){ if(!S.timed||S.cleared||S.doom) return; const was=S.moon; S.moon=Math.min(6,S.moon+n); setMoon(); flash(); Au.thump(.4); if(S.moon>=5) Au.heartbeat();
+  if(S.moon===5&&was<5) setTimeout(()=>say('The moon is nearly full. Somewhere far above you, something old opens its eyes.'),700);
+  if(S.moon===6) S.doom=true; }
+function dracula(){
+  S.doom=false; endAim(); hideTip(); closeOv(); busy=true; Au.sting(true); flash();
+  $('#blackout').classList.add('on'); $('#cardwrap').classList.add('quake'); setTimeout(()=>$('#cardwrap').classList.remove('quake'),700);
+  if(Au.fire) Au.fire.volume=.15;
+  setTimeout(()=>dialogue([
+    {text:'The moon turns full and red. Every candle in the kitchen goes out at once.'},
+    {text:'The door that wouldn’t open swings inward without a sound. Someone very tall is standing in it.'},
+    {drac:true,text:'You have been in my kitchen. Touching my things.'},
+    {drac:true,text:'No matter. Supper is late, and you will do nicely.'},
+  ],()=>{ busy=true; S.inRoom=false; $('#lost').classList.remove('hide'); $('#retry').focus(); }),900);
+}
+function resetRoom(timed){
+  S=Object.assign(fresh(),{timed});
+  $('#towel').className=''; const br=$('#brick'); br.className=''; br.style.display='';
+  $('#cavity').className=''; $('#arm').className=''; $('#winrune').className=''; $('#noladle').className=''; $('#runes').classList.remove('on');
+  $('#blackout').classList.remove('on'); $('#golemfocus').classList.remove('on','show');
+  if(Au.fire) Au.fire.volume=.55;
+  sel=null; endAim(); $('#journal').innerHTML=''; setMoon(); renderInv(); setObjective(); buildSpots(); updateHints();
+}
+function retry(timed){ $('#lost').classList.add('hide'); resetRoom(timed); busy=false; enterKitchen(); }
+$('#retry').addEventListener('click',()=>retry(S.timed));
+$('#retryun').addEventListener('click',()=>retry(false));
 function flash(){ const h=$('#hurt'); h.classList.add('on'); setTimeout(()=>h.classList.remove('on'),140); }
 function say(html){ S.log.push(html); if(S.log.length>5) S.log.shift(); $('#journal').innerHTML=S.log.map(t=>`<p>${t}</p>`).join(''); }
 function nope(){ say(['That doesn’t help here.','Nothing happens. The kitchen seems amused.','No. Think like the cook.'][Math.floor(Math.random()*3)]); }
@@ -594,7 +675,7 @@ function give(id){ if(!has(id)) S.inv.push(id); newest=id; Au.chime(); renderInv
 function take(id){ S.inv=S.inv.filter(i=>i!==id); if(sel===id) sel=null; renderInv(); }
 function renderInv(){ const box=$('#satchel'); box.innerHTML='';
   for(let i=0;i<8;i++){ const id=S.inv[i], b=document.createElement('button'); b.type='button'; b.className='slot';
-    if(id){ b.dataset.item=id; b.style.backgroundImage=`url(${icon(id)})`; b.setAttribute('aria-label',ITEMS[id].name); if(sel===id) b.classList.add('sel'); if(newest===id) b.classList.add('new');
+    if(id){ b.dataset.item=id; b.style.backgroundImage=id==='recipe'?'url(art/scroll.png)':`url(${icon(id)})`; b.setAttribute('aria-label',ITEMS[id].name); if(sel===id) b.classList.add('sel'); if(newest===id) b.classList.add('new');
       b.addEventListener('mouseenter',()=>tip(ITEMS[id].name)); b.addEventListener('mouseleave',hideTip);
       b.addEventListener('click',e=>{ e.stopPropagation(); if(busy) return; endAim(); clickItem(id); }); }
     else { b.disabled=true; b.setAttribute('aria-label','Empty'); }
@@ -622,6 +703,30 @@ const HINTS={
   voidstrider:()=> !S.f.arm ? 'There’s a fold in the air under the vaulting, right of the pillar. Something heavy is caught in it. Point me at it.' : 'I don’t like how that stew is looking at me.',
 };
 
+/* ================= tiered hints ================= */
+const STEPS=[
+  {id:'recipe',done:()=>S.f.recipe,who:'hexweaver',t:['This room wants something from us before it lets us go. Cooks keep their recipes close, somewhere they can reach with wet hands.','Those towels on the hook by the sconce. Give them a tug.','Pull the towels. The brick above them slides out, and the recipe is in the hole behind it.']},
+  {id:'drawer',done:()=>S.f.drawer,who:'paladine',t:['Four bottles of blood and no instructions. The cook wrote the order down somewhere he could hide it.','Those drawers on the right are swollen shut. That’s my kind of lock.','Use my Force on the drawers at the bottom right. The riddle is scratched inside.']},
+  {id:'consomme',done:()=>S.f.consomme,who:'hexweaver',t:['The riddle is an order. Read it line by line.','Each line names one blood: wolf first, then bat, then rat, and the maiden last.','Click the bottles on the mantel and pour Wolf, Bat, Rat, then Maiden. Ignore where they stand; they move.']},
+  {id:'commune',done:()=>S.f.communed||S.f.arm,who:'spectromancer',t:['The recipe wants an arm that served this house. The cook would know where it is. He’s still here.','Fire draws the dead. Let me try near the hearth.','Use my Commune on the candle or the hearth fire.']},
+  {id:'arm',done:()=>S.f.armTaken,who:'voidstrider',t:['Listen to the rafters. Something heavy is hanging up there that we can’t see.','It’s caught between here and elsewhere, in the dark to the right of the pillar. That’s my department.','Use my Rift pull on the dark rafters right of the pillar, then click the arm to cut it down.']},
+  {id:'ember',done:()=>has('ember')||S.stew>=2,who:'paladine',t:['An ember from a fire that has never gone out. You’ll need something to carry it in.','There’s a ladle standing in the stew.','Take the ladle from the cauldron and use it on the hearth fire.']},
+  {id:'runes',done:()=>S.f.runes,who:'hexweaver',t:['A witch’s mark, the recipe says. One witch in this party.','Let me read the room. My runes show what’s been hidden.','Use my Reveal runes. The mark burns into the top of the red window.']},
+  {id:'stew',done:()=>S.stew>=3,who:'hexweaver',t:['Follow the recipe exactly, in the order it’s written.','The consommé first, then the ember, then the arm.','Use the consommé, then the ember, then the arm on the cauldron.']},
+  {id:'mark',done:()=>S.cleared,who:'hexweaver',t:['Now bind it. Click the cauldron.','Pick the mark that matches the one burned into the window.','It’s the triangle with the eye.']},
+];
+function updateHints(){ $('#hintcount').textContent=S.hints?`${S.hints} used`:''; $('#hintbtn').textContent=S.timed?'Ask for a hint':'Ask for a hint'; $('#hintbtn').title=S.timed?'The third hint for a step gives the answer and costs a moon':'Three hints per step, the last one gives the answer'; }
+function hint(){
+  const st=STEPS.find(x=>!x.done()); if(!st) return;
+  const lv=Math.min(2,S.hl[st.id]||0); S.hl[st.id]=lv+1; S.hints++; updateHints();
+  const tag=['A nudge','A clue','The answer'][lv];
+  const lines=[{who:st.who,text:st.t[lv]}];
+  if(lv===2&&S.timed) lines.push({text:'Asking for the answer costs time. The moon climbs.'});
+  dialogue(lines,()=>{ if(lv===2&&S.timed) tick(1); });
+  say(`<em>Hint (${tag.toLowerCase()})</em>: ${st.t[lv]}`);
+}
+$('#hintbtn').addEventListener('click',()=>{ if(busy) return; endAim(); hint(); });
+
 /* tooltip */
 function tip(html){ const t=$('#tip'); t.innerHTML=html; t.style.opacity=1; }
 function hideTip(){ $('#tip').style.opacity=0; }
@@ -631,9 +736,10 @@ stage.addEventListener('contextmenu',e=>{ if(sel||aim){ e.preventDefault(); sel=
 /* dialogue */
 let dq=[],di=0,dDone=null,typing=null,full='';
 function dialogue(lines,done){ busy=true; dq=lines; di=0; dDone=done||null; hideTip(); $('#dlg').classList.add('on'); line(); }
-function line(){ const L=dq[di],dlg=$('#dlg'),por=$('#portrait'); dlg.classList.toggle('ghost',!!L.ghost);
+function line(){ const L=dq[di],dlg=$('#dlg'),por=$('#portrait'); dlg.classList.toggle('ghost',!!L.ghost); dlg.classList.toggle('drac',!!L.drac);
   if(L.who){ dlg.classList.remove('narr'); const h=HEROES[L.who]; $('#dname').innerHTML=`${h.name}<small>${h.craft}</small>`; por.style.backgroundImage=`url(${portrait(L.who)})`; por.classList.remove('off'); }
   else if(L.ghost){ dlg.classList.remove('narr'); $('#dname').innerHTML='Anselm<small>Cook to the Master, deceased</small>'; por.classList.add('off'); }
+  else if(L.drac){ dlg.classList.remove('narr'); $('#dname').innerHTML='Dracula<small>Master of the castle</small>'; por.classList.add('off'); }
   else { dlg.classList.add('narr'); $('#dname').textContent=''; por.classList.add('off'); }
   full=L.text; const el=$('#dtext'); el.textContent=''; $('#dmore').classList.remove('on'); clearInterval(typing);
   if(RM){ el.textContent=full; $('#dmore').classList.add('on'); typing=null; return; }
@@ -644,7 +750,7 @@ $('#dlg').addEventListener('click',advance);
 
 /* popups */
 function overlay(html,onOpen){ busy=true; hideTip(); $('#ovbody').innerHTML=html; $('#ov').classList.add('on'); if(onOpen) onOpen($('#ovbody')); setTimeout(()=>($('#ovbody').querySelector('button')||$('#ovclose')).focus(),30); }
-function closeOv(){ if(!$('#ov').classList.contains('on')) return; $('#ov').classList.remove('on'); busy=false; refresh(); }
+function closeOv(){ if(!$('#ov').classList.contains('on')) return; $('#ov').classList.remove('on'); $('#ovpanel').classList.remove('dark'); busy=false; refresh(); }
 $('#ovclose').addEventListener('click',closeOv);
 $('#ov').addEventListener('click',e=>{ if(e.target.id==='ov') closeOv(); });
 function read(id){ overlay(`<div class="parch">${PAGES[id]}</div>`); if(id==='recipe') setObjective(); }
@@ -662,7 +768,9 @@ function glow(x,y,r,col,a){ const g=fx.createRadialGradient(x,y,0,x,y,r); g.addC
 let last=performance.now(), tx=0, ty=0;
 function loop(t){
   const dt=(t-last)/1000; last=t;
-  if(S.inRoom&&!S.cleared){ S.elapsed+=dt; const k=Math.floor(S.elapsed/150); if(k>S.ticks){ S.ticks=k; tick(1); } }
+  if(S.inRoom&&!S.cleared){ S.elapsed+=dt; if(S.timed){ const k=Math.floor(S.elapsed/150); if(k>S.ticks){ S.ticks=k; tick(1); } } }
+  if(S.doom&&!busy&&S.inRoom&&!S.cleared) dracula();
+  drawWindow(t); drawDrips(t,dt);
   fx.clearRect(0,0,825,1125);
   const f1=.8+.2*Math.sin(t*.011)+.08*Math.sin(t*.037), f2=.85+.15*Math.sin(t*.017+1);
   glow(208,790,190,'rgba(255,170,60,1)',.35*f1); glow(120,760,120,'rgba(255,210,120,1)',.3*f2); glow(470,620,90,'rgba(255,210,120,1)',.22*f2);
@@ -670,12 +778,60 @@ function loop(t){
   if(parts.length<34&&Math.random()<.4) parts.push({x:180+Math.random()*60,y:800,vx:(Math.random()-.5)*.5,vy:-.8-Math.random()*1.4,l:1});
   parts.forEach(p=>{ p.x+=p.vx+Math.sin(t*.003+p.y*.02)*.4; p.y+=p.vy; p.l-=.007; }); parts=parts.filter(p=>p.l>0&&p.y>560);
   parts.forEach(p=>{ fx.fillStyle=`rgba(255,${150+p.l*80|0},60,${p.l})`; fx.fillRect(p.x,p.y,3,3); });
-  if(S.f.rift && t-S.f.rift<2400){ const k=(t-S.f.rift)/2400, a=Math.sin(k*Math.PI); fx.save(); fx.translate(662,120); fx.rotate(t*.004);
-    for(let i=0;i<5;i++){ fx.strokeStyle=`rgba(${120+i*20},${110+i*15},255,${a*(.9-i*.15)})`; fx.lineWidth=6-i; fx.beginPath(); fx.ellipse(0,0,40+i*18+k*30,14+i*7,i*.6,0,Math.PI*1.6); fx.stroke(); } fx.restore(); glow(662,120,160,'rgba(140,120,255,1)',a*.6); }
+  // light shaft from the window
+  const lit=(.55+.45*Math.sin(t*.0011))*(1-cloudAt(t)*.7)+flashAmt(t)*2.2;
+  fx.save(); const sg=fx.createLinearGradient(120,420,380,1125); sg.addColorStop(0,`rgba(227,60,50,${.13*lit})`); sg.addColorStop(1,'rgba(227,60,50,0)');
+  fx.fillStyle=sg; fx.beginPath(); fx.moveTo(34,420); fx.lineTo(214,420); fx.lineTo(600,1125); fx.lineTo(180,1125); fx.closePath(); fx.fill(); fx.restore();
+  if(flashAmt(t)>0){ fx.fillStyle=`rgba(220,210,255,${flashAmt(t)*.35})`; fx.fillRect(0,0,825,1125); }
+  motes.forEach(m=>{ m.y+=m.v; m.x+=m.v*.5; if(m.y>1125){ m.y=420; m.x=40+Math.random()*170; } const a2=.35*lit*(1-(m.y-420)/705); fx.fillStyle=`rgba(255,190,170,${a2})`; fx.fillRect(m.x,m.y,2,2); });
   // card tilt
   if(!RM){ const nx=(mouse.x-800)/800, ny=(mouse.y-450)/450; tx+=(nx-tx)*.05; ty+=(ny-ty)*.05;
     const card=$('#card'); if(S.inRoom&&!card.dataset.flipping) card.style.transform=`scale(${CS}) rotateY(${tx*2.2}deg) rotateX(${-ty*1.6}deg)`; }
   requestAnimationFrame(loop);
+}
+
+/* ================= window light, drips, rift ink ================= */
+const wctx=$('#winfx').getContext('2d'), dctx=$('#drips').getContext('2d');
+const glassImg=new Image(); glassImg.src='art/window-glass.png';
+const motes=Array.from({length:26},()=>({x:40+Math.random()*300,y:420+Math.random()*700,v:.15+Math.random()*.25}));
+let flashT=-1e9, nextFlash=performance.now()+14000;
+function flashAmt(t){ const d=t-flashT; if(d<0||d>800) return 0; return d<80?.9:d<170?.15:d<300?.6:.6*(1-(d-300)/500); }
+function cloudAt(t){ const p=((t*.012)%1000)/1000; return Math.max(0,Math.sin(p*Math.PI*2))**3; }
+function drawWindow(t){
+  wctx.clearRect(0,0,260,445);
+  if(!S.inRoom||RM) return;
+  if(t>nextFlash){ flashT=t; nextFlash=t+20000+Math.random()*25000; Au.thunder(); }
+  const breathe=.08+.06*Math.sin(t*.0011)+.03*Math.sin(t*.0041);
+  wctx.fillStyle=`rgba(255,190,160,${breathe})`; wctx.fillRect(20,0,226,440);
+  const cy=((t*.012)%1000)-300; const g=wctx.createLinearGradient(20,cy,140,cy+300);
+  g.addColorStop(0,'rgba(25,0,4,0)'); g.addColorStop(.5,'rgba(25,0,4,.55)'); g.addColorStop(1,'rgba(25,0,4,0)'); wctx.fillStyle=g; wctx.fillRect(20,0,226,440);
+  const fa=flashAmt(t); if(fa>0){ wctx.fillStyle=`rgba(255,245,240,${fa})`; wctx.fillRect(20,0,226,440); }
+  if(glassImg.complete&&glassImg.naturalWidth){ wctx.globalCompositeOperation='destination-in'; wctx.drawImage(glassImg,0,0,260,445,0,0,260,445); wctx.globalCompositeOperation='source-over'; }
+}
+const TIPS=[{x:652,y:998},{x:622,y:953},{x:695,y:946}];
+let drops=[], nextDrop=0;
+function teardrop(c,x,y,r,stretch){ c.beginPath(); c.moveTo(x,y-r*stretch); c.bezierCurveTo(x+r*.9,y-r*.4,x+r,y+r*.2,x,y+r); c.bezierCurveTo(x-r,y+r*.2,x-r*.9,y-r*.4,x,y-r*stretch); c.closePath(); c.fill(); c.stroke(); }
+function drawDrips(t,dt){
+  dctx.clearRect(0,0,825,1125);
+  if(!S.inRoom) return;
+  if(t>nextDrop&&!RM){ const tip=TIPS[Math.floor(Math.random()*TIPS.length)]; drops.push({x:tip.x,y0:tip.y,y:tip.y,r:0,born:t,v:0,trail:0}); nextDrop=t+1400+Math.random()*2200; }
+  dctx.lineWidth=2.5; dctx.strokeStyle='#000'; dctx.fillStyle='#e3262c';
+  drops.forEach(d=>{ const age=t-d.born;
+    if(age<900){ d.r=6*(age/900); dctx.fillRect(d.x-d.r*.5,d.y0-4,d.r,4); teardrop(dctx,d.x,d.y0+d.r*.8,d.r,1.6+age/900); }
+    else { d.v=Math.min(.22,d.v+dt*.12); d.y+=d.v*dt*1000*.25; d.trail=Math.min(60,d.trail+d.v*4);
+      const fade=d.y>1060?Math.max(0,1-(d.y-1060)/40):1; dctx.globalAlpha=fade;
+      dctx.save(); dctx.strokeStyle='rgba(227,38,44,.85)'; dctx.lineWidth=3; dctx.beginPath(); dctx.moveTo(d.x,d.y-d.trail); dctx.lineTo(d.x,d.y); dctx.stroke(); dctx.restore();
+      teardrop(dctx,d.x,d.y,5.5,2.2); dctx.globalAlpha=1; d.dead=d.y>1100; } });
+  drops=drops.filter(d=>!d.dead);
+  // rift: an ink tear opens in the rafters while the arm comes through
+  if(S.f.rift){ const k=(t-S.f.rift)/2600; if(k>=0&&k<1){ const open=k<.25?k/.25:k>.7?(1-k)/.3:1;
+    const cx=662,cy=96; dctx.save(); dctx.translate(cx,cy);
+    for(let w=0;w<9;w++){ const ang=w/9*Math.PI*2+t*.0006, len=(60+30*Math.sin(w*3.1+t*.002))*open;
+      dctx.strokeStyle=`rgba(8,2,12,${.75*open})`; dctx.lineWidth=7-w%3*2; dctx.beginPath(); dctx.moveTo(Math.cos(ang)*30*open,Math.sin(ang)*14*open);
+      dctx.quadraticCurveTo(Math.cos(ang+.5)*len,Math.sin(ang+.5)*len*.5,Math.cos(ang+.2)*len*1.5,Math.sin(ang+.2)*len*.75); dctx.stroke(); }
+    dctx.beginPath(); for(let i=0;i<=28;i++){ const a=i/28*Math.PI*2, n=1+.18*Math.sin(a*5+t*.004)+.1*Math.sin(a*11-t*.003);
+      const x=Math.cos(a)*78*open*n, y=Math.sin(a)*30*open*n; i?dctx.lineTo(x,y):dctx.moveTo(x,y); }
+    dctx.closePath(); dctx.fillStyle='#040106'; dctx.fill(); dctx.strokeStyle=`rgba(190,170,255,${.55*open})`; dctx.lineWidth=2; dctx.stroke(); dctx.restore(); } }
 }
 
 /* ================= boot ================= */
@@ -683,12 +839,12 @@ function fit(){ SCALE=Math.min(innerWidth/W,innerHeight/H); stage.style.transfor
 addEventListener('resize',fit);
 function start(data){
   if(data&&data.inv){ S=Object.assign(fresh(),data); }
-  fit(); setMoon(); renderParty(); renderInv(); setObjective(); buildSpots(); renderHub();
+  fit(); setMoon(); setTimerUI(); updateHints(); renderParty(); renderInv(); setObjective(); buildSpots(); renderHub();
   $('#journal').innerHTML=S.log.map(t=>`<p>${t}</p>`).join('');
   $('#card').style.transform=`scale(${CS})`;
   if(S.f.brick){ $('#cavity').classList.add('on'); $('#brick').style.display='none'; $('#towel').classList.add('pulled'); if(S.f.recipe) $('#cavity').classList.add('taken'); }
   if(S.f.arm&&!S.f.armTaken) $('#arm').classList.add('hung'); if(S.f.armTaken) $('#arm').classList.add('gone');
-  if(S.f.runes) $('#windowmark').classList.add('on');
+  if(S.f.runes) $('#winrune').classList.add('on'); if(S.f.ladle) $('#noladle').classList.add('on');
   if(S.inRoom) $('#hub').classList.add('hide');
   requestAnimationFrame(loop);
 }
