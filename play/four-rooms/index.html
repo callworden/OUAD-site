@@ -148,6 +148,7 @@ button{font:inherit;color:inherit}
 #dtext{font-size:29px;line-height:1.42;max-width:62ch}
 #dlg.narr #dtext{font-style:italic;margin:0 auto}
 #dlg.ghost #dtext{font-style:italic;color:#cfe5e0}
+#dlg.ghost #portrait{box-shadow:0 0 0 3px #a9c9c2,10px 10px 0 #2f4f4a}
 #dmore{position:absolute;right:22px;bottom:12px;font-family:var(--caps);font-size:15px;letter-spacing:.24em;color:var(--ash);opacity:0}
 #dmore.on{opacity:1;animation:pulse 1.6s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.35}}
@@ -174,7 +175,8 @@ button{font:inherit;color:inherit}
 .bowlrow{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:26px}
 .hint{font-style:italic;color:var(--ash);text-align:center;font-size:21px;margin-top:18px;min-height:30px}
 .sigils{display:flex;gap:26px;justify-content:center;margin:8px 0 6px}
-.sig{width:170px;height:170px;background:#000;border:3px solid #3a3030;cursor:pointer;padding:16px;transition:border-color .15s, transform .15s}
+.sig{width:190px;height:190px;background:#000;border:3px solid #000;cursor:pointer;padding:0;transition:border-color .15s, transform .15s}
+.sig img{width:100%;height:100%;display:block}
 .sig:hover,.sig:focus-visible{border-color:var(--candle);transform:translateY(-6px);outline:none}
 .sig:disabled{opacity:.25;cursor:default;transform:none}
 .shake{animation:shake .4s}
@@ -420,6 +422,7 @@ function portraitStandIn(id){ if(PORT[id]) return PORT[id];
   const fire=c.createLinearGradient(0,0,w*.45,0); fire.addColorStop(0,'rgba(246,198,74,.3)'); fire.addColorStop(1,'rgba(0,0,0,0)'); c.fillStyle=fire; c.fillRect(0,0,w,h);
   return PORT[id]=cv.toDataURL();
 }
+const ICONART={recipe:'scroll.png',ladle:'icon-ladle.png',ember:'icon-ember.png',consomme:'icon-consomme.png',arm:'icon-arm.png'};
 const ICON={};
 function icon(id){ if(ICON[id]) return ICON[id]; const cv=document.createElement('canvas'); cv.width=cv.height=132; const c=cv.getContext('2d'); c.scale(2,2); c.translate(33,33); c.lineJoin='round'; c.lineCap='round'; c.strokeStyle='#000'; c.lineWidth=3;
   if(id==='recipe'||id==='riddle'){ c.rotate(-.12); c.fillStyle='#e2d1a8'; c.fillRect(-18,-24,36,48); c.strokeRect(-18,-24,36,48); c.strokeStyle='#6b4f36'; c.lineWidth=1.5; for(let i=0;i<6;i++){ c.beginPath(); c.moveTo(-12,-16+i*6); c.lineTo(12-(i%3)*4,-16+i*6); c.stroke(); }
@@ -566,15 +569,21 @@ function stew(s){
     if(S.stew===3) setObjective();
   } else { mistake(); Au.whisper(); say('The stew spits it back out at you. Not yet. Follow the recipe.'); }
 }
+const SIGART=[{id:'eye',img:'sigil-eye.png',name:'a triangle with an eye'},{id:'knot',img:'sigil-knot.png',name:'a knot inside a circle'},{id:'crescent',img:'sigil-crescent.png',name:'a crescent and arrow'},{id:'wheel',img:'sigil-wheel.png',name:'a wheel with a cross'}];
 function openSigils(){
   overlay(`<div class="ovtitle">Bind the Stew</div><div class="ovsub">The Hexweaver raises her hand over the cauldron. Which mark does she trace?</div>
-    <div class="sigils">${SIGIL.map((_,i)=>`<button class="sig" type="button" data-i="${i}" aria-label="Mark ${i+1}"><svg viewBox="0 0 100 100" width="100%" height="100%">${sigSVG(i,'#ece3d1',5)}</svg></button>`).join('')}</div>
+    <div class="sigils" id="sigils"></div>
     <div class="hint" id="sighint">${S.f.runes?'You saw one of these burned into the glass.':'She hesitates. She hasn’t seen the right mark yet.'}</div>`,body=>{
-      body.querySelectorAll('.sig').forEach(b=>b.addEventListener('click',()=>{
-        if(+b.dataset.i===MARK){ closeOv(); finale(); }
-        else { mistake(); Au.whisper(); b.disabled=true; body.querySelector('#sighint').textContent='The stew hisses and the mark slides off its surface like grease. Wrong.'; }
-      }));
+      const lay=()=>{ const box=body.querySelector('#sigils'); box.innerHTML=shuffle(SIGART).map(g=>`<button class="sig" type="button" data-id="${g.id}" aria-label="The mark of ${g.name}"><img src="art/${g.img}" alt=""></button>`).join('');
+        box.querySelectorAll('.sig').forEach(b=>b.addEventListener('click',()=>{
+          if(b.dataset.id==='eye'){ closeOv(); finale(); }
+          else { mistake(); Au.whisper(); const p=$('#ovpanel'); p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake');
+            body.querySelector('#sighint').textContent='The stew hisses and the mark slides off it like grease. When you look again, the marks have shifted places.';
+            box.querySelectorAll('.sig').forEach(x=>x.disabled=true); setTimeout(lay,900); }
+        })); };
+      lay();
     });
+  $('#ovpanel').classList.add('dark');
 }
 
 /* ================= finale & flow ================= */
@@ -675,7 +684,7 @@ function give(id){ if(!has(id)) S.inv.push(id); newest=id; Au.chime(); renderInv
 function take(id){ S.inv=S.inv.filter(i=>i!==id); if(sel===id) sel=null; renderInv(); }
 function renderInv(){ const box=$('#satchel'); box.innerHTML='';
   for(let i=0;i<8;i++){ const id=S.inv[i], b=document.createElement('button'); b.type='button'; b.className='slot';
-    if(id){ b.dataset.item=id; b.style.backgroundImage=id==='recipe'?'url(art/scroll.png)':`url(${icon(id)})`; b.setAttribute('aria-label',ITEMS[id].name); if(sel===id) b.classList.add('sel'); if(newest===id) b.classList.add('new');
+    if(id){ b.dataset.item=id; b.style.backgroundImage=ICONART[id]?`url(art/${ICONART[id]})`:`url(${icon(id)})`; b.setAttribute('aria-label',ITEMS[id].name); if(sel===id) b.classList.add('sel'); if(newest===id) b.classList.add('new');
       b.addEventListener('mouseenter',()=>tip(ITEMS[id].name)); b.addEventListener('mouseleave',hideTip);
       b.addEventListener('click',e=>{ e.stopPropagation(); if(busy) return; endAim(); clickItem(id); }); }
     else { b.disabled=true; b.setAttribute('aria-label','Empty'); }
@@ -738,7 +747,7 @@ let dq=[],di=0,dDone=null,typing=null,full='';
 function dialogue(lines,done){ busy=true; dq=lines; di=0; dDone=done||null; hideTip(); $('#dlg').classList.add('on'); line(); }
 function line(){ const L=dq[di],dlg=$('#dlg'),por=$('#portrait'); dlg.classList.toggle('ghost',!!L.ghost); dlg.classList.toggle('drac',!!L.drac);
   if(L.who){ dlg.classList.remove('narr'); const h=HEROES[L.who]; $('#dname').innerHTML=`${h.name}<small>${h.craft}</small>`; por.style.backgroundImage=`url(${portrait(L.who)})`; por.classList.remove('off'); }
-  else if(L.ghost){ dlg.classList.remove('narr'); $('#dname').innerHTML='Anselm<small>Cook to the Master, deceased</small>'; por.classList.add('off'); }
+  else if(L.ghost){ dlg.classList.remove('narr'); $('#dname').innerHTML='Anselm<small>Cook to the Master, deceased</small>'; por.style.backgroundImage='url(art/chef.png)'; por.classList.remove('off'); }
   else if(L.drac){ dlg.classList.remove('narr'); $('#dname').innerHTML='Dracula<small>Master of the castle</small>'; por.classList.add('off'); }
   else { dlg.classList.add('narr'); $('#dname').textContent=''; por.classList.add('off'); }
   full=L.text; const el=$('#dtext'); el.textContent=''; $('#dmore').classList.remove('on'); clearInterval(typing);
